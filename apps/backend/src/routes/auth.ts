@@ -3,7 +3,7 @@ import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { sign } from "hono/jwt";
 import { getTokenExpiryTime } from "../../utils/helper";
-import { signinInput, signupInput } from "@destructo570/minty-common";
+import { signinInput, signupInput } from "@repo/common/config";
 
 const authRoutes = new Hono<{
   Bindings: {

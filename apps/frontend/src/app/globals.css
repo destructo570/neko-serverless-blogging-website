@@ -67,3 +67,18 @@
     @apply bg-background text-foreground;
   }
 }
+
+  /* Placeholder (at the top) */
+  p.is-editor-empty:first-child::before {
+    color: theme("colors.slate.400");
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
+  }
+
+  .no-style-input,  .no-style-input:focus-visible{
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0px;
+  }

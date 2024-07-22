@@ -43,8 +43,11 @@ export const getAllBlogs = async (payload = {}) => {
   }
 };
 
-export const publishBlog = async (payload = {}, post_id="",is_update = false) => {
-  
+export const publishBlog = async (
+  payload = {},
+  post_id = "",
+  is_update = false
+) => {
   try {
     let response;
     if (is_update) {

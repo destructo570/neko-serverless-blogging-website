@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useMemo, useState } from "react";
-import { deleteBlog, getSingleBLog } from "@/api/api";
+import { deleteBlog, getSingleBlog } from "@/api/api";
 import BlogEditor from "@/components/common/Editor/BlogEditor";
 import BlogPostLoader from "@/components/common/Blog/BlogPostLoader";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -20,7 +20,7 @@ const page = ({ params }: { params: { id: string } }) => {
   useEffect(() => {
     const fetchBlogData = async () => {
       setLoading(true);
-      const response = await getSingleBLog(`${params?.id}` || "");
+      const response = await getSingleBlog(`${params?.id}` || "");
       if (response && response?.status === 200) {
         setBlogData(response?.data?.post);
       }

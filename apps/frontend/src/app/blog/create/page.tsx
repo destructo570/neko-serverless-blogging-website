@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import BlogEditor from "@/components/common/Editor/BlogEditor";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { getSingleBLog, publishBlog } from "@/api/api";
+import { getSingleBlog, publishBlog } from "@/api/api";
 import { JSONContent } from "novel";
 import { useRouter, useSearchParams } from "next/navigation";
 import BlogEditLoader from "@/components/common/Blog/BlogEditLoader";
@@ -28,7 +28,7 @@ const page = (props) => {
     if (is_edit_mode && post_id) {
       const getEditArticle = async () => {
         setLoadingPost(true);
-        const response = await getSingleBLog(`${post_id}` || "");
+        const response = await getSingleBlog(`${post_id}` || "");
         if (response && response?.status === 200) {
           setArticleTitle(response?.data?.post?.title);
           setAuthorId(response?.data?.post?.author?.id);

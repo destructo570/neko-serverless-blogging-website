@@ -58,7 +58,7 @@ export const publishBlog = async (payload = {}, post_id="",is_update = false) =>
   }
 };
 
-export const getSingleBLog = async (id = "") => {
+export const getSingleBlog = async (id = "") => {
   try {
     const response = await client.get(`/api/v1/blog/${id}`);
     return response;

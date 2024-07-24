@@ -13,11 +13,9 @@ const page = (props) => {
 
   const onPusblishArticle = async () => {
     // if(article_title ) return;
-    console.log("body", body);
-    
+        
     setLoading(true);
     const response  = await publishArticle({title: article_title, content: "Test articvle",  "authorId" : "d32925ac-4e85-4cac-8940-baf0d352fa69"});
-    console.log("response", response);
     
     if(response?.status === 200){
       
@@ -28,7 +26,7 @@ const page = (props) => {
   return (
     <div className="w-full">
       <div className="flex justify-end p-4">
-        <Button onClick={onPusblishArticle}>Publish</Button>
+        <Button onClick={onPusblishArticle} disabled={loading}>Publish</Button>
       </div>
       <div className="px-24 py-12">
         <Input

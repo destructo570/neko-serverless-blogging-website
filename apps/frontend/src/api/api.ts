@@ -1,16 +1,38 @@
 import axios from "axios";
+import { client } from "./axiosClient";
 
-export const BASE_URL = "http://localhost:3001";
+export const BASE_URL = "https://backend.destructo.workers.dev";
 
-export const publishArticle = async (payload={}) => {
-    try{
-        const response = await axios.post(`${BASE_URL}/api/v1/blog`, payload, {
-            headers: {
-                Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQzMjkyNWFjLTRlODUtNGNhYy04OTQwLWJhZjBkMzUyZmE2OSIsImV4cCI6MTcyMTU1NTgwMzkxM30.KLbenENOX_ui-eSpv92kHmwyhoOYBvwk_uWBVaMeJpw`
-            }
-        });
-        return response;
-    }catch(err){
-        //Show error toast
+const config = { authorization: true };
+
+export const publishArticle = async (payload = {}) => {
+  try {
+    const response = await client.post(`/api/v1/blog`, payload, {
+      ...config,
+    });
+    return response;
+  } catch (err) {
+    //Show error toast
+  }
+};
+
+export const signIn = async (payload={}) => {
+  try {
+    const response = await client.post(`/api/v1/auth/signin`, payload, {authorization: false});
+    if(response && response.status === 200){
+        sessionStorage.setItem("access_token", response?.data?.token);
     }
-}
+    return response;
+  } catch (err) {
+    //Show error toast
+  }
+};
+
+export const signUp = async (payload={}) => {
+  try {
+    const response = await client.post(`/api/v1/auth/signup`, payload, {authorization: false});
+    return response;
+  } catch (err) {
+    //Show error toast
+  }
+};

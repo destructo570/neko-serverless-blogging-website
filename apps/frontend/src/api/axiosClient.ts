@@ -14,13 +14,9 @@ function getCurrentRefreshToken() {
     return sessionStorage.getItem("refresh_token");
 }
 
-function setRefreshedTokens(tokens){
-    console.log('set tokens...')
-}
+function setRefreshedTokens(tokens){}
 
-async function logout(){
-    console.log('logout...')
-}
+async function logout(){}
 
 export const client = createAxiosClient({
     options: {

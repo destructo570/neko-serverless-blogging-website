@@ -7,9 +7,6 @@ import clsx from "clsx";
 const NavBar = () => {
   const pathname = usePathname();
 
-  let active_link_class = "hover:underline underline-offset-4 text-slate-800";
-  console.log(pathname);
-
   return (
     <header className="px-4 lg:px-6 h-14 flex items-center w-full">
       <Link

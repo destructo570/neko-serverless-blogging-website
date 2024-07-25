@@ -11,9 +11,7 @@ export function createAxiosClient({
   const client = axios.create(options);
 
   client.interceptors.request.use(
-    (config) => {
-      console.log("config", config);
-      
+    (config) => {      
       if (config.authorization !== false) {
         const token = getCurrentAccessToken();
         if (token) {

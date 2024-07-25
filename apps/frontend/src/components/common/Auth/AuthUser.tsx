@@ -60,12 +60,12 @@ const AuthUser = (props) => {
           {is_login
             ? "Don't have an account? "
             : "Already have an account? "}
-          <p
+          <span
             className="cursor-pointer text-slate-600 inline underline underline-offset-2"
             onClick={onSelectedTabChange}
           >
             {is_login ? "SignUp" : "Login"}
-          </p>
+          </span>
         </p>
       </div>
       <form className="space-y-4">

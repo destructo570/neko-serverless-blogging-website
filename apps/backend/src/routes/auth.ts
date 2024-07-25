@@ -13,7 +13,6 @@ const authRoutes = new Hono<{
 }>();
 
 authRoutes.post("/signin", async (c) => {
-  console.log("heressdsdssds");
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());

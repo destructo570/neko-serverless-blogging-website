@@ -5,10 +5,12 @@ import BlogEditor from "@/components/common/Editor/BlogEditor";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { publishArticle } from "@/api/api";
+import { JSONContent } from "novel";
+import { defaultValue } from "./defaultvalue";
 
 const page = (props) => {
   const [article_title, setArticleTitle] = useState("");
-  const [body, setBody] = useState(null);
+  const [value, setValue] = useState<JSONContent>(defaultValue);
   const [loading, setLoading] = useState(false);
 
   const onPusblishArticle = async () => {
@@ -41,8 +43,8 @@ const page = (props) => {
         />
         <BlogEditor
           classes="min-h-screen"
-          content={body}
-          setContent={setBody}
+          content={value}
+          setContent={setValue}
         />
       </div>
     </div>

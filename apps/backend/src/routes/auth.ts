@@ -58,11 +58,13 @@ authRoutes.post("/signup", async (c) => {
     c.status(400);
     return c.json({ error: "Invalid input" });
   }
-
+  
   const user = await prisma.user.create({
     data: {
       email: body.email,
       password: body.password,
+      first_name: body.first_name,
+      last_name: body.last_name,
     },
   });
 
@@ -77,4 +79,5 @@ authRoutes.post("/signup", async (c) => {
   );
   return c.json({ token });
 });
+
 export default authRoutes;

@@ -41,7 +41,7 @@ const BlogEditor = (props) => {
     <EditorRoot>
       <EditorContent
         extensions={extensions}
-        initialContent={{}}
+        initialContent={content}
         onUpdate={({ editor }) => {
           const json = editor.getJSON();
           setContent(json);

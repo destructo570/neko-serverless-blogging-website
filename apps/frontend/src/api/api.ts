@@ -32,6 +32,9 @@ export const signUp = async (payload = {}) => {
     const response = await client.post(`/api/v1/auth/signup`, payload, {
       authorization: false,
     });
+    if (response && response.status === 200) {
+      sessionStorage.setItem("access_token", response?.data?.token);
+    }
     return response;
   } catch (err) {
     //Show error toast

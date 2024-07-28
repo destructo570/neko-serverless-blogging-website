@@ -2,7 +2,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { MessageCircle, ThumbsUp } from "lucide-react";
 import React from "react";
 
-const BlogItem = () => {
+const BlogItem = (props) => {
+  const {data} = props;
   return (
     <div className="grid gap-2 p-4 bg-background border-b cursor-pointer">
       <div className="flex gap-2 items-center">
@@ -14,11 +15,8 @@ const BlogItem = () => {
       </div>
       <div className="flex gap-4 items-start justify-between">
         <div className="item-start">
-          <h3 className="text-2xl font-bold">Tips for better productivity</h3>
-          <p className="text-sm text-muted-foreground">
-            Discover our top tips and tricks to help you work smarter, not
-            harder.
-          </p>
+          <h3 className="text-2xl font-bold">{data?.title}</h3>
+          <p className="text-sm text-muted-foreground line-clamp-2">{data?.description}</p>
           <div className="flex gap-4 items-center mt-6">
             <p className="text-xs text-zinc-600">Jun 11</p>
             <div className="flex gap-1 items-center">

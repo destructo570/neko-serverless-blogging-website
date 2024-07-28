@@ -2,16 +2,6 @@ import { client } from "./axiosClient";
 
 export const BASE_URL = "https://backend.destructo.workers.dev";
 
-export const publishArticle = async (payload = {}) => {
-  try {
-    const response = await client.post(`/api/v1/blog`, payload, {
-      authorization: false,
-    });
-    return response;
-  } catch (err) {
-    //Show error toast
-  }
-};
 
 export const signIn = async (payload = {}) => {
   try {
@@ -50,7 +40,7 @@ export const getAllBlogs = async (payload = {}) => {
   }
 };
 
-export const saveBlog = async (payload = {}) => {
+export const publishBlog = async (payload = {}) => {
   try {
     const response = await client.post(`/api/v1/blog`, payload);
     return response;
@@ -60,7 +50,5 @@ export const saveBlog = async (payload = {}) => {
 };
 
 export const getSingleBLog = async (payload = {}) => {};
-
-export const publishBlog = async (payload = {}) => {};
 
 export const deleteBlog = async (payload = {}) => {};

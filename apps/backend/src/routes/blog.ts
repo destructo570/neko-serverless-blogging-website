@@ -55,6 +55,10 @@ blogRoutes.post("/", async (c) => {
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
 
+  const header = c.req.header("authorization") || "";
+  const token = header.split(" ")[1];
+  const jwt_response = await verify(token, c.env.JWT_SECRET);
+
   const body = await c.req.json();
   const { success } = createPostInput.safeParse(body);
 
@@ -62,12 +66,18 @@ blogRoutes.post("/", async (c) => {
     c.status(400);
     return c.json({ error: "Invalid input" });
   }
+  
+  if (!jwt_response?.id || typeof jwt_response?.id !== 'string') {
+    c.status(401);
+    return c.json({ error: "Unauthorised" });
+  }
 
   const post = await prisma.post.create({
     data: {
       title: body.title,
       content: body.content,
-      authorId: body.authorId,
+      description: body.description,
+      authorId: jwt_response?.id,
     },
   });
 

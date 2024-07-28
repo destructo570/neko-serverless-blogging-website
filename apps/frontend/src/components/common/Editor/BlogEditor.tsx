@@ -21,7 +21,7 @@ import { ColorSelector } from "./ColorSelector";
 import clsx from "clsx";
 
 const BlogEditor = (props) => {
-  const { no_extensions, classes, content, setContent, disable_edit } = props;
+  const { no_extensions, classes, content, setContent, disable_edit, setDescription} = props;
   const [openNode, setOpenNode] = useState(false);
   const [openLink, setOpenLink] = useState(false);
   const [openColor, setOpenColor] = useState(false);
@@ -45,8 +45,8 @@ const BlogEditor = (props) => {
           extensions={extensions}
           initialContent={content}
           onUpdate={({ editor }) => {
-            const json = editor.getJSON();
-            setContent(json);
+            setDescription(editor.getText());
+            setContent(editor.getJSON());
           }}
           editorProps={{
             handleDOMEvents: {

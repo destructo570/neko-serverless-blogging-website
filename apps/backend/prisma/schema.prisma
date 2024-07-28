@@ -20,6 +20,7 @@ model Post {
   id        String   @id @default(uuid())
   title     String
   content   String
+  description   String @default("")
   published Boolean  @default(false)
   author    User     @relation(fields: [authorId], references: [id])
   authorId  String

@@ -24,7 +24,7 @@ const page = () => {
 
   const renderBlogitems = () => {
     return blog_list?.map((item) => {
-      return <BlogItem />;
+      return <BlogItem data={item}/>;
     });
   };
 

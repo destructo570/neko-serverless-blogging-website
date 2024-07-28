@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import BlogItem from "@/components/common/Blog/BlogItem";
 import { getAllBlogs } from "@/api/api";
+import BlogItemLoader from "@/components/common/Blog/BlogItemLoader";
 
 const page = () => {
   const [blog_list, setBlogList] = useState([]);
@@ -21,6 +22,12 @@ const page = () => {
     setLoading(false);
   };
 
+  const renderBlogitems = () => {
+    return blog_list?.map((item) => {
+      return <BlogItem />;
+    });
+  };
+
   return (
     <div className="w-full max-w-[900px] mt-8 min-h-screen mx-auto">
       <Tabs defaultValue="for-you">
@@ -30,9 +37,7 @@ const page = () => {
         </TabsList>
       </Tabs>
       <div className="mt-4">
-        {blog_list?.map((item) => {
-          return <BlogItem />;
-        })}
+        {loading ? <BlogItemLoader /> : renderBlogitems()}
       </div>
     </div>
   );

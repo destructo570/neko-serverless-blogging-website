@@ -1,6 +1,7 @@
 import { createAxiosClient } from "./createAxiosClient";
 
 const REFRESH_TOKEN_URL = 'http://localhost:3001'
+const CLIENT_BASE_URL = 'http://localhost:3000'
 const BASE_URL = 'http://localhost:3001'
 // const BASE_URL = 'https://backend.destructo.workers.dev'
 
@@ -16,7 +17,11 @@ function getCurrentRefreshToken() {
 
 function setRefreshedTokens(tokens){}
 
-async function logout(){}
+function logout(){
+    sessionStorage.removeItem("access_token");
+    sessionStorage.removeItem("refresh_token");
+    window.open(`${CLIENT_BASE_URL}`,"_self");
+}
 
 export const client = createAxiosClient({
     options: {

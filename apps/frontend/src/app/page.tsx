@@ -1,13 +1,21 @@
+"use client";
 import AuthUser from "@/components/common/Auth/AuthUser";
-import Link from "next/link";
+import { isLoggedIn } from "@/lib/utils";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [is_logged_in, setIsLoggedIn] = useState(false);
+  
+  useEffect(() => {
+    setIsLoggedIn(isLoggedIn());
+  }, [])
+
   return (
     <div className="flex flex-col min-h-[100dvh]">
       <main className="flex-1">
         <section className="w-full py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
-            <div className="flex gap-80 min-h-[448px]">
+            <div className="flex gap-40 min-h-[448px]">
               <div className="flex flex-col justify-center space-y-4 max-w-full">
                 <div className="space-y-2">
                   <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
@@ -18,15 +26,8 @@ export default function Home() {
                     industry news to expert insights and practical tips.
                   </p>
                 </div>
-                <Link
-                  href="#"
-                  className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-                  prefetch={false}
-                >
-                  Explore the Blog
-                </Link>
               </div>
-              <AuthUser />
+              {is_logged_in ? <img src="https://www.picsum.photos/480/300"/> : <AuthUser />}
             </div>
           </div>
         </section>

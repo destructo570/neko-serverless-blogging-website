@@ -8,32 +8,32 @@ const page = (props) => {
       <section className="container px-4 py-12 md:py-24 lg:py-32 space-y-6 text-center">
         <div className="space-y-2">
           <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl">
-            John Doe
+          Vishal Kashi
           </h1>
           <p className="text-xl text-muted-foreground">Software Engineer</p>
           <p className="max-w-[600px] mx-auto text-muted-foreground">
-            John is a passionate software engineer with a strong background in
+            Vishal is a passionate software engineer with a strong background in
             full-stack development. He loves building scalable and efficient
             applications that solve real-world problems.
           </p>
         </div>
         <div className="flex items-center justify-center gap-4">
           <Link
-            href="#"
+            href="https://www.linkedin.com/in/vishal-kashi/"
             className="text-muted-foreground hover:text-foreground"
             prefetch={false}
           >
             <LinkedinIcon className="w-6 h-6" />
           </Link>
           <Link
-            href="#"
+            href="https://twitter.com/destructo570"
             className="text-muted-foreground hover:text-foreground"
             prefetch={false}
           >
             <TwitterIcon className="w-6 h-6" />
           </Link>
           <Link
-            href="#"
+            href="https://github.com/destructo570"
             className="text-muted-foreground hover:text-foreground"
             prefetch={false}
           >

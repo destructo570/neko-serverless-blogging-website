@@ -30,12 +30,12 @@ const page = () => {
 
   return (
     <div className="w-full max-w-[900px] mt-8 min-h-screen mx-auto">
-      <Tabs defaultValue="for-you">
+      {/* <Tabs defaultValue="for-you">
         <TabsList className="grid w-[400px] grid-cols-2">
           <TabsTrigger value="for-you">For You</TabsTrigger>
           <TabsTrigger value="following">Following</TabsTrigger>
         </TabsList>
-      </Tabs>
+      </Tabs> */}
       <div className="mt-4">
         {loading ? <BlogItemLoader /> : renderBlogitems()}
       </div>

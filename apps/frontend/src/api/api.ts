@@ -49,6 +49,13 @@ export const publishBlog = async (payload = {}) => {
   }
 };
 
-export const getSingleBLog = async (payload = {}) => {};
+export const getSingleBLog = async (id = "") => {
+  try {
+    const response = await client.get(`/api/v1/blog/${id}`);
+    return response;
+  } catch (err) {
+    //Show error toast
+  }
+};
 
 export const deleteBlog = async (payload = {}) => {};

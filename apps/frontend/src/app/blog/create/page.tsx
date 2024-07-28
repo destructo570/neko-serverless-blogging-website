@@ -6,11 +6,10 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { publishArticle } from "@/api/api";
 import { JSONContent } from "novel";
-import { defaultValue } from "./defaultvalue";
 
 const page = (props) => {
   const [article_title, setArticleTitle] = useState("");
-  const [value, setValue] = useState<JSONContent>(defaultValue);
+  const [value, setValue] = useState<JSONContent>({});
   const [loading, setLoading] = useState(false);
 
   const onPusblishArticle = async () => {        

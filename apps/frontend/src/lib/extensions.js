@@ -29,12 +29,12 @@ const tiptapLink = TiptapLink.configure({
 
 const taskList = TaskList.configure({
   HTMLAttributes: {
-    class: cx("not-prose pl-2"),
+    class: cx(""),
   },
 });
 const taskItem = TaskItem.configure({
   HTMLAttributes: {
-    class: cx("flex items-start my-4"),
+    class: cx("flex items-start my-2"),
   },
   nested: true,
 });
@@ -48,12 +48,12 @@ const horizontalRule = HorizontalRule.configure({
 const starterKit = StarterKit.configure({
   bulletList: {
     HTMLAttributes: {
-      class: cx("list-disc list-outside leading-3 -mt-2"),
+      class: cx("list-disc list-outside leading-3 -mt-1"),
     },
   },
   orderedList: {
     HTMLAttributes: {
-      class: cx("list-decimal list-outside leading-3 -mt-2"),
+      class: cx("list-decimal list-outside leading-3 -mt-1"),
     },
   },
   listItem: {

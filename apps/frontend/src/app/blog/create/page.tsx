@@ -13,9 +13,7 @@ const page = (props) => {
   const [value, setValue] = useState<JSONContent>(defaultValue);
   const [loading, setLoading] = useState(false);
 
-  const onPusblishArticle = async () => {
-    // if(article_title ) return;
-        
+  const onPusblishArticle = async () => {        
     setLoading(true);
     const response  = await publishArticle({title: article_title, content: "Test articvle",  "authorId" : "d32925ac-4e85-4cac-8940-baf0d352fa69"});
     

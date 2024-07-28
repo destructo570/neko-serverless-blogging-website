@@ -21,7 +21,7 @@ import { ColorSelector } from "./ColorSelector";
 import clsx from "clsx";
 
 const BlogEditor = (props) => {
-  const { no_extensions, classes, content, setContent} = props;
+  const { no_extensions, classes, content, setContent, disable_edit} = props;
   const [openNode, setOpenNode] = useState(false);
   const [openLink, setOpenLink] = useState(false);
   const [openColor, setOpenColor] = useState(false);
@@ -40,6 +40,7 @@ const BlogEditor = (props) => {
   return (
     <EditorRoot>
       <EditorContent
+        editable={!disable_edit}
         extensions={extensions}
         initialContent={content}
         onUpdate={({ editor }) => {
@@ -51,7 +52,7 @@ const BlogEditor = (props) => {
             keydown: (_view, event) => handleCommandNavigation(event),
           },
           attributes: {
-            class: clsx([`prose prose-lg dark:prose-invert prose-headings:font-title font-default focus:outline-none max-w-full`, classes]),
+            class: clsx([`prose lg:prose-xl dark:prose-invert font-default focus:outline-none max-w-full`, classes]),
           },
         }}
       >
@@ -104,6 +105,7 @@ BlogEditor.propTypes = {};
 
 BlogEditor.defaultProps = {
   no_extensions: false,
+  disable_edit: false,
   classes: "",
 };
 

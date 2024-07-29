@@ -30,7 +30,19 @@ blogRoutes.get("/", async (c) => {
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
 
-  const posts = await prisma.post.findMany();
+  const posts = await prisma.post.findMany({
+    relationLoadStrategy: "join",
+    include: {
+      author: {
+        select: {
+          id: true,
+          first_name: true,
+          last_name: true,
+          email: true,
+        },
+      },
+    },
+  });
 
   return c.json({ posts });
 });
@@ -44,6 +56,17 @@ blogRoutes.get("/:id", async (c) => {
   const post = await prisma.post.findUnique({
     where: {
       id,
+    },
+    relationLoadStrategy: "join",
+    include: {
+      author: {
+        select: {
+          id: true,
+          first_name: true,
+          last_name: true,
+          email: true,
+        },
+      },
     },
   });
 
@@ -66,8 +89,8 @@ blogRoutes.post("/", async (c) => {
     c.status(400);
     return c.json({ error: "Invalid input" });
   }
-  
-  if (!jwt_response?.id || typeof jwt_response?.id !== 'string') {
+
+  if (!jwt_response?.id || typeof jwt_response?.id !== "string") {
     c.status(401);
     return c.json({ error: "Unauthorised" });
   }

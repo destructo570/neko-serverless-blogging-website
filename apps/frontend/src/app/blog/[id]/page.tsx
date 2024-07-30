@@ -24,8 +24,8 @@ const page = ({ params }: { params: { id: string } }) => {
   }, [params?.id]);
 
   return (
-    <div className="w-full flex justify-center min-h-screen">
-      <div className="px-24 py-12 prose lg:prose-2xl">
+    <div className="w-full flex justify-center min-h-screen min-w-[783px]">
+      <div className="px-24 py-12 prose lg:prose-2xl min-w-[783px] box-content">
         {loading ? (
           <BlogPostLoader />
         ) : (

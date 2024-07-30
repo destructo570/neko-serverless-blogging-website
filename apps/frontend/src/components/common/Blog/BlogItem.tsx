@@ -1,8 +1,9 @@
 "use client";
-import React from "react";
+import React, { useMemo } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { MessageCircle, ThumbsUp } from "lucide-react";
 import { useRouter } from "next/navigation";
+import DayJs from "dayjs";
 
 const BlogItem = (props) => {
   const { data } = props;
@@ -12,6 +13,10 @@ const BlogItem = (props) => {
     push(`/blog/${data?.id}`);
   };
 
+  const author_name = useMemo(() => {
+    return `${data?.author?.first_name} ${data?.author?.last_name}`;
+  }, [data]);
+
   return (
     <div
       className="grid gap-2 p-4 bg-background border-b cursor-pointer"
@@ -19,10 +24,10 @@ const BlogItem = (props) => {
     >
       <div className="flex gap-2 items-center">
         <Avatar className="h-[20px] w-[20px]">
-          <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+          <AvatarImage src="https://picsum.photos/20/20" alt="" />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
-        <p className="text-sm font-medium">Shadcn</p>
+        <p className="text-sm font-medium">{author_name}</p>
       </div>
       <div className="flex gap-4 items-start justify-between">
         <div className="item-start">
@@ -31,7 +36,9 @@ const BlogItem = (props) => {
             {data?.description}
           </p>
           <div className="flex gap-4 items-center mt-6">
-            <p className="text-xs text-zinc-600">Jun 11</p>
+            <p className="text-xs text-zinc-600">
+              {DayJs("2024-07-29T16:51:04.939Z").format("MMM DD")}
+            </p>
             <div className="flex gap-1 items-center">
               <ThumbsUp fill="#c9c9c9" color="#c9c9c9" size={16} />
               <p className="text-xs text-zinc-600">2k</p>

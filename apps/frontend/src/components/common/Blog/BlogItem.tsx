@@ -37,7 +37,7 @@ const BlogItem = (props) => {
           </p>
           <div className="flex gap-4 items-center mt-6">
             <p className="text-xs text-zinc-600">
-              {DayJs("2024-07-29T16:51:04.939Z").format("MMM DD")}
+              {DayJs(data?.created).format("MMM DD")}
             </p>
             <div className="flex gap-1 items-center">
               <ThumbsUp fill="#c9c9c9" color="#c9c9c9" size={16} />

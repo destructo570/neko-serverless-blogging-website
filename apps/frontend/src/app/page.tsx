@@ -5,10 +5,10 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
   const [is_logged_in, setIsLoggedIn] = useState(false);
-  
+
   useEffect(() => {
     setIsLoggedIn(isLoggedIn());
-  }, [])
+  }, []);
 
   return (
     <div className="flex flex-col min-h-[100dvh]">
@@ -27,7 +27,17 @@ export default function Home() {
                   </p>
                 </div>
               </div>
-              {is_logged_in ? <img src="https://www.picsum.photos/480/300" width={480} height={300} className="rounded-lg" alt=""/> : <AuthUser />}
+              {is_logged_in ? (
+                <img
+                  src="https://www.picsum.photos/480/300"
+                  width={480}
+                  height={300}
+                  className="rounded-lg"
+                  alt="hero"
+                />
+              ) : (
+                <AuthUser />
+              )}
             </div>
           </div>
         </section>

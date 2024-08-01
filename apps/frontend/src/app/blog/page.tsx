@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import BlogItem from "@/components/common/Blog/BlogItem";
 import { getAllBlogs } from "@/api/api";
 import BlogItemLoader from "@/components/common/Blog/BlogItemLoader";

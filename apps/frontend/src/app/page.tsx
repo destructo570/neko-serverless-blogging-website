@@ -27,7 +27,7 @@ export default function Home() {
                   </p>
                 </div>
               </div>
-              {is_logged_in ? <img src="https://www.picsum.photos/480/300" className="rounded-lg" alt=""/> : <AuthUser />}
+              {is_logged_in ? <img src="https://www.picsum.photos/480/300" width={480} height={300} className="rounded-lg" alt=""/> : <AuthUser />}
             </div>
           </div>
         </section>

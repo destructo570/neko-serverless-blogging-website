@@ -55,6 +55,8 @@ const page = ({ params }: { params: { id: string } }) => {
               src="https://picsum.photos/900/500"
               className="my-4 rounded-xl"
               alt=""
+              width={900}
+              height={500}
             />
             <div className="prose lg:prose-2xl max-w-[783px] min-w-[783px]">
               {blog_data?.content ? (

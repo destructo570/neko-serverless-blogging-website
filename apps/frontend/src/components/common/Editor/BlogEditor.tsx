@@ -19,14 +19,13 @@ import { LinkSelector } from "./LinkSelector";
 import { TextButtons } from "./TextButtons";
 import { ColorSelector } from "./ColorSelector";
 import clsx from "clsx";
+import { handleCommandNavigation } from "novel/extensions";
 
 const BlogEditor = (props) => {
   const { no_extensions, classes, content, setContent, disable_edit, setDescription} = props;
   const [openNode, setOpenNode] = useState(false);
   const [openLink, setOpenLink] = useState(false);
   const [openColor, setOpenColor] = useState(false);
-
-  const handleCommandNavigation = () => {};
 
   const suggestionItems = useMemo(() => {
     let items = [];

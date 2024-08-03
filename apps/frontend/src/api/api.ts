@@ -42,7 +42,7 @@ export const getAllBlogs = async (payload = {}) => {
 
 export const publishBlog = async (payload = {}) => {
   try {
-    const response = await client.post(`/api/v1/blog`, payload);
+    const response = await client.post(`/api/v1/blog/auth/`, payload);
     return response;
   } catch (err) {
     //Show error toast

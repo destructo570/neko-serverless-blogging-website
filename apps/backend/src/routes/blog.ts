@@ -11,7 +11,10 @@ const blogRoutes = new Hono<{
   };
 }>();
 
-blogRoutes.use("/*", async (c, next) => {
+blogRoutes.use("/auth/*", async (c, next) => {
+  if(c.req.url.includes("/")){
+    await next();
+  }
   const header = c.req.header("authorization") || "";
   const token = header.split(" ")[1];
   try {
@@ -68,12 +71,11 @@ blogRoutes.get("/:id", async (c) => {
         },
       },
     },
-  });
-
+  });  
   return c.json({ post });
 });
 
-blogRoutes.post("/", async (c) => {
+blogRoutes.post("/auth/", async (c) => {
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
@@ -107,7 +109,7 @@ blogRoutes.post("/", async (c) => {
   return c.json({ post });
 });
 
-blogRoutes.put("/:id", async (c) => {
+blogRoutes.put("/auth/:id", async (c) => {
   const id = c.req.param("id");
 
   const prisma = new PrismaClient({
@@ -136,7 +138,7 @@ blogRoutes.put("/:id", async (c) => {
   return c.json({ post });
 });
 
-blogRoutes.delete("/:id", async (c) => {
+blogRoutes.delete("/auth/:id", async (c) => {
   const id = c.req.param("id");
 
   const prisma = new PrismaClient({

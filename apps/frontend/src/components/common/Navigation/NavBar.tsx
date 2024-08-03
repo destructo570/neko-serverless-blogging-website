@@ -15,7 +15,7 @@ const NavBar = () => {
   const { push } = useRouter();
 
   const goToCreatePost = () => {
-    push("/blog");
+    push("/blog/create");
   };
 
   return (
@@ -67,7 +67,7 @@ const NavBar = () => {
         >
           About
         </Link>
-        {is_logged_in ? (
+        {is_logged_in && !pathname?.includes("/blog/create") ? (
           <Button onClick={goToCreatePost}>Create Post</Button>
         ) : null}
         <ThemeToggle />

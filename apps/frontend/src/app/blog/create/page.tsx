@@ -16,7 +16,7 @@ const page = (props) => {
   const [loading, setLoading] = useState(false);
   const { push } = useRouter();
   const searchParams = useSearchParams();
-  
+
   const [authorId, setAuthorId] = useState("");
   const post_id = searchParams.get("post_id");
 
@@ -43,12 +43,16 @@ const page = (props) => {
 
   const onPusblishArticle = async () => {
     setLoading(true);
-    const response = await publishBlog({
-      title: article_title,
-      content: JSON.stringify(value || ""),
-      description: description || "",
-      authorId: authorId
-    }, post_id, is_edit_mode);
+    const response = await publishBlog(
+      {
+        title: article_title,
+        content: JSON.stringify(value || ""),
+        description: description || "",
+        authorId: authorId,
+      },
+      post_id,
+      is_edit_mode
+    );
 
     if (response?.status === 200) {
       push("/blog");
@@ -63,7 +67,15 @@ const page = (props) => {
 
   return (
     <div className="w-full mt-16">
-      <div className="flex justify-end p-4">
+      <div className="flex justify-end p-4 gap-4">
+        <Button
+          onClick={() => push("/blog")}
+          disabled={loading}
+          type="button"
+          variant={"outline"}
+        >
+          Cancel
+        </Button>
         <Button onClick={onPusblishArticle} disabled={loading} type="button">
           {is_edit_mode ? "Update Post" : "Publish"}
         </Button>

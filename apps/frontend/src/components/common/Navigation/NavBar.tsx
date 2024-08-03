@@ -3,9 +3,20 @@ import Link from "next/link";
 import React from "react";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
+import { UserActionsDropdown } from "../UserActionsDropdown";
+import { ThemeToggle } from "../ThemeToggle";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import useLogin from "@/hooks/useLogin";
 
 const NavBar = () => {
   const pathname = usePathname();
+  const is_logged_in = useLogin();
+  const { push } = useRouter();
+
+  const goToCreatePost = () => {
+    push("/blog");
+  };
 
   return (
     <header className="px-4 lg:px-6 h-14 flex items-center w-full">
@@ -21,7 +32,7 @@ const NavBar = () => {
         <Link
           href="/"
           className={clsx(
-            "text-sm font-medium text-muted-foreground hover:text-slate-800",
+            "text-sm font-medium text-muted-foreground hover:text-slate-800 flex flex-col justify-center",
             {
               "underline underline-offset-4 text-slate-800": pathname === "/",
             }
@@ -33,7 +44,7 @@ const NavBar = () => {
         <Link
           href="/blog"
           className={clsx(
-            "text-sm font-medium text-muted-foreground hover:text-slate-800",
+            "text-sm font-medium text-muted-foreground hover:text-slate-800 flex flex-col justify-center",
             {
               "underline underline-offset-4 text-slate-800":
                 pathname === "/blog",
@@ -46,7 +57,7 @@ const NavBar = () => {
         <Link
           href="/about"
           className={clsx(
-            "text-sm font-medium text-muted-foreground hover:text-slate-800",
+            "text-sm font-medium text-muted-foreground hover:text-slate-800 flex flex-col justify-center",
             {
               "underline underline-offset-4 text-slate-800":
                 pathname === "/about",
@@ -56,6 +67,11 @@ const NavBar = () => {
         >
           About
         </Link>
+        {is_logged_in ? (
+          <Button onClick={goToCreatePost}>Create Post</Button>
+        ) : null}
+        <ThemeToggle />
+        {is_logged_in ? <UserActionsDropdown /> : null}
       </nav>
     </header>
   );

@@ -1,14 +1,9 @@
 "use client";
 import AuthUser from "@/components/common/Auth/AuthUser";
-import { isLoggedIn } from "@/lib/utils";
-import { useEffect, useState } from "react";
+import useLogin from "@/hooks/useLogin";
 
 export default function Home() {
-  const [is_logged_in, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    setIsLoggedIn(isLoggedIn());
-  }, []);
+  const is_logged_in = useLogin();
 
   return (
     <div className="flex flex-col min-h-[100dvh]">

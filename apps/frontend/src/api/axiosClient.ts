@@ -17,7 +17,7 @@ function getCurrentRefreshToken() {
 
 function setRefreshedTokens(tokens){}
 
-function logout(){
+export function logout(){
     sessionStorage.removeItem("access_token");
     sessionStorage.removeItem("refresh_token");
     window.open(`${CLIENT_BASE_URL}`,"_self");

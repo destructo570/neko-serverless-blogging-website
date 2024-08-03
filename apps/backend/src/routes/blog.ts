@@ -115,6 +115,10 @@ blogRoutes.put("/auth/:id", async (c) => {
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
+  
+  const header = c.req.header("authorization") || "";
+  const token = header.split(" ")[1];
+  const jwt_response = await verify(token, c.env.JWT_SECRET);
 
   const body = await c.req.json();
   const { success } = createPostInput.safeParse(body);
@@ -122,6 +126,11 @@ blogRoutes.put("/auth/:id", async (c) => {
   if (!success) {
     c.status(400);
     return c.json({ error: "Invalid input" });
+  }
+  
+  if (jwt_response?.id !== body.authorId) {
+    c.status(401);
+    return c.json({ error: "Unauthorised" });
   }
 
   const post = await prisma.post.update({

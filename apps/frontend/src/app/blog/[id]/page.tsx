@@ -42,6 +42,10 @@ const page = ({ params }: { params: { id: string } }) => {
     setDeleteLoading(false);
   };
 
+  const onEditPost = () => {
+    push(`/blog/create?post_id=${params?.id}`);
+  }
+
   const author_name = useMemo(() => {
     return `${blog_data?.author?.first_name} ${blog_data?.author?.last_name}`;
   }, [blog_data]);
@@ -78,6 +82,7 @@ const page = ({ params }: { params: { id: string } }) => {
                         <Button variant={"destructive"}>Delete post</Button>
                       }
                     />
+                      <Button variant={"outline"} onClick={onEditPost}>Edit post</Button>
                   </div>: null}
                 </div>
               </div>

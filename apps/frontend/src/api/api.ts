@@ -2,7 +2,6 @@ import { client } from "./axiosClient";
 
 export const BASE_URL = "https://backend.destructo.workers.dev";
 
-
 export const signIn = async (payload = {}) => {
   try {
     const response = await client.post(`/api/v1/auth/signin`, payload, {
@@ -10,7 +9,10 @@ export const signIn = async (payload = {}) => {
     });
     if (response && response.status === 200) {
       sessionStorage.setItem("access_token", response?.data?.token);
-      sessionStorage.setItem("profile", JSON.stringify(response?.data?.profile || {}));
+      sessionStorage.setItem(
+        "profile",
+        JSON.stringify(response?.data?.profile || {})
+      );
     }
     return response;
   } catch (err) {
@@ -41,9 +43,15 @@ export const getAllBlogs = async (payload = {}) => {
   }
 };
 
-export const publishBlog = async (payload = {}) => {
+export const publishBlog = async (payload = {}, post_id="",is_update = false) => {
+  
   try {
-    const response = await client.post(`/api/v1/blog/auth/`, payload);
+    let response;
+    if (is_update) {
+      response = await client.put(`/api/v1/blog/auth/${post_id}`, payload);
+    } else {
+      response = await client.post(`/api/v1/blog/auth/`, payload);
+    }
     return response;
   } catch (err) {
     //Show error toast

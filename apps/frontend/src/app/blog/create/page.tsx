@@ -1,18 +1,45 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import BlogEditor from "@/components/common/Editor/BlogEditor";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { publishBlog } from "@/api/api";
+import { getSingleBLog, publishBlog } from "@/api/api";
 import { JSONContent } from "novel";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import BlogEditLoader from "@/components/common/Blog/BlogEditLoader";
 
 const page = (props) => {
   const [article_title, setArticleTitle] = useState("");
+  const [loading_post, setLoadingPost] = useState<boolean>(false);
   const [value, setValue] = useState<JSONContent>({});
   const [description, setDescription] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const { push } = useRouter();
+  const searchParams = useSearchParams();
+  
+  const [authorId, setAuthorId] = useState("");
+  const post_id = searchParams.get("post_id");
+
+  const is_edit_mode = useMemo(() => {
+    return post_id ? true : false;
+  }, [post_id]);
+
+  useEffect(() => {
+    if (is_edit_mode && post_id) {
+      const getEditArticle = async () => {
+        setLoadingPost(true);
+        const response = await getSingleBLog(`${post_id}` || "");
+        if (response && response?.status === 200) {
+          setArticleTitle(response?.data?.post?.title);
+          setAuthorId(response?.data?.post?.author?.id);
+          setValue(JSON.parse(response?.data?.post?.content || "{}"));
+          setDescription(response?.data?.post?.description);
+        }
+        setLoadingPost(false);
+      };
+      getEditArticle();
+    }
+  }, [is_edit_mode, post_id]);
 
   const onPusblishArticle = async () => {
     setLoading(true);
@@ -20,7 +47,8 @@ const page = (props) => {
       title: article_title,
       content: JSON.stringify(value || ""),
       description: description || "",
-    });
+      authorId: authorId
+    }, post_id, is_edit_mode);
 
     if (response?.status === 200) {
       push("/blog");
@@ -28,35 +56,42 @@ const page = (props) => {
     setLoading(false);
   };
 
-  const updateDescription = (text="") => {
+  const updateDescription = (text = "") => {
     let final_text = text?.trim()?.substring(0, 200);
     setDescription(final_text);
-  }
-  
+  };
+
   return (
-    <div className="w-full">
+    <div className="w-full mt-16">
       <div className="flex justify-end p-4">
         <Button onClick={onPusblishArticle} disabled={loading} type="button">
-          Publish
+          {is_edit_mode ? "Update Post" : "Publish"}
         </Button>
       </div>
       <div className="px-24 py-12">
-        <Input
-          className={
-            "no-style-input h-24 text-2xl font-medium placeholder:text-slate-400"
-          }
-          placeholder="Article title"
-          value={article_title}
-          onChange={(e) => {
-            setArticleTitle(e?.target?.value);
-          }}
-        />
-        <BlogEditor
-          classes="min-h-screen"
-          content={value}
-          setContent={setValue}
-          setDescription={updateDescription}
-        />
+        {loading_post ? (
+          <BlogEditLoader />
+        ) : (
+          <>
+            <Input
+              className={
+                "no-style-input h-24 font-extrabold text-5xl placeholder:text-slate-400"
+              }
+              placeholder="Article title"
+              value={article_title}
+              maxLength={60}
+              onChange={(e) => {
+                setArticleTitle(e?.target?.value);
+              }}
+            />
+            <BlogEditor
+              classes="min-h-screen"
+              content={value}
+              setContent={setValue}
+              setDescription={updateDescription}
+            />
+          </>
+        )}
       </div>
     </div>
   );

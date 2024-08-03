@@ -6,8 +6,16 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function isLoggedIn(){
+  const data = {
+    is_logged_in: false,
+    profile: {}
+  };
   if(sessionStorage?.getItem("access_token")){
-      return true;
+    data.is_logged_in = true;
   }
-  return false;
+  
+  if(sessionStorage?.getItem("profile")){
+    data.profile = JSON.parse(sessionStorage?.getItem("profile") || "{}");
+  }
+  return data;
 }

@@ -10,6 +10,7 @@ export const signIn = async (payload = {}) => {
     });
     if (response && response.status === 200) {
       sessionStorage.setItem("access_token", response?.data?.token);
+      sessionStorage.setItem("profile", JSON.stringify(response?.data?.profile || {}));
     }
     return response;
   } catch (err) {
@@ -58,4 +59,11 @@ export const getSingleBLog = async (id = "") => {
   }
 };
 
-export const deleteBlog = async (payload = {}) => {};
+export const deleteBlog = async (id = "") => {
+  try {
+    const response = await client.delete(`/api/v1/blog/auth/${id}`);
+    return response;
+  } catch (err) {
+    //Show error toast
+  }
+};

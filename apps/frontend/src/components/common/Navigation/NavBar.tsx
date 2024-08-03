@@ -11,7 +11,7 @@ import useLogin from "@/hooks/useLogin";
 
 const NavBar = () => {
   const pathname = usePathname();
-  const is_logged_in = useLogin();
+  const { is_logged_in } = useLogin();
   const { push } = useRouter();
 
   const goToCreatePost = () => {

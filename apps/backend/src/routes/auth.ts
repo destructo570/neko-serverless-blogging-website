@@ -18,8 +18,7 @@ authRoutes.post("/signin", async (c) => {
   }).$extends(withAccelerate());
 
   const body = await c.req.json();
-  
-  
+
   const { success } = signinInput.safeParse(body);
 
   if (!success) {
@@ -43,7 +42,15 @@ authRoutes.post("/signin", async (c) => {
     { id: user.id, exp: getTokenExpiryTime() },
     c.env.JWT_SECRET
   );
-  return c.json({ token });
+  return c.json({
+    token,
+    profile: {
+      first_name: user?.first_name,
+      las_name: user?.last_name,
+      id: user?.id,
+      email: user?.email,
+    },
+  });
 });
 
 authRoutes.post("/signup", async (c) => {
@@ -58,7 +65,7 @@ authRoutes.post("/signup", async (c) => {
     c.status(400);
     return c.json({ error: "Invalid input" });
   }
-  
+
   const user = await prisma.user.create({
     data: {
       email: body.email,

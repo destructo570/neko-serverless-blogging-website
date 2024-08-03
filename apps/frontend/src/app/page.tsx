@@ -3,7 +3,7 @@ import AuthUser from "@/components/common/Auth/AuthUser";
 import useLogin from "@/hooks/useLogin";
 
 export default function Home() {
-  const is_logged_in = useLogin();
+  const { is_logged_in } = useLogin();
 
   return (
     <div className="flex flex-col min-h-[100dvh]">

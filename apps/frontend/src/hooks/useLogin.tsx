@@ -2,11 +2,11 @@ import { isLoggedIn } from "@/lib/utils";
 import { useEffect, useState } from "react";
 
 export default function useLogin() {
-  const [is_logged_in, setIsLoggedIn] = useState(false);
-
+  const [login_data, setLoginData] = useState({});
+  
   useEffect(() => {
-    setIsLoggedIn(isLoggedIn());
+    setLoginData(isLoggedIn());
   }, []);
 
-  return is_logged_in;
+  return {...login_data};
 }

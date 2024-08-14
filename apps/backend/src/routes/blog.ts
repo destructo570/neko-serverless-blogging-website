@@ -34,6 +34,9 @@ blogRoutes.get("/", async (c) => {
   }).$extends(withAccelerate());
 
   const posts = await prisma.post.findMany({
+    orderBy: [{
+      createdAt: "desc"
+    }],
     relationLoadStrategy: "join",
     include: {
       author: {

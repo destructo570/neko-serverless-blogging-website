@@ -18,6 +18,8 @@ const NavBar = () => {
     push("/blog/create");
   };
 
+  let active_link_class = "underline underline-offset-4 text-zinc-800 dark:text-zinc-200";
+
   return (
     <header className="px-4 lg:px-6 h-14 flex items-center w-full">
       <Link
@@ -32,9 +34,9 @@ const NavBar = () => {
         <Link
           href="/"
           className={clsx(
-            "text-sm font-medium text-muted-foreground hover:text-slate-800 flex flex-col justify-center",
+            "text-sm font-medium text-muted-foreground hover:text-zinc-800 dark:hover:text-zinc-200 flex flex-col justify-center",
             {
-              "underline underline-offset-4 text-slate-800": pathname === "/",
+              [active_link_class]: pathname === "/",
             }
           )}
           prefetch={false}
@@ -44,10 +46,9 @@ const NavBar = () => {
         <Link
           href="/blog"
           className={clsx(
-            "text-sm font-medium text-muted-foreground hover:text-slate-800 flex flex-col justify-center",
+            "text-sm font-medium text-muted-foreground hover:text-zinc-800 dark:hover:text-zinc-200 flex flex-col justify-center",
             {
-              "underline underline-offset-4 text-slate-800":
-                pathname === "/blog",
+              [active_link_class]: pathname === "/blog",
             }
           )}
           prefetch={false}
@@ -57,10 +58,9 @@ const NavBar = () => {
         <Link
           href="/about"
           className={clsx(
-            "text-sm font-medium text-muted-foreground hover:text-slate-800 flex flex-col justify-center",
+            "text-sm font-medium text-muted-foreground hover:text-zinc-800 dark:hover:text-zinc-200 flex flex-col justify-center",
             {
-              "underline underline-offset-4 text-slate-800":
-                pathname === "/about",
+              [active_link_class]: pathname === "/about",
             }
           )}
           prefetch={false}

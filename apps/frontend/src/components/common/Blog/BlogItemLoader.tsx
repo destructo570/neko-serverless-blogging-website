@@ -1,5 +1,5 @@
 import React from "react";
-import Skeleton from "react-loading-skeleton";
+import SkeletonLoader from "../Skeleton";
 
 const BlogItemLoader = () => {
   const renderItems = () => {
@@ -9,16 +9,16 @@ const BlogItemLoader = () => {
         <div className="flex flex-col gap-3">
           <div className="flex gap-8 items-center">
             <div className="flex flex-col gap-3 ml-2">
-              <Skeleton width={140} height={24} />
-              <Skeleton width={640} height={24} />
-              <Skeleton width={640} height={24} />
+              <SkeletonLoader width={140} height={24} />
+              <SkeletonLoader width={640} height={24} />
+              <SkeletonLoader width={640} height={24} />
               <div className="flex gap-3">
-              <Skeleton width={40} height={24} />
-              <Skeleton width={40} height={24} />
-              <Skeleton width={40} height={24} />
+              <SkeletonLoader width={40} height={24} />
+              <SkeletonLoader width={40} height={24} />
+              <SkeletonLoader width={40} height={24} />
               </div>
             </div>
-            <Skeleton width={200} height={100} />
+            <SkeletonLoader width={200} height={100} />
           </div>
           <div className="border-b"></div>
         </div>

@@ -70,7 +70,7 @@
 
   /* Placeholder (at the top) */
   p.is-editor-empty:first-child::before {
-    color: theme("colors.slate.400");
+    color: theme("colors.zinc.400");
     content: attr(data-placeholder);
     float: left;
     height: 0;

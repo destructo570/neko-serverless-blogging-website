@@ -87,7 +87,7 @@ const page = (props) => {
           <>
             <Input
               className={
-                "no-style-input h-24 font-extrabold text-5xl placeholder:text-slate-400"
+                "no-style-input h-24 font-extrabold text-5xl placeholder:text-zinc-400"
               }
               placeholder="Article title"
               value={article_title}

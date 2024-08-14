@@ -61,7 +61,7 @@ const AuthUser = (props) => {
             ? "Don't have an account? "
             : "Already have an account? "}
           <span
-            className="cursor-pointer text-slate-600 inline underline underline-offset-2"
+            className="cursor-pointer text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-200  inline underline underline-offset-2"
             onClick={onSelectedTabChange}
           >
             {is_login ? "SignUp" : "Login"}

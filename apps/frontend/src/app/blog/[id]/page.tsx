@@ -68,7 +68,7 @@ const page = ({ params }: { params: { id: string } }) => {
                     </Avatar>
                     <div className="flex flex-col">
                       <p className="text-sm font-medium my-0">{author_name}</p>
-                      <p className="text-xs text-zinc-600 my-0">
+                      <p className="text-xs text-zinc-600 dark:text-zinc-300 my-0">
                         {Dayjs(blog_data?.created).format("MMM DD")}
                       </p>
                     </div>

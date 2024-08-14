@@ -4,10 +4,13 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { MessageCircle, ThumbsUp } from "lucide-react";
 import { useRouter } from "next/navigation";
 import DayJs from "dayjs";
+import { useTheme } from "next-themes";
+import useDarkTheme from "@/hooks/useDarkTheme";
 
 const BlogItem = (props) => {
   const { data } = props;
   const { push } = useRouter();
+  const is_dark_theme = useDarkTheme();
 
   const redirectToBlog = () => {
     push(`/blog/${data?.id}`);
@@ -40,11 +43,11 @@ const BlogItem = (props) => {
               {DayJs(data?.created).format("MMM DD")}
             </p>
             <div className="flex gap-1 items-center">
-              <ThumbsUp fill="#c9c9c9" color="#c9c9c9" size={16} />
+              <ThumbsUp fill={is_dark_theme ? "#52525B" : "#c9c9c9"} color={is_dark_theme ? "#52525B" : "#c9c9c9"} size={16} />
               <p className="text-xs text-zinc-600">2k</p>
             </div>
             <div className="flex gap-1 items-center">
-              <MessageCircle fill="#c9c9c9" color="#c9c9c9" size={16} />
+              <MessageCircle fill={is_dark_theme ? "#52525B" : "#c9c9c9"} color={is_dark_theme ? "#52525B" : "#c9c9c9"} size={16} />
               <p className="text-xs text-zinc-600">11</p>
             </div>
           </div>

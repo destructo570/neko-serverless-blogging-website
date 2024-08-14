@@ -6,16 +6,16 @@ const BlogItemLoader = () => {
     let elements = [];
     for (let index = 0; index < 8; index++) {
       elements.push(
-        <div className="flex flex-col gap-3">
-          <div className="flex gap-8 items-center">
-            <div className="flex flex-col gap-3 ml-2">
+        <div className="flex flex-col gap-3  max-w-[900px]">
+          <div className="flex gap-8 items-center w-full">
+            <div className="flex flex-col gap-3 ml-2 w-full">
               <SkeletonLoader width={140} height={24} />
-              <SkeletonLoader width={640} height={24} />
-              <SkeletonLoader width={640} height={24} />
+              <SkeletonLoader width={"100%"} height={24} />
+              <SkeletonLoader width={"100%"} height={24} />
               <div className="flex gap-3">
-              <SkeletonLoader width={40} height={24} />
-              <SkeletonLoader width={40} height={24} />
-              <SkeletonLoader width={40} height={24} />
+                <SkeletonLoader width={40} height={24} />
+                <SkeletonLoader width={40} height={24} />
+                <SkeletonLoader width={40} height={24} />
               </div>
             </div>
             <SkeletonLoader width={200} height={100} />

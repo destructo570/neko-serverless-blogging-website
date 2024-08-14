@@ -52,13 +52,13 @@ const page = ({ params }: { params: { id: string } }) => {
 
   return (
     <>
-      <div className="w-full flex justify-center min-h-screen min-w-[783px]">
-        <div className="px-24 py-12 min-w-[783px] box-content">
+      <div className="w-full flex justify-center min-h-screen sm:min-w-[783px]">
+        <div className="px-6 sm:px-24 py-12 sm:min-w-[783px] w-full">
           {loading ? (
             <BlogPostLoader />
           ) : (
-            <div className="flex flex-col justify-center items-center">
-              <div className="min-w-[783px] max-w-[783px]">
+            <div className="flex flex-col justify-center sm:items-center">
+              <div className="sm:min-w-[783px] max-w-[783px] w-full sm:px-8">
                 <h2 className="font-extrabold text-5xl">{blog_data?.title}</h2>
                 <div className="flex gap-2 justify-between items-center">
                   <div className="flex gap-2 items-center mt-6 mb-10">
@@ -93,7 +93,7 @@ const page = ({ params }: { params: { id: string } }) => {
                 width={900}
                 height={500}
               />
-              <div className="prose lg:prose-2xl max-w-[783px] min-w-[783px]">
+              <div className="prose lg:prose-2xl max-w-[783px] sm:min-w-[783px] sm:px-8">
                 {blog_data?.content ? (
                   <BlogEditor
                     classes="min-h-screen"

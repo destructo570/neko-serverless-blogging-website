@@ -3,11 +3,11 @@ import SkeletonLoader from "../Skeleton";
 
 const BlogPostLoader = () => {
   return (
-    <div className="flex flex-col gap-2">
-      <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-2  w-full">
+      <div className="flex flex-col gap-3  w-full">
         <div className="flex flex-col gap-3 ml-2 justify-center items-center w-full">
-          <div className="min-w-[783px] max-w-[783px]">
-            <div className="flex flex-col gap-3">
+          <div className=" max-w-[783px] w-full">
+            <div className="flex flex-col gap-3 w-full">
               <SkeletonLoader width={"100%"} height={40} />
               <SkeletonLoader width={"60%"} height={40} />
             </div>
@@ -20,9 +20,11 @@ const BlogPostLoader = () => {
             </div>
           </div>
         </div>
-        <SkeletonLoader width={900} height={500} borderRadius={12} />
+        <div className="w-full skeleton-loader-container">
+          <SkeletonLoader width={"100%"} height={500} borderRadius={12} className="max-w-[783px]"/>
+        </div>
         <div className="flex justify-center">
-          <div className="flex flex-col mt-10 gap-2 w-[783px] ">
+          <div className="flex flex-col mt-10 gap-2 sm:w-[783px] w-full">
             <SkeletonLoader width={"100%"} height={24} />
             <SkeletonLoader width={"90%"} height={24} />
             <SkeletonLoader width={"80%"} height={24} />

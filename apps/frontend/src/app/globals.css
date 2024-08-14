@@ -86,3 +86,9 @@
   code{
     color: black !important;
   }
+
+  .skeleton-loader-container span{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }

@@ -4,7 +4,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { MessageCircle, ThumbsUp } from "lucide-react";
 import { useRouter } from "next/navigation";
 import DayJs from "dayjs";
-import { useTheme } from "next-themes";
 import useDarkTheme from "@/hooks/useDarkTheme";
 
 const BlogItem = (props) => {

@@ -49,7 +49,7 @@ authRoutes.post("/signin", async (c) => {
     token,
     profile: {
       first_name: user?.first_name,
-      las_name: user?.last_name,
+      last_name: user?.last_name,
       id: user?.id,
       email: user?.email,
     },

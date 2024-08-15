@@ -9,11 +9,12 @@ import { Button } from "@/components/ui/button";
 import { ConfirmationDialog } from "@/components/common/ConfirmationDialog/ConfirmationDialog";
 import { useRouter } from "next/navigation";
 import useLogin from "@/hooks/useLogin";
+import { PostType } from "../../../../../../packages/common/dist";
 
 const page = ({ params }: { params: { id: string } }) => {
   const [loading, setLoading] = useState(true);
   const [delete_loading, setDeleteLoading] = useState(false);
-  const [blog_data, setBlogData] = useState({});
+  const [blog_data, setBlogData] = useState<PostType>();
   const { push } = useRouter();
   const { profile } = useLogin();
     
@@ -69,7 +70,7 @@ const page = ({ params }: { params: { id: string } }) => {
                     <div className="flex flex-col">
                       <p className="text-sm font-medium my-0">{author_name}</p>
                       <p className="text-xs text-zinc-600 dark:text-zinc-300 my-0">
-                        {Dayjs(blog_data?.created).format("MMM DD")}
+                        {Dayjs(blog_data?.createdAt).format("MMM DD")}
                       </p>
                     </div>
                   </div>

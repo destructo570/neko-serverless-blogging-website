@@ -1,4 +1,7 @@
+import { AxiosResponse } from "axios";
+import { PostType } from "../../../../packages/common/dist";
 import { client } from "./axiosClient";
+import { ApiResponse } from "@/lib/types";
 
 export const BASE_URL = "https://backend.destructo.workers.dev";
 
@@ -61,7 +64,9 @@ export const publishBlog = async (
   }
 };
 
-export const getSingleBlog = async (id = "") => {
+export const getSingleBlog = async (
+  id = ""
+): Promise<AxiosResponse<ApiResponse<PostType>> | undefined> => {
   try {
     const response = await client.get(`/api/v1/blog/${id}`);
     return response;

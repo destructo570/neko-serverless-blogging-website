@@ -15,7 +15,7 @@ function getCurrentRefreshToken() {
     return sessionStorage.getItem("refresh_token");
 }
 
-function setRefreshedTokens(tokens){}
+function setRefreshedTokens(){}
 
 export function logout(){
     sessionStorage.removeItem("access_token");

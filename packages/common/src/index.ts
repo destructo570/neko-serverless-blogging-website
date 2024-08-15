@@ -31,3 +31,25 @@ export const updatePostInput = z.object({
 });
 
 export type UpdatePostType = z.infer<typeof updatePostInput>;
+
+export const UserProfile = z.object({
+    first_name: z.string().optional(),
+    last_name: z.string().optional(),
+    id: z.string().optional(),
+    email: z.string().optional(),
+});
+
+export type UserProfileType = z.infer<typeof UserProfile>;
+
+export const Post = z.object({
+    id: z.string(),
+    title: z.string(),
+    content: z.string(),
+    description: z.string(),
+    createdAt: z.string(),
+    published: z.boolean(),
+    authorId: z.string(),
+    author: UserProfile,
+})
+
+export type PostType = z.infer<typeof Post>;

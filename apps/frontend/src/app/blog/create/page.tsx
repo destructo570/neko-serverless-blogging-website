@@ -31,7 +31,7 @@ const page = (props) => {
         const response = await getSingleBlog(`${post_id}` || "");
         if (response && response?.status === 200) {
           setArticleTitle(response?.data?.post?.title);
-          setAuthorId(response?.data?.post?.author?.id);
+          setAuthorId(response?.data?.post?.author?.id || "");
           setValue(JSON.parse(response?.data?.post?.content || "{}"));
           setDescription(response?.data?.post?.description);
         }

@@ -12,7 +12,7 @@ const blogRoutes = new Hono<{
 }>();
 
 blogRoutes.use("/auth/*", async (c, next) => {
-  if(c.req.url.includes("/")){
+  if (c.req.url.includes("/")) {
     await next();
   }
   const header = c.req.header("authorization") || "";
@@ -34,11 +34,20 @@ blogRoutes.get("/", async (c) => {
   }).$extends(withAccelerate());
 
   const posts = await prisma.post.findMany({
-    orderBy: [{
-      createdAt: "desc"
-    }],
+    orderBy: [
+      {
+        createdAt: "desc",
+      },
+    ],
     relationLoadStrategy: "join",
     include: {
+      likes: {
+        select: {
+          id: true,
+          userId: true,
+          likes_count: true
+        },
+      },
       author: {
         select: {
           id: true,
@@ -65,6 +74,13 @@ blogRoutes.get("/:id", async (c) => {
     },
     relationLoadStrategy: "join",
     include: {
+      likes: {
+        select: {
+          id: true,
+          userId: true,
+          likes_count: true
+        },
+      },
       author: {
         select: {
           id: true,
@@ -74,7 +90,7 @@ blogRoutes.get("/:id", async (c) => {
         },
       },
     },
-  });  
+  });
   return c.json({ post });
 });
 
@@ -118,7 +134,7 @@ blogRoutes.put("/auth/:id", async (c) => {
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
-  
+
   const header = c.req.header("authorization") || "";
   const token = header.split(" ")[1];
   const jwt_response = await verify(token, c.env.JWT_SECRET);
@@ -130,7 +146,7 @@ blogRoutes.put("/auth/:id", async (c) => {
     c.status(400);
     return c.json({ error: "Invalid input" });
   }
-  
+
   if (jwt_response?.id !== body.authorId) {
     c.status(401);
     return c.json({ error: "Unauthorised" });
@@ -162,6 +178,62 @@ blogRoutes.delete("/auth/:id", async (c) => {
   });
 
   return c.json({ post });
+});
+
+blogRoutes.post("/auth/like-post", async (c) => {
+  const body = await c.req.json();
+
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
+
+  const user_like = await prisma.likes.findFirst({
+    where: {
+      userId: body?.userId,
+    },
+  });
+  
+  if (user_like?.id) {
+    const udpdate_like = await prisma.likes.update({
+      where: {
+        id: user_like.id,
+      },
+      data: {
+        likes_count: user_like.likes_count + body?.like_count,
+      },
+    });
+
+    const udpdated_post = await prisma.post.update({
+      where: {
+        id: body.postId,
+      },
+      data: {
+        likes_count: user_like.likes_count + body?.like_count,
+      },
+    });
+    
+    if (udpdate_like) {
+      return c.json({ message: "success", udpdate_like });
+    } else {
+      c.status(500);
+      return c.json({ message: "Couldn't like the post" });
+    }
+  } else {
+    const like = await prisma.likes.create({
+      data: {
+        postId: body?.postId,
+        userId: body?.userId,
+        likes_count: body?.like_count,
+      },
+    });
+
+    if (like) {
+      return c.json({ message: "success", like });
+    } else {
+      c.status(500);
+      return c.json({ message: "Couldn't like the post" });
+    }
+  }
 });
 
 export default blogRoutes;

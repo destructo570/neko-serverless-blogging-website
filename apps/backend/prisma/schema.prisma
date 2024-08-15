@@ -15,6 +15,7 @@ model User {
   last_name     String?
   password String
   posts    Post[]
+  likes    Likes[]   @relation("UserToLikes")
 }
 
 model Post {
@@ -25,5 +26,17 @@ model Post {
   published Boolean  @default(false)
   author    User     @relation(fields: [authorId], references: [id])
   authorId  String
+  likes     Likes[]  @relation("PostToLikes")
+  createdAt DateTime @default(now())
+  likes_count Int @default(0)
+}
+
+model Likes {
+  id        String   @id @default(uuid())
+  post      Post @relation(fields: [postId], references: [id], name: "PostToLikes")
+  postId    String  
+  user      User @relation(fields: [userId], references: [id], name: "UserToLikes")  
+  userId    String
+  likes_count Int @default(0)
   createdAt DateTime @default(now())
 }

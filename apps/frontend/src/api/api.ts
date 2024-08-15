@@ -83,3 +83,16 @@ export const deleteBlog = async (id = "") => {
     //Show error toast
   }
 };
+
+export const likeBlog = async (postId = "", userId: "", like_count=1) => {
+  try {
+    const response = await client.post(`/api/v1/blog/auth/like-post`, {
+      postId,
+      userId,
+      like_count
+    });
+    return response;
+  } catch (err) {
+    //Show error toast
+  }
+};

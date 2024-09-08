@@ -10,7 +10,7 @@ import Footer from "@/components/common/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Kumo",
+  title: "Neko",
   description: "Serverless blog website with notion like editor",
 };
 

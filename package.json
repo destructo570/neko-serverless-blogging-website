@@ -1,5 +1,5 @@
 {
-  "name": "kumo-serverless-blogging-website",
+  "name": "neko-serverless-blogging-website",
   "private": true,
   "scripts": {
     "build": "turbo build",

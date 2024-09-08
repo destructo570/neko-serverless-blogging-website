@@ -102,3 +102,9 @@
   .muted-background {
     background-color: #f8f8f8;
   }
+
+/* Overrride ShadCn Component CSS */
+
+button{
+  border-radius: 100px !important;
+}

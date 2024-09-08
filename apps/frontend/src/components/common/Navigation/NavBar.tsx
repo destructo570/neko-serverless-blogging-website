@@ -4,11 +4,11 @@ import React from "react";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import { UserActionsDropdown } from "../UserActionsDropdown";
-import { ThemeToggle } from "../ThemeToggle";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import useLogin from "@/hooks/useLogin";
+import { PencilLine } from "lucide-react";
 
 const NavBar = () => {
   const pathname = usePathname();
@@ -19,7 +19,8 @@ const NavBar = () => {
     push("/blog/create");
   };
 
-  let active_link_class = "underline underline-offset-4 text-zinc-800 dark:text-zinc-200";
+  let active_link_class =
+    "underline underline-offset-4 text-zinc-800 dark:text-zinc-200";
 
   return (
     <header className="px-4 lg:px-6 h-14 flex items-center w-full">
@@ -56,45 +57,16 @@ const NavBar = () => {
         >
           Blog
         </Link>
-        <Link
-          href="/about"
-          className={clsx(
-            "text-sm font-medium text-muted-foreground hover:text-zinc-800 dark:hover:text-zinc-200 flex flex-col justify-center",
-            {
-              [active_link_class]: pathname === "/about",
-            }
-          )}
-          prefetch={false}
-        >
-          About
-        </Link>
         {is_logged_in && !pathname?.includes("/blog/create") ? (
-          <Button onClick={goToCreatePost}>Create Post</Button>
+          <Button onClick={goToCreatePost} size={"default"} className="flex gap-2">
+            <PencilLine color="#ffffff" size={18} />
+            Write
+          </Button>
         ) : null}
-        <ThemeToggle />
         {is_logged_in ? <UserActionsDropdown /> : null}
       </nav>
     </header>
   );
 };
-
-function MountainIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
-    </svg>
-  );
-}
 
 export default NavBar;

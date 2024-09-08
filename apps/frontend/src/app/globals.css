@@ -98,3 +98,7 @@
     transition-duration: 0.1s;
     background-color: #3A3A3A;
   }
+
+  .muted-background {
+    background-color: #f8f8f8;
+  }

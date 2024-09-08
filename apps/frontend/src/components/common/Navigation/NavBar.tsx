@@ -7,6 +7,7 @@ import { UserActionsDropdown } from "../UserActionsDropdown";
 import { ThemeToggle } from "../ThemeToggle";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import useLogin from "@/hooks/useLogin";
 
 const NavBar = () => {
@@ -27,7 +28,7 @@ const NavBar = () => {
         className="flex items-center justify-center"
         prefetch={false}
       >
-        <MountainIcon className="h-6 w-6" />
+        <Image src="/images/logo.svg" width={40} height={40} alt="Logo" />
         <span className="sr-only">Blog Website</span>
       </Link>
       <nav className="ml-auto flex gap-4 sm:gap-6">

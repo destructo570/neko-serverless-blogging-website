@@ -1,6 +1,7 @@
 "use client";
 import AuthUser from "@/components/common/Auth/AuthUser";
 import useLogin from "@/hooks/useLogin";
+import Image from "next/image";
 
 export default function Home() {
   const { is_logged_in } = useLogin();
@@ -11,7 +12,7 @@ export default function Home() {
         <section className="w-full py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
             <div className="gap-8 md:gap-40 min-h-[448px] flex flex-col-reverse items-center md:justify-between md:flex-row">
-              <div className="flex flex-col justify-center space-y-4 max-w-full">
+              <div className="flex flex-col justify-center space-y-4 max-w-full max-w-[712px]">
                 <div className="space-y-2">
                   <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
                     Discover the Latest Trends in the World of Blogging
@@ -23,8 +24,8 @@ export default function Home() {
                 </div>
               </div>
               {is_logged_in ? (
-                <img
-                  src="https://www.picsum.photos/480/300"
+                <Image
+                  src="/images/summer_discover.svg"
                   width={480}
                   height={300}
                   className="rounded-lg"
@@ -36,24 +37,28 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-muted">
+        <section className="w-full py-12 md:py-24 lg:py-32 muted-background rounded-2xl mb-8">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="flex flex-col items-center justify-center space-y-2">
-                <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm"></div>
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
                   What Makes Our Blog Stand Out
                 </h2>
-                <p className="max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                <p className="max-w-[600px] text-muted-foreground md:text-xl lg:text-base xl:text-xl leading-tight	">
                   Our blog offers a unique blend of informative content,
                   engaging storytelling, and a user-friendly experience.
                 </p>
               </div>
             </div>
             <div className="mx-auto grid max-w-5xl items-start gap-6 py-12 lg:grid-cols-3 lg:gap-12">
-              <div className="grid gap-1">
-                <div className="flex items-center gap-2">
-                  <FeatherIcon className="h-6 w-6 text-primary" />
+              <div className="grid gap-1 text-center">
+                <div className="flex flex-col items-center gap-2">
+                  <Image
+                    src="/images/bulb.svg"
+                    width={128}
+                    height={128}
+                    alt=""
+                  />
                   <h3 className="text-xl font-bold">Engaging Content</h3>
                 </div>
                 <p className="text-muted-foreground">
@@ -61,9 +66,14 @@ export default function Home() {
                   articles that keep our readers engaged and informed.
                 </p>
               </div>
-              <div className="grid gap-1">
-                <div className="flex items-center gap-2">
-                  <LayersIcon className="h-6 w-6 text-primary" />
+              <div className="grid gap-1 text-center">
+                <div className="flex flex-col items-center gap-2">
+                  <Image
+                    src="/images/hifive.svg"
+                    width={128}
+                    height={128}
+                    alt=""
+                  />
                   <h3 className="text-xl font-bold">Diverse Topics</h3>
                 </div>
                 <p className="text-muted-foreground">
@@ -71,9 +81,14 @@ export default function Home() {
                   a wide range of topics to cater to diverse interests.
                 </p>
               </div>
-              <div className="grid gap-1">
-                <div className="flex items-center gap-2">
-                  <ZapIcon className="h-6 w-6 text-primary" />
+              <div className="grid gap-1 text-center">
+                <div className="flex flex-col items-center gap-2">
+                  <Image
+                    src="/images/airplane.svg"
+                    width={128}
+                    height={128}
+                    alt=""
+                  />
                   <h3 className="text-xl font-bold">User-Friendly Design</h3>
                 </div>
                 <p className="text-muted-foreground">
@@ -86,86 +101,5 @@ export default function Home() {
         </section>
       </main>
     </div>
-  );
-}
-
-function FeatherIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M12.67 19a2 2 0 0 0 1.416-.588l6.154-6.172a6 6 0 0 0-8.49-8.49L5.586 9.914A2 2 0 0 0 5 11.328V18a1 1 0 0 0 1 1z" />
-      <path d="M16 8 2 22" />
-      <path d="M17.5 15H9" />
-    </svg>
-  );
-}
-
-function LayersIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z" />
-      <path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65" />
-      <path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65" />
-    </svg>
-  );
-}
-
-function XIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M18 6 6 18" />
-      <path d="m6 6 12 12" />
-    </svg>
-  );
-}
-
-function ZapIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z" />
-    </svg>
   );
 }

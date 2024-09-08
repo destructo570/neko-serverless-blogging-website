@@ -80,7 +80,7 @@ const page = (props) => {
           {is_edit_mode ? "Update Post" : "Publish"}
         </Button>
       </div>
-      <div className="px-24 py-12">
+      <div className="px-8 md:px-24 py-6 md:py-12">
         {loading_post ? (
           <BlogEditLoader />
         ) : (

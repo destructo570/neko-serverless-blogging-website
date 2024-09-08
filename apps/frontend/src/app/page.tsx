@@ -11,7 +11,7 @@ export default function Home() {
       <main className="flex-1">
         <section className="w-full py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
-            <div className="gap-8 md:gap-40 min-h-[448px] flex flex-col-reverse items-center md:justify-between md:flex-row">
+            <div className="gap-8 md:gap-40 min-h-[448px] flex flex-col-reverse items-center md:justify-between lg:flex-row">
               <div className="flex flex-col justify-center space-y-4 max-w-[712px]">
                 <div className="space-y-2">
                   <h1 className="text-center sm:text-left text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">

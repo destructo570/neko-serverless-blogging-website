@@ -1,4 +1,4 @@
-# ✒️ Kumo - Serverless blog website
+# ✒️ Neko - Serverless blog website
 
 Serverless blogging website with notion like editor. Made with Cloudflare workers, Hono and NextJs.
 

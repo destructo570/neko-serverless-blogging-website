@@ -62,49 +62,58 @@
 @layer base {
   * {
     @apply border-border;
-    color: #27272A;
+    color: #27272a;
   }
   body {
     @apply bg-background text-foreground;
   }
 }
 
-  /* Placeholder (at the top) */
-  p.is-editor-empty:first-child::before {
-    color: theme("colors.zinc.400");
-    content: attr(data-placeholder);
-    float: left;
-    height: 0;
-    pointer-events: none;
-  }
+/* Placeholder (at the top) */
+p.is-editor-empty:first-child::before {
+  color: theme("colors.zinc.400");
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
 
-  .no-style-input,  .no-style-input:focus-visible{
-    border: none !important;
-    box-shadow: none !important;
-    padding: 0px;
-  }
+.no-style-input,
+.no-style-input:focus-visible {
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0px;
+}
 
-  code{
-    color: black !important;
-  }
+code {
+  color: black !important;
+}
 
-  .skeleton-loader-container span{
-    display: flex;
-    justify-content: center;
-    width: 100%;
-  }
+.skeleton-loader-container span {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
 
-  .button:hover {
-    transition-duration: 0.1s;
-    background-color: #3A3A3A;
-  }
+.button:hover {
+  transition-duration: 0.1s;
+  background-color: #3a3a3a;
+}
 
-  .muted-background {
-    background-color: #f8f8f8;
-  }
+.muted-background {
+  background-color: #f8f8f8;
+}
+
+.like-button {
+  display: flex;
+  gap: 8px;
+  min-width: fit-content;
+  padding: 0px 8px;
+  width: 100%;
+}
 
 /* Overrride ShadCn Component CSS */
 
-button{
+button {
   border-radius: 100px !important;
 }

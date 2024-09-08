@@ -10,8 +10,8 @@ import { ConfirmationDialog } from "@/components/common/ConfirmationDialog/Confi
 import { useRouter } from "next/navigation";
 import useLogin from "@/hooks/useLogin";
 import { PostType } from "../../../../../../packages/common/dist";
-import { Heart, ThumbsUp } from "lucide-react";
-import Image from "next/image";
+import { PencilIcon, Trash2 } from "lucide-react";
+import { Heart } from "@phosphor-icons/react";
 import Liked from "@/components/common/Icons/Liked";
 import { debounce } from "@/lib/utils";
 import clsx from "clsx";
@@ -141,20 +141,24 @@ const page = ({ params }: { params: { id: string } }) => {
                   </div>
                   {profile?.id === blog_data?.author?.id ? (
                     <div className="flex gap-2 items-center">
-                      <div
-                        className="flex gap-2 items-center cursor-pointer"
-                        onClick={handleLike}
-                      >
-                        {has_liked ? (
-                          <Liked
-                            color="#09090B"
-                            size={28}
-                            className="like-button"
-                          />
-                        ) : (
-                          <Liked size={28} className="like-button" />
-                        )}
-                        <p className="text-sm">{like_count || 0}</p>
+                      <div className="flex gap-1 items-center">
+                        <Button
+                          variant={"outline"}
+                          onClick={handleLike}
+                          size="icon"
+                          className="like-button"
+                        >
+                          
+                          {has_liked ? (
+                            <Liked
+                              color="#EF4444"
+                              size={22}
+                            />
+                          ) : (
+                            <Liked size={22} />
+                          )}
+                          <p className="text-xs min-w-[16px]">{like_count || 0}</p>
+                        </Button>
                       </div>
                       <ConfirmationDialog
                         heading="Delete post"
@@ -163,11 +167,17 @@ const page = ({ params }: { params: { id: string } }) => {
                           delete_loading ? () => {} : onDeletePost
                         }
                         trigger_component={
-                          <Button variant={"destructive"}>Delete post</Button>
+                          <Button variant={"outline"} size="icon">
+                            <Trash2 color="#EF4444" size={18} />
+                          </Button>
                         }
                       />
-                      <Button variant={"outline"} onClick={onEditPost}>
-                        Edit post
+                      <Button
+                        variant={"outline"}
+                        onClick={onEditPost}
+                        size="icon"
+                      >
+                        <PencilIcon color="#27272A" size={18} />
                       </Button>
                     </div>
                   ) : null}

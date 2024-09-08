@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import { ThemeProvider } from "./providers";
 import "./globals.css";
 import "./prosemirror.css";
 import "react-loading-skeleton/dist/skeleton.css";
 import NavBar from "@/components/common/Navigation/NavBar";
 import Footer from "@/components/common/Footer";
-
-const inter = Inter({ subsets: ["latin"] });
+import { playfair_display, source_serif_4 } from "./fonts";
+import { GeistSans } from 'geist/font/sans';
+import { GeistMono } from 'geist/font/mono';
 
 export const metadata: Metadata = {
   title: "Neko",
@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className}`}>
+      <body className={`${GeistSans.className} ${playfair_display.variable} ${source_serif_4.variable} ${GeistMono.variable}`}>
         <ThemeProvider attribute="class" defaultTheme="light">
           <main className="flex min-h-screen flex-col items-center justify-between">
             <div className="w-full max-w-[1400px]">

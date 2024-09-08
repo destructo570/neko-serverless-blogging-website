@@ -14,6 +14,8 @@ import { Heart, ThumbsUp } from "lucide-react";
 import Image from "next/image";
 import Liked from "@/components/common/Icons/Liked";
 import { debounce } from "@/lib/utils";
+import clsx from "clsx";
+import { source_serif_4 } from "@/app/fonts";
 
 const page = ({ params }: { params: { id: string } }) => {
   const [loading, setLoading] = useState(true);
@@ -40,13 +42,15 @@ const page = ({ params }: { params: { id: string } }) => {
       fetchBlogData();
     }
   }, [params?.id]);
-  
+
   useEffect(() => {
     if (blog_data?.likes?.find((like) => like?.userId === profile?.id)) {
       setHasLiked(true);
     }
     let like_count = 0;
-    blog_data?.likes?.forEach(item => like_count = item?.likes_count + like_count);
+    blog_data?.likes?.forEach(
+      (item) => (like_count = item?.likes_count + like_count)
+    );
     setLikeCount(like_count);
   }, [blog_data]);
 
@@ -97,7 +101,7 @@ const page = ({ params }: { params: { id: string } }) => {
   };
 
   useEffect(() => {
-    if(hit_count > 0){
+    if (hit_count > 0) {
       onLikePost(hit_count);
     }
   }, [hit_count]);
@@ -108,14 +112,20 @@ const page = ({ params }: { params: { id: string } }) => {
 
   return (
     <>
-      <div className="w-full flex justify-center min-h-screen sm:min-w-[783px]">
+      <div
+        className={clsx(
+          "w-full flex justify-center min-h-screen sm:min-w-[783px]"
+        )}
+      >
         <div className="px-6 sm:px-24 py-12 sm:min-w-[783px] w-full">
           {loading ? (
             <BlogPostLoader />
           ) : (
             <div className="flex flex-col justify-center sm:items-center">
               <div className="sm:min-w-[783px] max-w-[783px] w-full sm:px-8">
-                <h2 className="font-extrabold text-5xl">{blog_data?.title}</h2>
+                <h2 className={clsx("font-semibold text-5xl")}>
+                  {blog_data?.title}
+                </h2>
                 <div className="flex gap-2 justify-between items-center">
                   <div className="flex gap-2 items-center mt-6 mb-10">
                     <Avatar className="h-[64px] w-[64px]">
@@ -136,9 +146,13 @@ const page = ({ params }: { params: { id: string } }) => {
                         onClick={handleLike}
                       >
                         {has_liked ? (
-                          <Liked color="#09090B" size={28} className="like-button"/>
+                          <Liked
+                            color="#09090B"
+                            size={28}
+                            className="like-button"
+                          />
                         ) : (
-                          <Liked size={28} className="like-button"/>
+                          <Liked size={28} className="like-button" />
                         )}
                         <p className="text-sm">{like_count || 0}</p>
                       </div>
@@ -169,7 +183,7 @@ const page = ({ params }: { params: { id: string } }) => {
               <div className="prose lg:prose-2xl max-w-[783px] sm:min-w-[783px] sm:px-8">
                 {blog_data?.content ? (
                   <BlogEditor
-                    classes="min-h-screen"
+                    classes={clsx("min-h-screen", source_serif_4.className)}
                     content={JSON.parse(blog_data?.content || "{}")}
                     disable_edit={true}
                   />

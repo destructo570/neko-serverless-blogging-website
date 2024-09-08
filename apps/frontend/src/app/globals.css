@@ -62,6 +62,7 @@
 @layer base {
   * {
     @apply border-border;
+    color: #27272A;
   }
   body {
     @apply bg-background text-foreground;

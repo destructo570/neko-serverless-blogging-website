@@ -12,12 +12,12 @@ export default function Home() {
         <section className="w-full py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
             <div className="gap-8 md:gap-40 min-h-[448px] flex flex-col-reverse items-center md:justify-between md:flex-row">
-              <div className="flex flex-col justify-center space-y-4 max-w-full max-w-[712px]">
+              <div className="flex flex-col justify-center space-y-4 max-w-[712px]">
                 <div className="space-y-2">
-                  <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
+                  <h1 className="text-center sm:text-left text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
                     Discover the Latest Trends in the World of Blogging
                   </h1>
-                  <p className="max-w-[600px] text-muted-foreground md:text-xl">
+                  <p className="text-center sm:text-left max-w-[600px] text-muted-foreground md:text-xl">
                     Our blog covers a wide range of topics, from the latest
                     industry news to expert insights and practical tips.
                   </p>
@@ -37,8 +37,8 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="w-full py-12 md:py-24 lg:py-32 muted-background rounded-2xl mb-8">
-          <div className="container px-4 md:px-6">
+        <section className="py-12 md:py-24 lg:py-24 muted-background rounded-2xl mb-8 px-10 mx-4">
+          <div className="max-w-full mx-auto w-full">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="flex flex-col items-center justify-center space-y-2">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">

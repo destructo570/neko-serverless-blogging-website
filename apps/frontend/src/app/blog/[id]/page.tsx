@@ -11,7 +11,6 @@ import { useRouter } from "next/navigation";
 import useLogin from "@/hooks/useLogin";
 import { PostType } from "../../../../../../packages/common/dist";
 import { PencilIcon, Trash2 } from "lucide-react";
-import { Heart } from "@phosphor-icons/react";
 import Liked from "@/components/common/Icons/Liked";
 import { debounce } from "@/lib/utils";
 import clsx from "clsx";

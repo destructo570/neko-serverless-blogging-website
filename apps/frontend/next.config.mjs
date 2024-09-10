@@ -8,6 +8,9 @@ const nextConfig = {
         // !! WARN !!
         ignoreBuildErrors: true,
       },
+      experimental: { //TODO: Enable this later
+        missingSuspenseWithCSRBailout: false,
+      },
 };
 
 export default nextConfig;

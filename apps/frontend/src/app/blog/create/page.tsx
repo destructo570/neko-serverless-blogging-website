@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { Suspense, useEffect, useMemo, useState } from "react";
 import BlogEditor from "@/components/common/Editor/BlogEditor";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -66,6 +66,8 @@ const page = (props) => {
   };
 
   return (
+    <Suspense>
+
     <div className="w-full mt-16">
       <div className="flex justify-end p-4 gap-4">
         <Button
@@ -106,6 +108,8 @@ const page = (props) => {
         )}
       </div>
     </div>
+    </Suspense>
+
   );
 };
 

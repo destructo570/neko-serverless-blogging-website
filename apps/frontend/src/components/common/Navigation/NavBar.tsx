@@ -31,7 +31,7 @@ const NavBar = () => {
         prefetch={false}
       >
         <Image src="/images/logo.svg" width={40} height={40} alt="Logo" />
-        <p className={`${source_serif_4.className} font-semibold text-2xl ml-2`}>neko</p>
+        <p className={`${source_serif_4.className} font-semibold text-2xl ml-2`}>neko.</p>
         <span className="sr-only">Blog Website</span>
       </Link>
       <nav className="ml-auto flex gap-4 sm:gap-6">

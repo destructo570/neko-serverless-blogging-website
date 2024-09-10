@@ -1,4 +1,4 @@
-import { UserProfileType } from "../../../../packages/common/dist"
+import { UserProfileType } from "@repo/common/config"
 
 export interface UserProfileObject {
     profile: UserProfileType;

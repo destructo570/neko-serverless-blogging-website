@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { PostType } from "../../../../packages/common/dist";
+import { PostType } from "@repo/common/config";
 import { client } from "./axiosClient";
 import { ApiResponse } from "@/lib/types";
 

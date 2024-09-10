@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { ConfirmationDialog } from "@/components/common/ConfirmationDialog/ConfirmationDialog";
 import { useRouter } from "next/navigation";
 import useLogin from "@/hooks/useLogin";
-import { PostType } from "../../../../../../packages/common/dist";
+import { PostType } from "@repo/common/config";
 import { PencilIcon, Trash2 } from "lucide-react";
 import Liked from "@/components/common/Icons/Liked";
 import { debounce } from "@/lib/utils";

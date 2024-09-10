@@ -14,7 +14,7 @@ import { PencilIcon, Trash2 } from "lucide-react";
 import Liked from "@/components/common/Icons/Liked";
 import { debounce } from "@/lib/utils";
 import clsx from "clsx";
-import { source_serif_4 } from "@/app/fonts";
+import { playfair_display, source_serif_4 } from "@/app/fonts";
 
 const page = ({ params }: { params: { id: string } }) => {
   const [loading, setLoading] = useState(true);
@@ -122,7 +122,7 @@ const page = ({ params }: { params: { id: string } }) => {
           ) : (
             <div className="flex flex-col justify-center sm:items-center">
               <div className="sm:min-w-[783px] max-w-[783px] w-full sm:px-8">
-                <h2 className={clsx("font-semibold text-5xl")}>
+                <h2 className={clsx("font-semibold text-5xl", playfair_display.className)}>
                   {blog_data?.title}
                 </h2>
                 <div className="flex gap-2 justify-between items-center">

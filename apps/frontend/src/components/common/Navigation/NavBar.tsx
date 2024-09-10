@@ -23,7 +23,7 @@ const NavBar = () => {
     "underline underline-offset-4 text-zinc-800 dark:text-zinc-200";
 
   return (
-    <header className="px-4 lg:px-6 h-14 flex items-center w-full">
+    <header className="px-4 lg:px-6 h-14 flex items-center w-full border-b">
       <Link
         href="/"
         className="flex items-center justify-center"

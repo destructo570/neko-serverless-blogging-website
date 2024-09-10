@@ -67,6 +67,10 @@
   body {
     @apply bg-background text-foreground;
   }
+  pre{
+    padding: 8px 16px !important;
+    border: none;
+  }
 }
 
 /* Placeholder (at the top) */

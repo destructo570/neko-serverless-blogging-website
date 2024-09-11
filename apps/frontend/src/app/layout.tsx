@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { NextAuthProvider, ThemeProvider } from "./providers";
-import "./globals.css";
+import "./globals.scss";
 import "./prosemirror.css";
 import "react-loading-skeleton/dist/skeleton.css";
 import NavBar from "@/components/common/Navigation/NavBar";

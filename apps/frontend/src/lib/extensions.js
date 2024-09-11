@@ -6,11 +6,54 @@ import {
   HorizontalRule,
   StarterKit,
   Placeholder,
+  CodeBlockLowlight,
 } from "novel/extensions";
 
+import css from "highlight.js/lib/languages/css";
+import js from "highlight.js/lib/languages/javascript";
+import ts from "highlight.js/lib/languages/typescript";
+import html from "highlight.js/lib/languages/xml";
+import python from "highlight.js/lib/languages/python";
+import java from "highlight.js/lib/languages/java";
+import sql from "highlight.js/lib/languages/sql";
+import scss from "highlight.js/lib/languages/scss";
+import shell from "highlight.js/lib/languages/shell";
+import powershell from "highlight.js/lib/languages/powershell";
+import cpp from "highlight.js/lib/languages/cpp";
+import php from "highlight.js/lib/languages/php";
+import xml from "highlight.js/lib/languages/xml";
+import rust from "highlight.js/lib/languages/rust";
+import go from "highlight.js/lib/languages/go";
+import kotlin from "highlight.js/lib/languages/kotlin";
+import { all, createLowlight } from "lowlight";
+import { ReactNodeViewRenderer } from "@tiptap/react";
 import { cx } from "class-variance-authority";
 import GlobalDragHandle from "tiptap-extension-global-drag-handle";
 import AutoJoiner from "tiptap-extension-auto-joiner";
+import CodeBlockComponent from "@/components/common/Editor/CodeBlockComponent";
+
+// eslint-disable-next-line
+
+// create a lowlight instance
+const lowlight = createLowlight(all);
+
+// you can also register individual languages
+lowlight.register("html", html);
+lowlight.register("css", css);
+lowlight.register("js", js);
+lowlight.register("ts", ts);
+lowlight.register("python", python);
+lowlight.register("java", java);
+lowlight.register("sql", sql);
+lowlight.register("scss", scss);
+lowlight.register("shell", shell);
+lowlight.register("powershell", powershell);
+lowlight.register("cpp", cpp);
+lowlight.register("php", php);
+lowlight.register("xml", xml);
+lowlight.register("rust", rust);
+lowlight.register("go", go);
+lowlight.register("kotlin", kotlin);
 
 // TODO I am using cx here to get tailwind autocomplete working, idk if someone else can write a regex to just capture the class key in objects
 
@@ -26,6 +69,12 @@ const tiptapLink = TiptapLink.configure({
     ),
   },
 });
+
+const codeBlockLowlight = CodeBlockLowlight.extend({
+  addNodeView() {
+    return ReactNodeViewRenderer(CodeBlockComponent);
+  },
+}).configure({ lowlight });
 
 const taskList = TaskList.configure({
   HTMLAttributes: {
@@ -109,4 +158,5 @@ export const defaultExtensions = [
   horizontalRule,
   globalDragHandle,
   autoJoiner,
+  codeBlockLowlight,
 ];

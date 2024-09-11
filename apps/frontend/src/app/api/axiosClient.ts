@@ -13,7 +13,6 @@ export const client = createAxiosClient({
   options: {
     baseURL: BASE_URL,
     timeout: 300000,
-    withCredentials: true,
     headers: {
       "Content-Type": "application/json",
     },

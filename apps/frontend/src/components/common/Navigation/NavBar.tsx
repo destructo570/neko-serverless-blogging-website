@@ -14,13 +14,12 @@ import { useSession } from "next-auth/react";
 const NavBar = () => {
   const pathname = usePathname();
   const { data: session } = useSession();
-  console.log("session", session);
   
   const { push } = useRouter();
 
   useEffect(() => {
     if(session && session.user){
-      sessionStorage.setItem("profile", JSON.stringify(session?.user));
+      sessionStorage.setItem("profile", JSON.stringify(session?.user?.profile || {}));
       sessionStorage.setItem("access_token", session?.user?.token);
     }
   }, [session]);

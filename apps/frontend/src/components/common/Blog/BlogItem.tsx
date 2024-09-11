@@ -40,8 +40,8 @@ const BlogItem = (props) => {
       </div>
       <div className="flex gap-4 items-start justify-between">
         <div className="item-start">
-          <h3 className="text-2xl font-bold line-clamp-2">{data?.title}</h3>
-          <p className="text-sm text-muted-foreground line-clamp-2">
+          <h3 className="text-2xl font-bold line-clamp-2 break-words max-w-[650px]">{data?.title}</h3>
+          <p className="text-sm text-muted-foreground line-clamp-2 break-words max-w-[650px]">
             {data?.description}
           </p>
           <div className="flex gap-4 items-center mt-6">

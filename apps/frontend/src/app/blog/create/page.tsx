@@ -7,6 +7,7 @@ import { JSONContent } from "novel";
 import { useRouter, useSearchParams } from "next/navigation";
 import BlogEditLoader from "@/components/common/Blog/BlogEditLoader";
 import { getSingleBlog, publishBlog } from "@/app/api/actions";
+import { Textarea } from "@/components/ui/textarea";
 
 const page = (props) => {
   const [article_title, setArticleTitle] = useState("");
@@ -67,49 +68,47 @@ const page = (props) => {
 
   return (
     <Suspense>
-
-    <div className="w-full mt-16">
-      <div className="flex justify-end p-4 gap-4">
-        <Button
-          onClick={() => push("/blog")}
-          disabled={loading}
-          type="button"
-          variant={"outline"}
-        >
-          Cancel
-        </Button>
-        <Button onClick={onPusblishArticle} disabled={loading} type="button">
-          {is_edit_mode ? "Update Post" : "Publish"}
-        </Button>
+      <div className="w-full mt-16">
+        <div className="flex justify-end p-4 gap-4">
+          <Button
+            onClick={() => push("/blog")}
+            disabled={loading}
+            type="button"
+            variant={"outline"}
+          >
+            Cancel
+          </Button>
+          <Button onClick={onPusblishArticle} disabled={loading} type="button">
+            {is_edit_mode ? "Update Post" : "Publish"}
+          </Button>
+        </div>
+        <div className="px-8 md:px-24 py-6 md:py-12">
+          {loading_post ? (
+            <BlogEditLoader />
+          ) : (
+            <>
+              <Textarea
+                className={
+                  "no-style-input h-24 font-extrabold text-5xl placeholder:text-zinc-400"
+                }
+                placeholder="Article title"
+                value={article_title}
+                maxLength={80}
+                onChange={(e) => {
+                  setArticleTitle(e?.target?.value);
+                }}
+              />
+              <BlogEditor
+                classes="min-h-screen"
+                content={value}
+                setContent={setValue}
+                setDescription={updateDescription}
+              />
+            </>
+          )}
+        </div>
       </div>
-      <div className="px-8 md:px-24 py-6 md:py-12">
-        {loading_post ? (
-          <BlogEditLoader />
-        ) : (
-          <>
-            <Input
-              className={
-                "no-style-input h-24 font-extrabold text-5xl placeholder:text-zinc-400"
-              }
-              placeholder="Article title"
-              value={article_title}
-              maxLength={60}
-              onChange={(e) => {
-                setArticleTitle(e?.target?.value);
-              }}
-            />
-            <BlogEditor
-              classes="min-h-screen"
-              content={value}
-              setContent={setValue}
-              setDescription={updateDescription}
-            />
-          </>
-        )}
-      </div>
-    </div>
     </Suspense>
-
   );
 };
 

@@ -1,8 +1,6 @@
 import { Hono } from "hono";
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
-import { sign } from "hono/jwt";
-import { getTokenExpiryTime } from "../../utils/helper";
 import { signinInput, signupInput } from "@repo/common/config";
 import bcrypt from 'bcryptjs';
 
@@ -20,6 +18,7 @@ authRoutes.post("/signin", async (c) => {
   }).$extends(withAccelerate());
 
   const body = await c.req.json();
+  
   const hashed_password = bcrypt.hashSync(body.password, c.env.PASSWORD_SALT);
   
   const { success } = signinInput.safeParse(body);
@@ -41,12 +40,7 @@ authRoutes.post("/signin", async (c) => {
     return c.json({ error: "User not found" });
   }
 
-  const token = await sign(
-    { id: user.id, exp: getTokenExpiryTime() },
-    c.env.JWT_SECRET
-  );
   return c.json({
-    token,
     profile: {
       first_name: user?.first_name,
       last_name: user?.last_name,
@@ -80,14 +74,16 @@ authRoutes.post("/signup", async (c) => {
     },
   });
 
-  if (!user) {
-  }
+  if (!user) {}
 
-  const token = await sign(
-    { id: user.id, exp: getTokenExpiryTime() },
-    c.env.JWT_SECRET
-  );
-  return c.json({ token });
+  return c.json({
+    profile: {
+      first_name: user?.first_name,
+      last_name: user?.last_name,
+      id: user?.id,
+      email: user?.email,
+    },
+  });
 });
 
 export default authRoutes;

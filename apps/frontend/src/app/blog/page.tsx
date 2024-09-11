@@ -1,8 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import BlogItem from "@/components/common/Blog/BlogItem";
-import { getAllBlogs } from "@/api/api";
 import BlogItemLoader from "@/components/common/Blog/BlogItemLoader";
+import { getAllBlogs } from "../api/actions";
 
 const page = () => {
   const [blog_list, setBlogList] = useState([]);

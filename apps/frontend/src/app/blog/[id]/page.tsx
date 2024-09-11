@@ -1,6 +1,6 @@
 "use client";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { deleteBlog, getSingleBlog, likeBlog } from "@/api/api";
+import { deleteBlog, getSingleBlog, likeBlog } from "@/app/api/actions";
 import BlogEditor from "@/components/common/Editor/BlogEditor";
 import BlogPostLoader from "@/components/common/Blog/BlogPostLoader";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -8,13 +8,13 @@ import Dayjs from "dayjs";
 import { Button } from "@/components/ui/button";
 import { ConfirmationDialog } from "@/components/common/ConfirmationDialog/ConfirmationDialog";
 import { useRouter } from "next/navigation";
-import useLogin from "@/hooks/useLogin";
 import { PostType } from "@repo/common/config";
 import { PencilIcon, Trash2 } from "lucide-react";
 import Liked from "@/components/common/Icons/Liked";
 import { debounce } from "@/lib/utils";
 import clsx from "clsx";
 import { playfair_display, source_serif_4 } from "@/app/fonts";
+import useProfile from "@/hooks/useProfile";
 
 const page = ({ params }: { params: { id: string } }) => {
   const [loading, setLoading] = useState(true);
@@ -25,7 +25,7 @@ const page = ({ params }: { params: { id: string } }) => {
   const [hit_count, setHitCount] = useState(0);
   const [blog_data, setBlogData] = useState<PostType>();
   const { push } = useRouter();
-  const { profile } = useLogin();
+  const { profile } = useProfile();
 
   useEffect(() => {
     const fetchBlogData = async () => {

@@ -3,30 +3,15 @@ import { useRouter } from "next/navigation";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import React, { useMemo, useState } from "react";
-import { signIn, signUp } from "@/app/api/actions";
+import React, { useState } from "react";
+import { signUp } from "@/app/api/actions";
 
-const AuthUser = (props) => {
-  const {} = props;
-  const [selected_tab, setSelectedTab] = useState("signin");
+const AuthUser = ({is_login}: {is_login?: boolean}) => {
   const [first_name, setFirstName] = useState("");
   const [last_name, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { push } = useRouter();
-  const is_login = useMemo(() => selected_tab === "signin", [selected_tab]);
-
-  const onLogin = async () => {
-    const payload = {
-      email,
-      password,
-    };
-
-    const response = await signIn(payload);
-    if (response && response?.status === 200) {
-      push("/blog");
-    }
-  };
 
   const onSignup = async () => {
     const payload = {
@@ -38,35 +23,16 @@ const AuthUser = (props) => {
 
     const response = await signUp(payload);
     if (response && response?.status === 200) {
-      push("/blog");
-    }
-  };
-
-  const onSelectedTabChange = () => {
-    if (selected_tab === "signin") {
-      setSelectedTab("signup");
-    } else {
-      setSelectedTab("signin");
+      push("/");
     }
   };
 
   return (
-    <div className="mx-auto min-w-[348px] max-w-[348px] space-y-6">
-      <div className="space-y-2 text-center">
+    <div className="mx-auto min-w-[448px] max-w-[448px] space-y-6 h-[calc(100vh-121px)]">
+      <div className="space-y-2 text-center mt-24">
         <h1 className="text-3xl font-bold pt-6">
           {is_login ? "Login" : "Sign Up"}
         </h1>
-        <p className="text-muted-foreground">
-          {is_login
-            ? "Don't have an account? "
-            : "Already have an account? "}
-          <span
-            className="cursor-pointer text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-200  inline underline underline-offset-2"
-            onClick={onSelectedTabChange}
-          >
-            {is_login ? "SignUp" : "Login"}
-          </span>
-        </p>
       </div>
       <form className="space-y-4">
         {!is_login ? (
@@ -118,7 +84,7 @@ const AuthUser = (props) => {
         <Button
           type="button"
           className="w-full"
-          onClick={is_login ? onLogin : onSignup}
+          onClick={is_login ? () => {} : onSignup}
         >
           {is_login ? "Login" : "Sign Up"}
         </Button>

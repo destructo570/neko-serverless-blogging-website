@@ -3,10 +3,10 @@ import React, { Suspense, useEffect, useMemo, useState } from "react";
 import BlogEditor from "@/components/common/Editor/BlogEditor";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { getSingleBlog, publishBlog } from "@/api/api";
 import { JSONContent } from "novel";
 import { useRouter, useSearchParams } from "next/navigation";
 import BlogEditLoader from "@/components/common/Blog/BlogEditLoader";
+import { getSingleBlog, publishBlog } from "@/app/api/actions";
 
 const page = (props) => {
   const [article_title, setArticleTitle] = useState("");

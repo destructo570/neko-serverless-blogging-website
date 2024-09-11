@@ -8,7 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { logout } from "@/api/axiosClient";
+import { signOut } from "next-auth/react";
 
 export function UserActionsDropdown() {
 
@@ -21,7 +21,7 @@ export function UserActionsDropdown() {
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => logout()}>
+        <DropdownMenuItem onClick={() => signOut({ callbackUrl: '/', redirect:true })}>
           Logout
         </DropdownMenuItem>
       </DropdownMenuContent>

@@ -1,10 +1,7 @@
 "use client";
-import AuthUser from "@/components/common/Auth/AuthUser";
-import useLogin from "@/hooks/useLogin";
 import Image from "next/image";
 
 export default function Home() {
-  const { is_logged_in } = useLogin();
 
   return (
     <div className="flex flex-col min-h-[100dvh]">
@@ -23,17 +20,13 @@ export default function Home() {
                   </p>
                 </div>
               </div>
-              {is_logged_in ? (
-                <Image
-                  src="/images/summer_discover.svg"
-                  width={480}
-                  height={300}
-                  className="rounded-lg"
-                  alt="hero"
-                />
-              ) : (
-                <AuthUser />
-              )}
+              <Image
+                src="/images/summer_discover.svg"
+                width={480}
+                height={300}
+                className="rounded-lg"
+                alt="hero"
+              />
             </div>
           </div>
         </section>

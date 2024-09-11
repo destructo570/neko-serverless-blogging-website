@@ -71,14 +71,22 @@
     @apply bg-background text-foreground;
   }
   pre{
-    padding: 8px 16px !important;
     border: none;
   }
+  code{
+    &::after, &::before {
+      content: "" !important;
+    }
+  }
+}
+
+h1, h2, h3, h4, h5, h6, input{
+  color: #27272A !important;
 }
 
 /* Placeholder (at the top) */
 p.is-editor-empty:first-child::before {
-  color: theme("colors.zinc.400");
+  color: #27272A;
   content: attr(data-placeholder);
   float: left;
   height: 0;

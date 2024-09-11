@@ -32,8 +32,6 @@ import GlobalDragHandle from "tiptap-extension-global-drag-handle";
 import AutoJoiner from "tiptap-extension-auto-joiner";
 import CodeBlockComponent from "@/components/common/Editor/CodeBlockComponent";
 
-// eslint-disable-next-line
-
 // create a lowlight instance
 const lowlight = createLowlight(all);
 
@@ -54,8 +52,6 @@ lowlight.register("xml", xml);
 lowlight.register("rust", rust);
 lowlight.register("go", go);
 lowlight.register("kotlin", kotlin);
-
-// TODO I am using cx here to get tailwind autocomplete working, idk if someone else can write a regex to just capture the class key in objects
 
 // You can overwrite the placeholder with your own configuration
 const placeholder = Placeholder.configure({
@@ -118,11 +114,12 @@ const starterKit = StarterKit.configure({
   codeBlock: {
     HTMLAttributes: {
       class: cx("rounded-sm bg-muted border p-5 font-mono font-medium"),
+      spellcheck: "false",
     },
   },
   code: {
     HTMLAttributes: {
-      class: cx("rounded-md bg-muted  px-1.5 py-1 font-mono font-medium"),
+      class: cx("rounded-md px-2 font-mono font-medium bg-muted"),
       spellcheck: "false",
     },
   },

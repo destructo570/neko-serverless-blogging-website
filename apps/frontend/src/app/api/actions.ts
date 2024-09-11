@@ -4,9 +4,10 @@ import { client } from "./axiosClient";
 import { ApiResponse } from "@/lib/types";
 
 export const signIn = async (payload = {}) => {
-  
   try {
-    const response = await client.post(`/api/v1/auth/signin`, payload);
+    const response = await client.post(`/api/v1/auth/signin`, payload, {
+      authorization: false,
+    });
     return response;
   } catch (err) {
     //Show error toast
@@ -15,7 +16,9 @@ export const signIn = async (payload = {}) => {
 
 export const signUp = async (payload = {}) => {
   try {
-    const response = await client.post(`/api/v1/auth/signup`, payload);
+    const response = await client.post(`/api/v1/auth/signup`, payload, {
+      authorization: false,
+    });
     return response;
   } catch (err) {
     //Show error toast
@@ -69,12 +72,12 @@ export const deleteBlog = async (id = "") => {
   }
 };
 
-export const likeBlog = async (postId = "", userId: "", like_count=1) => {
+export const likeBlog = async (postId = "", userId: "", like_count = 1) => {
   try {
     const response = await client.post(`/api/v1/blog/auth/like-post`, {
       postId,
       userId,
-      like_count
+      like_count,
     });
     return response;
   } catch (err) {

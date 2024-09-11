@@ -14,5 +14,6 @@ export const NextAuthProvider = ({
 }: {
   children?: React.ReactNode;
 }) => {
+
   return <SessionProvider>{children}</SessionProvider>;
 };

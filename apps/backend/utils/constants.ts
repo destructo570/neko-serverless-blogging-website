@@ -1,0 +1,1 @@
+export const NEXT_AUTH_COOKIE = "next-auth.session-token";

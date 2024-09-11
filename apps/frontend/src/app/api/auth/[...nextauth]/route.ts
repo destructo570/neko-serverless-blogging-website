@@ -15,24 +15,27 @@ const handler = NextAuth({
         const password = credentials.password;
         const response = await signIn({ email, password });
         if (response?.status === 200 && response?.data) {
-          let user = { ...(response?.data?.profile || {}) };
+          let user = { ...(response?.data || {}) };
           return user;
         }
         return null;
       },
     }),
   ],
-  secret: process.env.NEXTAUTH_SECRET,
+  session: {
+    strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60,
+  },
+  jwt: {
+    secret: process.env.NEXTAUTH_SECRET
+  },
   callbacks: {
     async session({ session, token }) {
-      session.user = token.user;
+      session.user = token as any;
       return session;
     },
     async jwt({ token, user }) {
-      if (user) {
-        token.user = user;
-      }
-      return token;
+      return { ...token, ...user };
     },
   },
 });

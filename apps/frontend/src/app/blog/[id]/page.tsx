@@ -48,7 +48,7 @@ const page = ({ params }: { params: { id: string } }) => {
     }
     let like_count = 0;
     blog_data?.likes?.forEach(
-      (item) => (like_count = item?.likes_count + like_count)
+      (item) => (like_count = item?.count + like_count)
     );
     setLikeCount(like_count);
   }, [blog_data]);
@@ -72,19 +72,15 @@ const page = ({ params }: { params: { id: string } }) => {
       if (!profile?.id) return;
       setLiking(true);
       try {
-        // setHasLiked(true);
-        // setLikeCount((prev) => prev + hit_count);
         const response = await likeBlog(
           `${params?.id}` || "",
           profile?.id || "",
           hit_count
         );
         if (response && response?.status !== 200) {
-          // setHasLiked(false);
           setLikeCount((prev) => prev - hit_count);
         }
       } catch (err) {
-        // setHasLiked(false);
         setLikeCount((prev) => prev - hit_count);
       } finally {
         setLiking(false);
@@ -96,6 +92,7 @@ const page = ({ params }: { params: { id: string } }) => {
 
   const handleLike = () => {
     setHitCount((prev) => prev + 1);
+    setHasLiked(true);
     setLikeCount((prev) => prev + 1);
   };
 

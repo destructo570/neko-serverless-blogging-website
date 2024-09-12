@@ -20,13 +20,6 @@ const BlogItem = (props) => {
     return `${data?.author?.first_name} ${data?.author?.last_name}`;
   }, [data]);
 
-  const like_count = useMemo(() => {
-    let count = 0;
-    
-    data?.likes?.forEach(like => count = count + (like?.likes_count || 0));
-    return count;
-  }, [data]);
-
   return (
     <div
       className={clsx('grid gap-2 p-4 bg-background cursor-pointer', {'border-b': !is_last})}
@@ -51,7 +44,7 @@ const BlogItem = (props) => {
             </p>
             <div className="flex gap-1 items-center">
               <Heart fill={is_dark_theme ? "#52525B" : "#c9c9c9"} color={is_dark_theme ? "#52525B" : "#c9c9c9"} size={16} />
-              <p className="text-xs text-zinc-600">{like_count || 0}</p>
+              <p className="text-xs text-zinc-600">{data?.likes_count || 0}</p>
             </div>
             <div className="flex gap-1 items-center">
               <MessageCircle fill={is_dark_theme ? "#52525B" : "#c9c9c9"} color={is_dark_theme ? "#52525B" : "#c9c9c9"} size={16} />

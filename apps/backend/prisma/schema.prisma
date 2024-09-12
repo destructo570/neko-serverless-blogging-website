@@ -37,6 +37,6 @@ model Likes {
   postId    String  
   user      User @relation(fields: [userId], references: [id], name: "UserToLikes")  
   userId    String
-  likes_count Int @default(0)
+  count Int @default(0)
   createdAt DateTime @default(now())
 }

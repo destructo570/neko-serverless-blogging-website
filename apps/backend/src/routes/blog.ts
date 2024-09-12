@@ -41,13 +41,6 @@ blogRoutes.get("/", async (c) => {
     ],
     relationLoadStrategy: "join",
     include: {
-      likes: {
-        select: {
-          id: true,
-          userId: true,
-          likes_count: true
-        },
-      },
       author: {
         select: {
           id: true,
@@ -78,7 +71,7 @@ blogRoutes.get("/:id", async (c) => {
         select: {
           id: true,
           userId: true,
-          likes_count: true
+          count: true
         },
       },
       author: {
@@ -189,17 +182,19 @@ blogRoutes.post("/auth/like-post", async (c) => {
 
   const user_like = await prisma.likes.findFirst({
     where: {
-      userId: body?.userId,
+      postId: body?.postId,
     },
   });
   
+  //Like already exists
   if (user_like?.id) {
+    let new_count = user_like.count + body?.like_count;
     const udpdate_like = await prisma.likes.update({
       where: {
         id: user_like.id,
       },
       data: {
-        likes_count: user_like.likes_count + body?.like_count,
+        count: new_count,
       },
     });
 
@@ -208,22 +203,22 @@ blogRoutes.post("/auth/like-post", async (c) => {
         id: body.postId,
       },
       data: {
-        likes_count: user_like.likes_count + body?.like_count,
+        likes_count: new_count,
       },
     });
     
-    if (udpdate_like) {
+    if (udpdate_like && udpdated_post) {
       return c.json({ message: "success", udpdate_like });
     } else {
       c.status(500);
       return c.json({ message: "Couldn't like the post" });
     }
-  } else {
+  } else { //Like doesn't exist
     const like = await prisma.likes.create({
       data: {
         postId: body?.postId,
         userId: body?.userId,
-        likes_count: body?.like_count,
+        count: body?.like_count,
       },
     });
 

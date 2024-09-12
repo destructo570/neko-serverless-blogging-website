@@ -12,6 +12,29 @@
     pointer-events: none;
     height: 0;
   }
+
+  .ProseMirror p{
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  .ProseMirror h3, h2, h1{
+    margin-top: 0.75rem !important;
+    margin-bottom: 0.3rem !important;
+  }
+
+  .ProseMirror li p, .ProseMirror ul li{
+    margin-top: 0rem !important;
+    margin-bottom: 0rem !important;
+  }
+
+  .ProseMirror li{
+    padding-inline-start: 0px;
+  }
+
+  .ProseMirror li::marker{
+    color: #27272A;
+  }
   
   /* Custom image styles */
   

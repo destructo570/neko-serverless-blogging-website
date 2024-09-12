@@ -31,6 +31,7 @@ import { cx } from "class-variance-authority";
 import GlobalDragHandle from "tiptap-extension-global-drag-handle";
 import AutoJoiner from "tiptap-extension-auto-joiner";
 import CodeBlockComponent from "@/components/common/Editor/CodeBlockComponent";
+import { UploadImagesPlugin } from "novel/plugins";
 
 // create a lowlight instance
 const lowlight = createLowlight(all);
@@ -87,6 +88,21 @@ const taskItem = TaskItem.configure({
 const horizontalRule = HorizontalRule.configure({
   HTMLAttributes: {
     class: cx("mt-4 mb-6 border-t border-muted-foreground"),
+  },
+});
+
+const tiptapImage = TiptapImage.extend({
+  addProseMirrorPlugins() {
+      return [
+          UploadImagesPlugin({
+              imageClass: cx("opacity-40 rounded-lg border border-stone-200"),
+          }),
+      ];
+  },
+  }).configure({
+  allowBase64: true,
+  HTMLAttributes: {
+      class: cx("rounded-lg border border-muted"),
   },
 });
 
@@ -148,12 +164,12 @@ const autoJoiner = AutoJoiner.configure({
 export const defaultExtensions = [
   starterKit,
   placeholder,
-  TiptapLink,
-  TiptapImage,
   taskList,
   taskItem,
   horizontalRule,
   globalDragHandle,
   autoJoiner,
   codeBlockLowlight,
+  tiptapLink,
+  tiptapImage
 ];

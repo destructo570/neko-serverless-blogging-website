@@ -20,6 +20,8 @@ import { TextButtons } from "./TextButtons";
 import { ColorSelector } from "./ColorSelector";
 import clsx from "clsx";
 import { handleCommandNavigation } from "novel/extensions";
+import { handleImageDrop, handleImagePaste } from "novel/plugins";
+import { uploadFn } from "../../../lib/image-upload";
 
 const BlogEditor = (props) => {
   const {
@@ -59,6 +61,8 @@ const BlogEditor = (props) => {
               handleDOMEvents: {
                 keydown: (_view, event) => handleCommandNavigation(event),
               },
+              handlePaste: (view, event) => handleImagePaste(view, event, uploadFn),
+              handleDrop: (view, event, _slice, moved) =>  handleImageDrop(view, event, moved, uploadFn),
               attributes: {
                 class: clsx([
                   `prose lg:prose-xl dark:prose-invert font-default focus:outline-none max-w-full`,

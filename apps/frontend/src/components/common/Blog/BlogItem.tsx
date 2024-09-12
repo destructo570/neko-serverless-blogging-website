@@ -5,9 +5,10 @@ import { Heart, MessageCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import DayJs from "dayjs";
 import useDarkTheme from "@/hooks/useDarkTheme";
+import clsx from "clsx";
 
 const BlogItem = (props) => {
-  const { data } = props;
+  const { data, is_last=false } = props;
   const { push } = useRouter();
   const is_dark_theme = useDarkTheme();
 
@@ -28,7 +29,7 @@ const BlogItem = (props) => {
 
   return (
     <div
-      className="grid gap-2 p-4 bg-background border-b cursor-pointer"
+      className={clsx('grid gap-2 p-4 bg-background cursor-pointer', {'border-b': !is_last})}
       onClick={redirectToBlog}
     >
       <div className="flex gap-2 items-center">

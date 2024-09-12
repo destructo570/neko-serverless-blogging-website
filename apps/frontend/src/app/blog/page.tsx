@@ -22,8 +22,8 @@ const page = () => {
   };
 
   const renderBlogitems = () => {
-    return blog_list?.map((item) => {
-      return <BlogItem data={item}/>;
+    return blog_list?.map((item, index) => {
+      return <BlogItem data={item} is_last={index === blog_list?.length - 1} />;
     });
   };
 

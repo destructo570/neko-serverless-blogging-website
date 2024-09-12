@@ -15,6 +15,7 @@ import { debounce } from "@/lib/utils";
 import clsx from "clsx";
 import { playfair_display, source_serif_4 } from "@/app/fonts";
 import useProfile from "@/hooks/useProfile";
+import Image from "next/image";
 
 const page = ({ params }: { params: { id: string } }) => {
   const [loading, setLoading] = useState(true);
@@ -119,14 +120,24 @@ const page = ({ params }: { params: { id: string } }) => {
           ) : (
             <div className="flex flex-col justify-center sm:items-center">
               <div className="sm:min-w-[783px] max-w-[783px] w-full sm:px-8">
-                <h2 className={clsx("font-semibold text-5xl break-words", playfair_display.className)}>
+                <h2
+                  className={clsx(
+                    "font-semibold text-5xl break-words",
+                    playfair_display.className
+                  )}
+                >
                   {blog_data?.title}
                 </h2>
                 <div className="flex gap-2 justify-between items-center">
                   <div className="flex gap-2 items-center mt-6 mb-10">
                     <Avatar className="h-[64px] w-[64px]">
                       <AvatarImage src="https://picsum.photos/64/64" alt="" />
-                      <AvatarFallback>CN</AvatarFallback>
+                      <Image
+                        src={"/images/fallback_avatar.svg"}
+                        alt="avatar"
+                        width={24}
+                        height={24}
+                      />
                     </Avatar>
                     <div className="flex flex-col">
                       <p className="text-sm font-medium my-0">{author_name}</p>
@@ -144,16 +155,14 @@ const page = ({ params }: { params: { id: string } }) => {
                           size="icon"
                           className="like-button"
                         >
-                          
                           {has_liked ? (
-                            <Liked
-                              color="#EF4444"
-                              size={22}
-                            />
+                            <Liked color="#EF4444" size={22} />
                           ) : (
                             <Liked size={22} />
                           )}
-                          <p className="text-xs min-w-[16px]">{like_count || 0}</p>
+                          <p className="text-xs min-w-[16px]">
+                            {like_count || 0}
+                          </p>
                         </Button>
                       </div>
                       <ConfirmationDialog

@@ -21,20 +21,20 @@ Serverless blogging website with notion like editor. Made with Cloudflare worker
 - Tailwind CSS
 
 ## TODO
-- Likes counter
-- Comment section
-- User dashboard
-- Tags and Interests system
-- Dockerise the app
-- Subscription model
-- Follow/Unfollow functionality
+- [x] Post like functionality
+- [ ] Comment section
+- [ ] User dashboard
+- [ ] Tags and Interests system
+- [ ] Dockerise the app
+- [ ] Subscription model
+- [ ] Follow/Unfollow functionality
 
 ### Steps to run the project locally
 
 1. Run the following command to install all dependencies:
 
 ```sh
-npm i
+npm install
 ```
 
 2. Create a file called wrangler.toml in apps/backend and update the variables as per the example file
@@ -48,7 +48,7 @@ cd ./apps/backend
 npx prisma generate
 ```
 
-5. Then run the build from root using
+5. Then run the build command from root folder using
 ```sh
   npm run dev
 ```

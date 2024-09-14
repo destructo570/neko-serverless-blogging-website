@@ -224,7 +224,16 @@ blogRoutes.post("/auth/like-post", async (c) => {
       },
     });
 
-    if (like) {
+    const udpdated_post = await prisma.post.update({
+      where: {
+        id: body.postId,
+      },
+      data: {
+        likes_count: body?.like_count,
+      },
+    });
+
+    if (like && udpdated_post) {
       return c.json({ message: "success", like });
     } else {
       c.status(500);

@@ -16,6 +16,7 @@ import clsx from "clsx";
 import { playfair_display, source_serif_4 } from "@/app/fonts";
 import useProfile from "@/hooks/useProfile";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
 
 const page = ({ params }: { params: { id: string } }) => {
   const [loading, setLoading] = useState(true);
@@ -27,6 +28,7 @@ const page = ({ params }: { params: { id: string } }) => {
   const [blog_data, setBlogData] = useState<PostType>();
   const { push } = useRouter();
   const { profile } = useProfile();
+  const { data: session } = useSession();
 
   useEffect(() => {
     const fetchBlogData = async () => {
@@ -146,7 +148,7 @@ const page = ({ params }: { params: { id: string } }) => {
                       </p>
                     </div>
                   </div>
-                  {profile?.id === blog_data?.author?.id ? (
+                  {session && profile?.id ? (
                     <div className="flex gap-2 items-center">
                       <div className="flex gap-1 items-center">
                         <Button
@@ -165,25 +167,29 @@ const page = ({ params }: { params: { id: string } }) => {
                           </p>
                         </Button>
                       </div>
-                      <ConfirmationDialog
-                        heading="Delete post"
-                        confirmation_text="Are you sure you want to delete this post?"
-                        onConfirmClick={
-                          delete_loading ? () => {} : onDeletePost
-                        }
-                        trigger_component={
-                          <Button variant={"outline"} size="icon">
-                            <Trash2 color="#EF4444" size={18} />
+                      {profile?.id === blog_data?.author?.id ? (
+                        <>
+                          <ConfirmationDialog
+                            heading="Delete post"
+                            confirmation_text="Are you sure you want to delete this post?"
+                            onConfirmClick={
+                              delete_loading ? () => {} : onDeletePost
+                            }
+                            trigger_component={
+                              <Button variant={"outline"} size="icon">
+                                <Trash2 color="#EF4444" size={18} />
+                              </Button>
+                            }
+                          />
+                          <Button
+                            variant={"outline"}
+                            onClick={onEditPost}
+                            size="icon"
+                          >
+                            <PencilIcon color="#27272A" size={18} />
                           </Button>
-                        }
-                      />
-                      <Button
-                        variant={"outline"}
-                        onClick={onEditPost}
-                        size="icon"
-                      >
-                        <PencilIcon color="#27272A" size={18} />
-                      </Button>
+                        </>
+                      ) : null}
                     </div>
                   ) : null}
                 </div>

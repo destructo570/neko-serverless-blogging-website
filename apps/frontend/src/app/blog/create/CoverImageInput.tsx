@@ -14,7 +14,7 @@ const CoverImageInput = ({
   const handleFileChange = (event) => {
     const file = event.target.files[0];
 
-    if (file && (file.type === "image/png" || file.type === "image/jpeg")) {
+    if (file && (file.type === "image/png" || file.type === "image/jpeg" || file.type === "image/jpg" || file.type === "image/gif" || file.type === "image/webp")) {
       const reader = new FileReader();
 
       // When the file is loaded, store the Base64 string and pass it to the parent
@@ -41,7 +41,7 @@ const CoverImageInput = ({
     <div>
       <Input
         type="file"
-        accept="image/png, image/jpeg, image/jpg, image/gif"
+        accept="image/png, image/jpeg, image/jpg, image/gif, image/webp"
         className="cursor-pointer hover:bg-zinc-100 mb-4"
         onChange={handleFileChange}
       />

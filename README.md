@@ -2,6 +2,10 @@
 
 Serverless blogging website with notion like editor. Made with Cloudflare workers, Hono and NextJs.
 
+[Live Demo](https://neko-serverless-blogging-website-frontend.vercel.app/)
+#### Test Creds
+john@test.com : 123456
+
 ## Features
 - Create, Update, Delete blogs
 - JWT auth handling with password salting using bcryptJs
@@ -19,6 +23,7 @@ Serverless blogging website with notion like editor. Made with Cloudflare worker
 - TypeScipt
 - Novel editor
 - Tailwind CSS
+- Tiptap text editor
 
 ## TODO
 - [x] Post like functionality
@@ -28,6 +33,19 @@ Serverless blogging website with notion like editor. Made with Cloudflare worker
 - [ ] Dockerise the app
 - [ ] Subscription model
 - [ ] Follow/Unfollow functionality
+
+<details>
+  <summary><h3>🌈Screenshots</h3></summary>
+  
+<img src="https://imgur.com/GDx04RC.png" width=40%>
+<img src="https://imgur.com/A8CXDHJ.png" width=40%>
+<img src="https://imgur.com/NrZudj0.png" width=40%>
+<img src="https://imgur.com/c9ZgFIC.png" width=40%>
+<img src="https://imgur.com/T1QtXOe.png" width=40%>
+<img src="https://imgur.com/T6hR6WF.png" width=40%>
+<img src="https://imgur.com/r32e0zZ.png" width=40%>
+  
+</details>
 
 ### Steps to run the project locally
 

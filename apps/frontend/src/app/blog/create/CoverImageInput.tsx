@@ -38,11 +38,11 @@ const CoverImageInput = ({
   };
 
   return (
-    <div>
+    <div className="w-full max-w-[783px]">
       <Input
         type="file"
         accept="image/png, image/jpeg, image/jpg, image/gif, image/webp"
-        className="cursor-pointer hover:bg-zinc-100 mb-4"
+        className="cursor-pointer hover:bg-zinc-100 mb-4 w-full"
         onChange={handleFileChange}
       />
       {coverImageError && <p style={{ color: "red" }} className="mb-2">{coverImageError}</p>}

@@ -28,6 +28,19 @@
     width: 100%;
     margin: 0 auto;
   }
+
+  .ProseMirror strong{
+    font-weight: 700;
+  }
+
+  .ProseMirror h1{
+    font-weight: 700;
+    font-size: 44px;
+  }
+  .ProseMirror h2{
+    font-weight: 700;
+    font-size: 36px;
+  }
   
   .ProseMirror h3, h2, h1{
     margin-top: 0.75rem !important;

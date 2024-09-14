@@ -23,10 +23,10 @@ const CoverImageInput = ({
         setCoverImageError(null); // Clear error
         setCoverImage(base64String); // Pass the Base64 string to the parent
 
-            // Check if the file is larger than 500KB
+        // Check if the file is larger than 500KB
         if (file && file.size > MAX_FILE_SIZE) {
-            setCoverImageError("File size exceeds the 500KB limit.");
-            return;
+          setCoverImageError("File size exceeds the 500KB limit.");
+          return;
         }
       };
 
@@ -42,17 +42,19 @@ const CoverImageInput = ({
       <Input
         type="file"
         accept="image/png, image/jpeg, image/jpg, image/gif"
-        className="cursor-pointer hover:bg-zinc-100"
+        className="cursor-pointer hover:bg-zinc-100 mb-4"
         onChange={handleFileChange}
       />
-      {coverImageError && <p style={{ color: 'red' }}>{coverImageError}</p>}
-      <Image
-        src={coverImage}
-        className="my-4 rounded-xl"
-        alt="Preview"
-        width={900}
-        height={500}
-      />
+      {coverImageError && <p style={{ color: "red" }} className="mb-2">{coverImageError}</p>}
+      {coverImage ? (
+        <Image
+          src={coverImage}
+          className="mb-4 rounded-xl"
+          alt="Preview"
+          width={900}
+          height={500}
+        />
+      ) : null}
     </div>
   );
 };

@@ -74,7 +74,7 @@ const BlogItem = (props) => {
             </div>
           </div>
         </div>
-        <Image src={data?.coverImage} width={200} height={100} className="rounded-sm" alt=""/>
+        {data?.coverImage ? <Image src={data?.coverImage} width={200} height={100} className="rounded-sm" alt=""/> : null}
       </div>
     </div>
   );

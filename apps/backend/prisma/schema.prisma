@@ -29,6 +29,7 @@ model Post {
   likes     Likes[]  @relation("PostToLikes")
   createdAt DateTime @default(now())
   likes_count Int @default(0)
+  coverImage String @default("")
 }
 
 model Likes {

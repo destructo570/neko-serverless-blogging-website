@@ -49,6 +49,7 @@ export const Post = z.object({
     createdAt: z.string(),
     published: z.boolean(),
     authorId: z.string(),
+    coverImage: z.string(),
     author: UserProfile,
 })
 

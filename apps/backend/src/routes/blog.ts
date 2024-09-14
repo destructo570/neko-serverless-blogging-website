@@ -111,9 +111,10 @@ blogRoutes.post("/auth/", async (c) => {
 
   const post = await prisma.post.create({
     data: {
-      title: body.title,
-      content: body.content,
-      description: body.description,
+      title: body?.title,
+      content: body?.content,
+      description: body?.description,
+      coverImage: body?.coverImage,
       authorId: jwt_response?.id,
     },
   });
@@ -151,8 +152,9 @@ blogRoutes.put("/auth/:id", async (c) => {
       authorId: body.authorId,
     },
     data: {
-      title: body.title,
-      content: body.content,
+      title: body?.title,
+      content: body?.content,
+      coverImage: body?.coverImage,
     },
   });
 

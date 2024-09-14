@@ -74,7 +74,7 @@ const BlogItem = (props) => {
             </div>
           </div>
         </div>
-        <img src="https://picsum.photos/200/100" className="rounded-sm" />
+        <Image src={data?.coverImage} width={200} height={100} className="rounded-sm" alt=""/>
       </div>
     </div>
   );

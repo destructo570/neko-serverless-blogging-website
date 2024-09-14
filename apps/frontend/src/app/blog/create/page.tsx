@@ -1,21 +1,24 @@
 "use client";
 import React, { Suspense, useEffect, useMemo, useState } from "react";
 import BlogEditor from "@/components/common/Editor/BlogEditor";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { JSONContent } from "novel";
 import { useRouter, useSearchParams } from "next/navigation";
 import BlogEditLoader from "@/components/common/Blog/BlogEditLoader";
 import { getSingleBlog, publishBlog } from "@/app/api/actions";
 import { Textarea } from "@/components/ui/textarea";
+import CoverImageInput from "./CoverImageInput";
 
 const page = (props) => {
   const [article_title, setArticleTitle] = useState("");
   const [loading_post, setLoadingPost] = useState<boolean>(false);
   const [value, setValue] = useState<JSONContent>({});
   const [description, setDescription] = useState<string>("");
+  const [coverImage, setCoverImage] = useState(null); // To store the file
   const [loading, setLoading] = useState(false);
+  const [coverImageError, setCoverImageError] = useState("");
   const { push } = useRouter();
+
   const searchParams = useSearchParams();
 
   const [authorId, setAuthorId] = useState("");
@@ -35,13 +38,14 @@ const page = (props) => {
           setAuthorId(response?.data?.post?.author?.id || "");
           setValue(JSON.parse(response?.data?.post?.content || "{}"));
           setDescription(response?.data?.post?.description);
+          setCoverImage(response?.data?.post?.coverImage || null);
         }
         setLoadingPost(false);
       };
       getEditArticle();
     }
   }, [is_edit_mode, post_id]);
-
+  
   const onPusblishArticle = async () => {
     setLoading(true);
     const response = await publishBlog(
@@ -50,6 +54,7 @@ const page = (props) => {
         content: JSON.stringify(value || ""),
         description: description || "",
         authorId: authorId,
+        coverImage,
       },
       post_id,
       is_edit_mode
@@ -78,7 +83,7 @@ const page = (props) => {
           >
             Cancel
           </Button>
-          <Button onClick={onPusblishArticle} disabled={loading} type="button">
+          <Button onClick={onPusblishArticle} disabled={loading || coverImageError?.length > 0 || !coverImage} type="button">
             {is_edit_mode ? "Update Post" : "Publish"}
           </Button>
         </div>
@@ -87,6 +92,12 @@ const page = (props) => {
             <BlogEditLoader />
           ) : (
             <>
+              <CoverImageInput
+                setCoverImage={setCoverImage}
+                coverImage={coverImage}
+                setCoverImageError={setCoverImageError}
+                coverImageError={coverImageError}
+              />
               <Textarea
                 className={
                   "no-style-input h-24 font-extrabold text-5xl placeholder:text-zinc-400"

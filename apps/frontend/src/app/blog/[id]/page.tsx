@@ -188,8 +188,8 @@ const page = ({ params }: { params: { id: string } }) => {
                   ) : null}
                 </div>
               </div>
-              <img
-                src="https://picsum.photos/900/500"
+              <Image
+                src={blog_data?.coverImage}
                 className="my-4 rounded-xl"
                 alt=""
                 width={900}

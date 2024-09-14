@@ -40,7 +40,6 @@ Serverless blogging website with notion like editor. Made with Cloudflare worker
 <img src="https://imgur.com/T1QtXOe.png" width=40%>
 <img src="https://imgur.com/T6hR6WF.png" width=40%>
 <img src="https://imgur.com/r32e0zZ.png" width=40%>
-<img src="https://imgur.com/A8CXDHJ.png" width=40%>
   
 </details>
 

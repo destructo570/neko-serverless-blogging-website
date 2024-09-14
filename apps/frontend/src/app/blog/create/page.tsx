@@ -8,6 +8,9 @@ import BlogEditLoader from "@/components/common/Blog/BlogEditLoader";
 import { getSingleBlog, publishBlog } from "@/app/api/actions";
 import { Textarea } from "@/components/ui/textarea";
 import CoverImageInput from "./CoverImageInput";
+import clsx from "clsx";
+import { playfair_display, source_serif_4 } from "@/app/fonts";
+import { AutosizeTextarea } from "@/components/common/AutoResizeTextArea";
 
 const page = (props) => {
   const [article_title, setArticleTitle] = useState("");
@@ -45,7 +48,7 @@ const page = (props) => {
       getEditArticle();
     }
   }, [is_edit_mode, post_id]);
-  
+
   const onPusblishArticle = async () => {
     setLoading(true);
     const response = await publishBlog(
@@ -83,25 +86,24 @@ const page = (props) => {
           >
             Cancel
           </Button>
-          <Button onClick={onPusblishArticle} disabled={loading || coverImageError?.length > 0 || !coverImage} type="button">
+          <Button
+            onClick={onPusblishArticle}
+            disabled={loading || coverImageError?.length > 0 || !coverImage}
+            type="button"
+          >
             {is_edit_mode ? "Update Post" : "Publish"}
           </Button>
         </div>
-        <div className="px-8 md:px-24 py-6 md:py-12">
+        <div className="px-8 md:px-24 py-6 md:py-12 flex flex-col items-center">
           {loading_post ? (
             <BlogEditLoader />
           ) : (
             <>
-              <CoverImageInput
-                setCoverImage={setCoverImage}
-                coverImage={coverImage}
-                setCoverImageError={setCoverImageError}
-                coverImageError={coverImageError}
-              />
-              <Textarea
-                className={
-                  "no-style-input h-24 font-extrabold text-5xl placeholder:text-zinc-400"
-                }
+              <AutosizeTextarea
+                className={clsx(
+                  "no-style-input h-24 font-semibold text-5xl placeholder:text-zinc-400 max-w-[783px] sm:min-w-[783px] mb-4 resize-none",
+                  playfair_display.className
+                )}
                 placeholder="Article title"
                 value={article_title}
                 maxLength={80}
@@ -109,12 +111,20 @@ const page = (props) => {
                   setArticleTitle(e?.target?.value);
                 }}
               />
+              <CoverImageInput
+                setCoverImage={setCoverImage}
+                coverImage={coverImage}
+                setCoverImageError={setCoverImageError}
+                coverImageError={coverImageError}
+              />
+              <div className="prose lg:prose-2xl max-w-[783px] sm:min-w-[783px] sm:px-8">
               <BlogEditor
-                classes="min-h-screen"
+                classes={clsx("min-h-screen", source_serif_4.className)}
                 content={value}
                 setContent={setValue}
                 setDescription={updateDescription}
               />
+              </div>
             </>
           )}
         </div>

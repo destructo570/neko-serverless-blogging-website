@@ -2,6 +2,10 @@
 
 Serverless blogging website with notion like editor. Made with Cloudflare workers, Hono and NextJs.
 
+[Live Demo](https://neko-serverless-blogging-website-frontend.vercel.app/)
+#### Test Creds
+john@test.com : 123456
+
 ## Features
 - Create, Update, Delete blogs
 - JWT auth handling with password salting using bcryptJs

@@ -131,9 +131,9 @@ const page = ({ params }: { params: { id: string } }) => {
                 <div className="flex gap-2 justify-between items-center">
                   <div className="flex gap-2 items-center mt-6 mb-10">
                     <Avatar className="h-[64px] w-[64px]">
-                      <AvatarImage src="https://picsum.photos/64/64" alt="" />
+                      <AvatarImage src={"/images/fallback_avatar.png"} alt="" />
                       <Image
-                        src={"/images/fallback_avatar.svg"}
+                        src={"/images/fallback_avatar.png"}
                         alt="avatar"
                         width={24}
                         height={24}

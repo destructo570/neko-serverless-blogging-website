@@ -14,7 +14,7 @@ const page = (props) => {
           />
           <AvatarFallback>
             <Image
-              src={"/images/fallback_avatar.svg"}
+              src={"/images/fallback_avatar.png"}
               alt="avatar"
               width={24}
               height={24}

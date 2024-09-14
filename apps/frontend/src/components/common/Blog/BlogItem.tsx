@@ -30,10 +30,10 @@ const BlogItem = (props) => {
     >
       <div className="flex gap-2 items-center">
         <Avatar className="h-[20px] w-[20px]">
-          <AvatarImage src="https://picsum.photos/20/20" alt="" />
+          <AvatarImage src={"/images/fallback_avatar.png"} alt="" />
           <AvatarFallback>
             <Image
-              src={"/images/fallback_avatar.svg"}
+              src={"/images/fallback_avatar.png"}
               alt="avatar"
               width={24}
               height={24}

@@ -16,10 +16,10 @@ export function UserActionsDropdown() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Avatar className="h-[36px] w-[36px] cursor-pointer">
-          <AvatarImage src="https://picsum.photos/64/64" alt="" />
+          <AvatarImage src={"/images/fallback_avatar.png"} alt="" className="max-h-[36px] max-w-[36px]"/>
           <AvatarFallback>
             <Image
-              src={"/images/fallback_avatar.svg"}
+              src={"/images/fallback_avatar.png"}
               alt="avatar"
               width={24}
               height={24}

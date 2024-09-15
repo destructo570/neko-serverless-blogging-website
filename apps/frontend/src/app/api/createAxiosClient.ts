@@ -1,10 +1,15 @@
 import axios from "axios";
+import type { InternalAxiosRequestConfig, AxiosRequestHeaders } from "axios";
+interface AdaptAxiosRequestConfig extends InternalAxiosRequestConfig {
+  authorization?: boolean;
+  headers: AxiosRequestHeaders;
+}
 
-export function createAxiosClient({ options, getCurrentAccessToken}: any) {
+export function createAxiosClient({ options, getCurrentAccessToken }: any) {
   const client = axios.create(options);
 
   client.interceptors.request.use(
-    (config) => {
+    (config: AdaptAxiosRequestConfig) => {
       if (config.authorization !== false) {
         const token = getCurrentAccessToken();
         if (token) {
@@ -19,7 +24,7 @@ export function createAxiosClient({ options, getCurrentAccessToken}: any) {
   );
 
   client.interceptors.response.use(
-    (response) => {      
+    (response) => {
       // Any status code that lie within the range of 2xx cause this function to trigger
       // Do something with response data
       return response;

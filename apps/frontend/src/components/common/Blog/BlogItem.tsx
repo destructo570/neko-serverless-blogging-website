@@ -52,7 +52,7 @@ const BlogItem = (props) => {
           </p>
           <div className="flex gap-4 items-center mt-6">
             <p className="text-xs text-zinc-600">
-              {DayJs(data?.created).format("MMM DD")}
+              {DayJs(data?.createdAt).format("MMM DD")}
             </p>
             <div className="flex gap-1 items-center">
               <Heart

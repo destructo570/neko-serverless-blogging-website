@@ -24,9 +24,12 @@ john@test.com : 123456
 - Novel editor
 - Tailwind CSS
 - Tiptap text editor
+- Amazon s3 for file storage
+- Hono storage for handling multipart form data
 
 ## TODO
 - [x] Post like functionality
+- [x] Upload cover images to s3
 - [ ] Comment section
 - [ ] User dashboard
 - [ ] Tags and Interests system

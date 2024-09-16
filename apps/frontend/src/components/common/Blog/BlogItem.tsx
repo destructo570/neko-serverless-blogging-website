@@ -8,8 +8,14 @@ import useDarkTheme from "@/hooks/useDarkTheme";
 import clsx from "clsx";
 import Image from "next/image";
 
-const BlogItem = (props) => {
-  const { data, is_last = false } = props;
+interface BlogItemProps {
+  data: any;
+  is_last?: boolean;
+  innerRef?: React.Ref<HTMLDivElement>;
+}
+
+const BlogItem = (props: BlogItemProps) => {
+  const { data, is_last = false, innerRef } = props;
   const { push } = useRouter();
   const is_dark_theme = useDarkTheme();
 
@@ -27,6 +33,7 @@ const BlogItem = (props) => {
         "border-b": !is_last,
       })}
       onClick={redirectToBlog}
+      ref={innerRef}
     >
       <div className="flex gap-2 items-center">
         <Avatar className="h-[20px] w-[20px]">

@@ -70,7 +70,9 @@ blogRoutes.get("/", async (c) => {
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
-  const query = c.req.query('query')
+  const query = c.req.query('query');
+  const page = parseInt(c.req.query('page') || '1');
+  const page_size = parseInt(c.req.query('page_size') || '5');
   const posts = await prisma.post.findMany({
     select:{
       id: true,
@@ -94,6 +96,8 @@ blogRoutes.get("/", async (c) => {
         mode: "insensitive",
       },
     },
+    take: page_size,
+    skip: (page - 1) * page_size,
     orderBy: [
       {
         createdAt: "desc",

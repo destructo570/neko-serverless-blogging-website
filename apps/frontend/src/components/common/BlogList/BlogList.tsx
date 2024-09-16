@@ -1,49 +1,71 @@
 "use client";
 import { getAllBlogs } from "@/app/api/actions";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import NoDataComponent from "../NoDataComponent";
 import BlogItem from "../Blog/BlogItem";
 import BlogItemLoader from "../Blog/BlogItemLoader";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInView } from "react-intersection-observer";
 
 const BlogList = ({ query = "" }) => {
-  const [blog_list, setBlogList] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [is_init, setIsInit] = useState(true);
-
-  useEffect(() => {
-    getBlogList();
-    setIsInit(false);
-  }, []);
-
-  useEffect(() => {
-    if(!is_init && query?.length){
-        getBlogList();
-    }
-  }, [query]);
-
-  const getBlogList = async () => {
-    setLoading(true);
-
-    const response = (await getAllBlogs({ query })) || [];
-    if (response && response?.status === 200) {
-      setBlogList(response?.data?.posts || []);
-    }
-    setLoading(false);
+  const getBlogList = async ({ pageParam }: { pageParam: number }) => {
+    const response = await getAllBlogs({
+      query,
+      page: pageParam,
+      page_size: 20,
+    });
+    return response?.data?.posts;
   };
 
-  const renderBlogitems = () => {
+  const { ref, inView } = useInView();
+
+  const { data, fetchNextPage, hasNextPage, status } = useInfiniteQuery({
+    queryKey: ["posts"],
+    queryFn: getBlogList,
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, pages) => {
+      const nextPage = lastPage?.length ? pages?.length + 1 : undefined;
+      return nextPage;
+    },
+    staleTime: 120000, //120 seconds
+  });
+
+  const loading = status === "pending";
+
+  const blog_list_data = useMemo(() => {
+    let list = [];
+    data?.pages?.map((page) => {
+      list = [...list, ...(page || [])];
+    });
+    return list;
+  }, [JSON.stringify(data)]);
+
+  const renderBlogitems = (blog_list = []) => {
     if (blog_list?.length === 0 && !loading)
       return <NoDataComponent className="mt-24" />;
     return blog_list?.map((item, index) => {
-      return <BlogItem data={item} is_last={index === blog_list?.length - 1} />;
+      let is_last = index === blog_list?.length - 1;
+      return (
+        <BlogItem
+          innerRef={is_last ? ref : undefined}
+          data={item}
+          is_last={index === blog_list?.length - 1}
+        />
+      );
     });
   };
+
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage, fetchNextPage]);
 
   return (
     <div className="w-full max-w-[900px] min-h-screen mx-auto">
       <div className="flex gap-4 mb-4 px-3"></div>
       <div className="mt-4">
-        {loading ? <BlogItemLoader /> : renderBlogitems()}
+        {loading ? <BlogItemLoader /> : renderBlogitems(blog_list_data)}
       </div>
     </div>
   );

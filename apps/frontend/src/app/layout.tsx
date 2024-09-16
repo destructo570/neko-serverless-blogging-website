@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { NextAuthProvider, ThemeProvider } from "./providers";
+import { NextAuthProvider, TanstackProvider, ThemeProvider } from "./providers";
 import "./globals.scss";
 import "./prosemirror.scss";
 import "react-loading-skeleton/dist/skeleton.css";
@@ -25,15 +25,17 @@ export default function RootLayout({
         className={`${GeistSans.className} ${playfair_display.variable} ${source_serif_4.variable} ${GeistMono.variable}`}
       >
         <NextAuthProvider>
-          <ThemeProvider attribute="class" defaultTheme="light">
-            <main className="flex min-h-screen flex-col items-center justify-between">
-              <div className="w-full max-w-[1400px]">
-                <NavBar />
-                {children}
-                <Footer />
-              </div>
-            </main>
-          </ThemeProvider>
+          <TanstackProvider>
+            <ThemeProvider attribute="class" defaultTheme="light">
+              <main className="flex min-h-screen flex-col items-center justify-between">
+                <div className="w-full max-w-[1400px]">
+                  <NavBar />
+                  {children}
+                  <Footer />
+                </div>
+              </main>
+            </ThemeProvider>
+          </TanstackProvider>
         </NextAuthProvider>
       </body>
     </html>

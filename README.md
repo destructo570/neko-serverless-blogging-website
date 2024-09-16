@@ -7,10 +7,12 @@ Serverless blogging website with notion like editor. Made with Cloudflare worker
 john@test.com : 123456
 
 ## Features
-- Create, Update, Delete blogs
+- Create, Read, Update and Delete blogs
 - JWT auth handling with password salting using bcryptJs
 - Notion like editor for writing blogs
-- Dark/Light theme using next themes
+- Search all relevant posts
+- Like your favorite posts
+- Code syntax highlighting support
 
 ## Tech Stack
 - NextJs
@@ -30,6 +32,7 @@ john@test.com : 123456
 ## TODO
 - [x] Post like functionality
 - [x] Upload cover images to s3
+- [x] Add search functionality
 - [ ] Comment section
 - [ ] User dashboard
 - [ ] Tags and Interests system

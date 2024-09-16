@@ -17,10 +17,9 @@ import { playfair_display, source_serif_4 } from "@/app/fonts";
 import useProfile from "@/hooks/useProfile";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 const page = ({ params }: { params: { id: string } }) => {
-  const [loading, setLoading] = useState(true);
-  const [liking, setLiking] = useState(false);
   const [delete_loading, setDeleteLoading] = useState(false);
   const [has_liked, setHasLiked] = useState(false);
   const [like_count, setLikeCount] = useState(0);
@@ -29,21 +28,20 @@ const page = ({ params }: { params: { id: string } }) => {
   const { push } = useRouter();
   const { profile } = useProfile();
   const { data: session } = useSession();
+  const queryClient = useQueryClient();
+  const fetchBlogData = async () => {
+    const response = await getSingleBlog(`${params?.id}` || "");
+    return response?.data?.post;
+  };
+
+  const { data, isFetching:loading  } = useQuery({
+    queryKey: ["post"],
+    queryFn: fetchBlogData,
+  });
 
   useEffect(() => {
-    const fetchBlogData = async () => {
-      setLoading(true);
-      const response = await getSingleBlog(`${params?.id}` || "");
-      if (response && response?.status === 200) {
-        setBlogData(response?.data?.post);
-      }
-      setLoading(false);
-    };
-
-    if (params?.id) {
-      fetchBlogData();
-    }
-  }, [params?.id]);
+    setBlogData(data);
+  }, [data]);
 
   useEffect(() => {
     if (blog_data?.likes?.find((like) => like?.userId === profile?.id)) {
@@ -58,13 +56,27 @@ const page = ({ params }: { params: { id: string } }) => {
 
   const onDeletePost = async () => {
     setDeleteLoading(true);
-    const response = await deleteBlog(`${params?.id}` || "");
-    if (response && response?.status === 200) {
-      setBlogData(response?.data?.post);
-      push("/blog");
-    }
+    await deleteBlog(`${params?.id}` || "");
     setDeleteLoading(false);
   };
+
+  // Mutation to delete a post
+  const deletePostMutation = useMutation({
+    mutationFn: () => onDeletePost(),
+    onSuccess: () => {
+      // Invalidate the cache for the posts list
+      queryClient.setQueryData(['posts'], () => ({
+        pages: [],
+        pageParams: 1,
+      }))
+      queryClient.invalidateQueries({
+        queryKey: ['posts'],
+        exact: true,
+      });
+      // Navigate back to the posts list after successful deletion
+      push("/blog");
+    },
+  });
 
   const onEditPost = () => {
     push(`/blog/create?post_id=${params?.id}`);
@@ -73,7 +85,6 @@ const page = ({ params }: { params: { id: string } }) => {
   const onLikePost = useCallback(
     debounce(async (hit_count) => {
       if (!profile?.id) return;
-      setLiking(true);
       try {
         const response = await likeBlog(
           `${params?.id}` || "",
@@ -86,7 +97,6 @@ const page = ({ params }: { params: { id: string } }) => {
       } catch (err) {
         setLikeCount((prev) => prev - hit_count);
       } finally {
-        setLiking(false);
         setHitCount(0);
       }
     }),
@@ -173,7 +183,9 @@ const page = ({ params }: { params: { id: string } }) => {
                             heading="Delete post"
                             confirmation_text="Are you sure you want to delete this post?"
                             onConfirmClick={
-                              delete_loading ? () => {} : onDeletePost
+                              delete_loading
+                                ? () => {}
+                                : deletePostMutation.mutate
                             }
                             trigger_component={
                               <Button variant={"outline"} size="icon">

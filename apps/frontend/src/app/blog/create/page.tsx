@@ -5,11 +5,16 @@ import { Button } from "@/components/ui/button";
 import { JSONContent } from "novel";
 import { useRouter, useSearchParams } from "next/navigation";
 import BlogEditLoader from "@/components/common/Blog/BlogEditLoader";
-import { getSingleBlog, publishBlog, uploadCoverImage } from "@/app/api/actions";
+import {
+  getSingleBlog,
+  publishBlog,
+  uploadCoverImage,
+} from "@/app/api/actions";
 import CoverImageInput from "./CoverImageInput";
 import clsx from "clsx";
 import { playfair_display, source_serif_4 } from "@/app/fonts";
 import { AutosizeTextarea } from "@/components/common/AutoResizeTextArea";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const page = (props) => {
   const [article_title, setArticleTitle] = useState("");
@@ -20,7 +25,7 @@ const page = (props) => {
   const [loading, setLoading] = useState(false);
   const [coverImageError, setCoverImageError] = useState("");
   const { push } = useRouter();
-
+  const queryClient = useQueryClient();
   const searchParams = useSearchParams();
 
   const [authorId, setAuthorId] = useState("");
@@ -50,17 +55,17 @@ const page = (props) => {
 
   const onPusblishArticle = async () => {
     setLoading(true);
-    if(!coverImage) return;
+    if (!coverImage) return;
     const formData = new FormData();
-    formData.append('file', coverImage);
+    formData.append("file", coverImage);
 
     let image_url = "";
-    if(coverImage instanceof File){
+    if (coverImage instanceof File) {
       const img_response = await uploadCoverImage(formData);
-      if(img_response?.status === 200) {
-        image_url = img_response?.data?.url
+      if (img_response?.status === 200) {
+        image_url = img_response?.data?.url;
       }
-    }else{
+    } else {
       image_url = coverImage;
     }
 
@@ -69,21 +74,35 @@ const page = (props) => {
       content: JSON.stringify(value || ""),
       description: description || "",
       authorId: authorId,
-      coverImage: image_url
-    }
+      coverImage: image_url,
+    };
 
-    const response = await publishBlog(
-      payload,
-      post_id,
-      is_edit_mode
-    );
-    
+    const response = await publishBlog(payload, post_id, is_edit_mode);
+
     if (response?.status === 200) {
       push("/blog");
     }
 
     setLoading(false);
   };
+
+  // Mutation to delete a post
+  const publishPostMutation = useMutation({
+    mutationFn: () => onPusblishArticle(),
+    onSuccess: () => {
+      // Invalidate the cache for the posts list
+      queryClient.setQueryData(['posts'], () => ({
+        pages: [],
+        pageParams: 1,
+      }))
+      queryClient.invalidateQueries({
+        queryKey: ['posts'],
+        exact: true,
+      });
+      // Navigate back to the posts list after successful deletion
+      push("/blog");
+    },
+  });
 
   const updateDescription = (text = "") => {
     let final_text = text?.trim()?.substring(0, 200);
@@ -103,8 +122,13 @@ const page = (props) => {
             Cancel
           </Button>
           <Button
-            onClick={onPusblishArticle}
-            disabled={loading || coverImageError?.length > 0 || !coverImage || article_title?.trim()?.length === 0}
+            onClick={publishPostMutation.mutate}
+            disabled={
+              loading ||
+              coverImageError?.length > 0 ||
+              !coverImage ||
+              article_title?.trim()?.length === 0
+            }
             type="button"
           >
             {is_edit_mode ? "Update Post" : "Publish"}
@@ -134,12 +158,12 @@ const page = (props) => {
                 coverImageError={coverImageError}
               />
               <div className="prose lg:prose-2xl max-w-[783px] sm:min-w-[783px] sm:px-8">
-              <BlogEditor
-                classes={clsx("min-h-screen", source_serif_4.className)}
-                content={value}
-                setContent={setValue}
-                setDescription={updateDescription}
-              />
+                <BlogEditor
+                  classes={clsx("min-h-screen", source_serif_4.className)}
+                  content={value}
+                  setContent={setValue}
+                  setDescription={updateDescription}
+                />
               </div>
             </>
           )}

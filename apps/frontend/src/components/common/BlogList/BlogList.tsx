@@ -19,7 +19,7 @@ const BlogList = ({ query = "" }) => {
 
   const { ref, inView } = useInView();
 
-  const { data, fetchNextPage, hasNextPage, status } = useInfiniteQuery({
+  const { data, fetchNextPage, hasNextPage, status, isFetching } = useInfiniteQuery({
     queryKey: ["posts"],
     queryFn: getBlogList,
     initialPageParam: 1,
@@ -65,7 +65,7 @@ const BlogList = ({ query = "" }) => {
     <div className="w-full max-w-[900px] min-h-screen mx-auto">
       <div className="flex gap-4 mb-4 px-3"></div>
       <div className="mt-4">
-        {loading ? <BlogItemLoader /> : renderBlogitems(blog_list_data)}
+        {isFetching && data?.pages?.length === 0 ? <BlogItemLoader /> : renderBlogitems(blog_list_data)}
       </div>
     </div>
   );

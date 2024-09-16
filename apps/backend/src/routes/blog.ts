@@ -72,7 +72,7 @@ blogRoutes.get("/", async (c) => {
   }).$extends(withAccelerate());
   const query = c.req.query('query');
   const page = parseInt(c.req.query('page') || '1');
-  const page_size = parseInt(c.req.query('page_size') || '5');
+  const page_size = parseInt(c.req.query('page_size') || '20');
   const posts = await prisma.post.findMany({
     select:{
       id: true,

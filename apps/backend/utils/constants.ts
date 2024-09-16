@@ -1,1 +1,1 @@
-export const NEXT_AUTH_COOKIE = "next-auth.session-token";
+export const S3_BUCKET_NAME = "vishal-blog-app";

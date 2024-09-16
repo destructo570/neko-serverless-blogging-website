@@ -3,13 +3,42 @@ import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { verify } from "hono/jwt";
 import { createPostInput } from "@repo/common/config";
+import { HonoS3Storage } from "@hono-storage/s3";
+import { S3Client } from "@aws-sdk/client-s3";
+import { S3_BUCKET_NAME } from "../../utils/constants";
 
 const blogRoutes = new Hono<{
   Bindings: {
     DATABASE_URL: string;
     JWT_SECRET: string;
+    S3_ACCESS_KEY: string;
+    S3_SECRET_KEY: string;
   };
 }>();
+
+const client = (accessKeyId: string, secretAccessKey: string) =>
+  new S3Client({
+    region: "ap-northeast-1",
+    credentials: {
+      accessKeyId,
+      secretAccessKey,
+    },
+    requestHandler: {
+      requestInit: () => ({
+				cache: undefined,
+			}),
+    }
+  });
+
+const storage = new HonoS3Storage({
+  key: (req, file) =>{
+    let s3_file_name = `${file.originalname}-${new Date().getTime()}.${file.extension}`;
+    req.set("s3_file_name", s3_file_name);
+    return `${file.originalname}-${new Date().getTime()}.${file.extension}`
+  },
+  bucket: S3_BUCKET_NAME,
+  client: (c) => client(c.env.S3_ACCESS_KEY, c.env.S3_SECRET_KEY),
+});
 
 blogRoutes.use("/auth/*", async (c, next) => {
   if (c.req.url.includes("/")) {
@@ -26,6 +55,15 @@ blogRoutes.use("/auth/*", async (c, next) => {
     c.status(403);
     return c.json({ error: "Unauthorised" });
   }
+});
+
+blogRoutes.use("/auth/cover-upload", storage.single("file"), async (c) => {
+  //@ts-ignore
+  //Get uploaded cover image url on s3
+  const s3_file_key = c.get("s3_file_name");
+  let s3_cover_img_url = `https://${S3_BUCKET_NAME}.s3.ap-northeast-1.amazonaws.com/${s3_file_key}`;
+
+  return c.json({ url: s3_cover_img_url });
 });
 
 blogRoutes.get("/", async (c) => {
@@ -103,6 +141,7 @@ blogRoutes.post("/auth/", async (c) => {
   const jwt_response = await verify(token, c.env.JWT_SECRET);
 
   const body = await c.req.json();
+  
   const { success } = createPostInput.safeParse(body);
 
   if (!success) {
@@ -114,7 +153,7 @@ blogRoutes.post("/auth/", async (c) => {
     c.status(401);
     return c.json({ error: "Unauthorised" });
   }
-
+  
   const post = await prisma.post.create({
     data: {
       title: body?.title,

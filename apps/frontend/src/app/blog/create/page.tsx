@@ -5,8 +5,7 @@ import { Button } from "@/components/ui/button";
 import { JSONContent } from "novel";
 import { useRouter, useSearchParams } from "next/navigation";
 import BlogEditLoader from "@/components/common/Blog/BlogEditLoader";
-import { getSingleBlog, publishBlog } from "@/app/api/actions";
-import { Textarea } from "@/components/ui/textarea";
+import { getSingleBlog, publishBlog, uploadCoverImage } from "@/app/api/actions";
 import CoverImageInput from "./CoverImageInput";
 import clsx from "clsx";
 import { playfair_display, source_serif_4 } from "@/app/fonts";
@@ -51,21 +50,38 @@ const page = (props) => {
 
   const onPusblishArticle = async () => {
     setLoading(true);
+    if(!coverImage) return;
+    const formData = new FormData();
+    formData.append('file', coverImage);
+
+    let image_url = "";
+    if(coverImage instanceof File){
+      const img_response = await uploadCoverImage(formData);
+      if(img_response?.status === 200) {
+        image_url = img_response?.data?.url
+      }
+    }else{
+      image_url = coverImage;
+    }
+
+    let payload = {
+      title: article_title?.trim(),
+      content: JSON.stringify(value || ""),
+      description: description || "",
+      authorId: authorId,
+      coverImage: image_url
+    }
+
     const response = await publishBlog(
-      {
-        title: article_title?.trim(),
-        content: JSON.stringify(value || ""),
-        description: description || "",
-        authorId: authorId,
-        coverImage,
-      },
+      payload,
       post_id,
       is_edit_mode
     );
-
+    
     if (response?.status === 200) {
       push("/blog");
     }
+
     setLoading(false);
   };
 

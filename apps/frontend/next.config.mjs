@@ -11,6 +11,14 @@ const nextConfig = {
       experimental: { //TODO: Enable this later
         missingSuspenseWithCSRBailout: false,
       },
+      images: {
+        remotePatterns: [
+          {
+            protocol: "https",
+            hostname: "**",
+          },
+        ],
+      },
 };
 
 export default nextConfig;

@@ -38,6 +38,18 @@ export const getAllBlogs = async (payload = {}) => {
   }
 };
 
+export const uploadCoverImage = async (payload = {}) => {
+  try {
+    let headers = { "Content-Type": "multipart/form-data" };
+    let response = await client.put(`/api/v1/blog/auth/cover-upload`, payload, {
+      headers,
+    });
+    return response;
+  } catch (err) {
+    //Show error toast
+  }
+};
+
 export const publishBlog = async (
   payload = {},
   post_id = "",

@@ -5,6 +5,8 @@
     "deploy": "wrangler deploy --minify src/index.ts"
   },
   "dependencies": {
+    "@hono-storage/core": "^0.0.13",
+    "@hono-storage/s3": "^0.0.12",
     "@prisma/client": "^5.10.2",
     "@prisma/extension-accelerate": "^0.6.3",
     "@repo/common": "*",

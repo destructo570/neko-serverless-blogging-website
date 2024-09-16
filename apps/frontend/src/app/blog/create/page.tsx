@@ -53,7 +53,7 @@ const page = (props) => {
     setLoading(true);
     const response = await publishBlog(
       {
-        title: article_title,
+        title: article_title?.trim(),
         content: JSON.stringify(value || ""),
         description: description || "",
         authorId: authorId,
@@ -88,7 +88,7 @@ const page = (props) => {
           </Button>
           <Button
             onClick={onPusblishArticle}
-            disabled={loading || coverImageError?.length > 0 || !coverImage}
+            disabled={loading || coverImageError?.length > 0 || !coverImage || article_title?.trim()?.length === 0}
             type="button"
           >
             {is_edit_mode ? "Update Post" : "Publish"}

@@ -31,7 +31,7 @@ export const signUp = async (payload = {}) => {
 
 export const getAllBlogs = async (payload = {}) => {
   try {
-    const response = await client.get(`/api/v1/blog`, payload);
+    const response = await client.get(`/api/v1/blog`, {params: {...payload}});
     return response;
   } catch (err) {
     //Show error toast

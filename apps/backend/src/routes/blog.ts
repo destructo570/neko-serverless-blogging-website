@@ -70,7 +70,7 @@ blogRoutes.get("/", async (c) => {
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
-
+  const query = c.req.query('query')
   const posts = await prisma.post.findMany({
     select:{
       id: true,
@@ -86,6 +86,12 @@ blogRoutes.get("/", async (c) => {
           last_name: true,
           email: true,
         },
+      },
+    },
+    where: {
+      title: {
+        contains: query,
+        mode: "insensitive",
       },
     },
     orderBy: [

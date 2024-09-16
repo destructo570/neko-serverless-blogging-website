@@ -64,19 +64,22 @@ const page = ({ params }: { params: { id: string } }) => {
   const deletePostMutation = useMutation({
     mutationFn: () => onDeletePost(),
     onSuccess: () => {
-      // Invalidate the cache for the posts list
-      queryClient.setQueryData(['posts'], () => ({
-        pages: [],
-        pageParams: 1,
-      }))
-      queryClient.invalidateQueries({
-        queryKey: ['posts'],
-        exact: true,
-      });
+      invalidatePostsCache();
       // Navigate back to the posts list after successful deletion
       push("/blog");
     },
   });
+
+  const invalidatePostsCache = () => {
+    queryClient.setQueryData(['posts'], () => ({
+      pages: [],
+      pageParams: 1,
+    }))
+    queryClient.invalidateQueries({
+      queryKey: ['posts'],
+      exact: true,
+    });
+  };
 
   const onEditPost = () => {
     push(`/blog/create?post_id=${params?.id}`);
@@ -91,6 +94,7 @@ const page = ({ params }: { params: { id: string } }) => {
           profile?.id || "",
           hit_count
         );
+        invalidatePostsCache();
         if (response && response?.status !== 200) {
           setLikeCount((prev) => prev - hit_count);
         }

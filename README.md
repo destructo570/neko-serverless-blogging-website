@@ -25,6 +25,7 @@ john@test.com : 123456
 - Tailwind CSS
 - Tiptap text editor
 - Amazon s3 for file storage
+- Hono storage for handling multipart form data
 
 ## TODO
 - [x] Post like functionality

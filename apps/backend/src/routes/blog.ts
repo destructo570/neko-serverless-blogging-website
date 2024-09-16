@@ -34,13 +34,13 @@ blogRoutes.get("/", async (c) => {
   }).$extends(withAccelerate());
 
   const posts = await prisma.post.findMany({
-    orderBy: [
-      {
-        createdAt: "desc",
-      },
-    ],
-    relationLoadStrategy: "join",
-    include: {
+    select:{
+      id: true,
+      title: true,
+      description: true,
+      coverImage: true,
+      createdAt: true,
+      likes_count: true,
       author: {
         select: {
           id: true,
@@ -50,6 +50,12 @@ blogRoutes.get("/", async (c) => {
         },
       },
     },
+    orderBy: [
+      {
+        createdAt: "desc",
+      },
+    ],
+    relationLoadStrategy: "join",
   });
 
   return c.json({ posts });

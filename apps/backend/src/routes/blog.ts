@@ -205,6 +205,7 @@ blogRoutes.put("/auth/:id", async (c) => {
     data: {
       title: body?.title,
       content: body?.content,
+      description: body?.description,
       coverImage: body?.coverImage,
     },
   });

@@ -28,6 +28,7 @@ john@test.com : 123456
 - Tiptap text editor
 - Amazon s3 for file storage
 - Hono storage for handling multipart form data
+- TanStack Query v5
 
 ## TODO
 - [x] Post like functionality

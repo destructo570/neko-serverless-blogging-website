@@ -1,6 +1,6 @@
 import axios from "axios";
 import type { InternalAxiosRequestConfig, AxiosRequestHeaders } from "axios";
-interface AdaptAxiosRequestConfig extends InternalAxiosRequestConfig {
+export interface AdaptAxiosRequestConfig extends InternalAxiosRequestConfig {
   authorization?: boolean;
   headers: AxiosRequestHeaders;
 }

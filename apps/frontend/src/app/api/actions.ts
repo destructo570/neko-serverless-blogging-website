@@ -1,13 +1,15 @@
 import { AxiosResponse } from "axios";
 import { PostType } from "@repo/common/config";
-import { client } from "./axiosClient";
+import { client, getAxiosConfig } from "./axiosClient";
 import { ApiResponse } from "@/lib/types";
 
 export const signIn = async (payload = {}) => {
   try {
-    const response = await client.post(`/api/v1/auth/signin`, payload, {
-      authorization: false,
-    });
+    const response = await client.post(
+      `/api/v1/auth/signin`,
+      payload,
+      getAxiosConfig(false)
+    );
     return response;
   } catch (err) {
     //Show error toast
@@ -16,9 +18,11 @@ export const signIn = async (payload = {}) => {
 
 export const signUp = async (payload = {}) => {
   try {
-    const response = await client.post(`/api/v1/auth/signup`, payload, {
-      authorization: false,
-    });
+    const response = await client.post(
+      `/api/v1/auth/signup`,
+      payload,
+      getAxiosConfig(false)
+    );
     return response;
   } catch (err) {
     //Show error toast

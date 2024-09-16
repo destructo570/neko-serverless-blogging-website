@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import BlogList from "@/components/common/BlogList/BlogList";
 import NoDataComponent from "@/components/common/NoDataComponent";
@@ -7,8 +7,13 @@ import { Input } from "@/components/ui/input";
 
 const page = () => {
   const searchParams = useSearchParams();
-  const [query, setQuery] = useState((searchParams.get("q") || "")?.trim());
+  const [query, setQuery] = useState("");
   const [value, setValue] = useState("");
+
+  useEffect(() => {
+    const q = (searchParams.get("q") || "")?.trim();
+    setQuery(q);
+  }, [searchParams])
 
   const onSearchQueryChange = (e: any) => {
     setValue(e?.target?.value);
@@ -21,7 +26,7 @@ const page = () => {
   };
 
   return (
-    <div className="w-full mt-8 min-h-screen mx-auto">
+    <div className="w-full mt-8 min-h-screen mx-auto sm:max-w-[900px]">
       <div className="w-full px-3">
         <Input
           placeholder="Search..."

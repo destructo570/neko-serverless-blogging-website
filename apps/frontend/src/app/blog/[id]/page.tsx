@@ -18,7 +18,7 @@ import useProfile from "@/hooks/useProfile";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import Comments from "@/components/common/Comments/Comments";
+import CommentSection from "@/components/common/Comments/CommentSection";
 
 const page = ({ params }: { params: { id: string } }) => {
   const [delete_loading, setDeleteLoading] = useState(false);
@@ -149,12 +149,6 @@ const page = ({ params }: { params: { id: string } }) => {
                   <div className="flex gap-2 items-center mt-6 mb-10">
                     <Avatar className="h-[64px] w-[64px]">
                       <AvatarImage src={"/images/fallback_avatar.png"} alt="" />
-                      <Image
-                        src={"/images/fallback_avatar.png"}
-                        alt="avatar"
-                        width={24}
-                        height={24}
-                      />
                     </Avatar>
                     <div className="flex flex-col">
                       <p className="text-sm font-medium my-0">{author_name}</p>
@@ -227,7 +221,7 @@ const page = ({ params }: { params: { id: string } }) => {
                   />
                 ) : null}
               </div>
-              {<Comments blog_data={blog_data} />}
+              {<CommentSection blog_data={blog_data} />}
             </div>
           )}
         </div>

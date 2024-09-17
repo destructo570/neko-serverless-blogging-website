@@ -1,16 +1,17 @@
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
+import React, { useState } from "react";
 import useProfile from "@/hooks/useProfile";
 import Dayjs from "dayjs";
-import { PencilIcon, Trash2 } from "lucide-react";
-import { useSession } from "next-auth/react";
-import Image from "next/image";
-import React, { useState } from "react";
-import { ConfirmationDialog } from "../ConfirmationDialog/ConfirmationDialog";
+import localizedFormat from "dayjs/plugin/localizedFormat";
+Dayjs.extend(localizedFormat)
 import clsx from "clsx";
 import CommentList from "./CommentList";
-import { deleteComment, postComment, updateComment } from "@/app/api/actions";
 import CommentForm from "./CommentForm";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { PencilIcon, Trash2 } from "lucide-react";
+import { useSession } from "next-auth/react";
+import { ConfirmationDialog } from "../ConfirmationDialog/ConfirmationDialog";
+import { deleteComment, postComment, updateComment } from "@/app/api/actions";
 import {
   Dialog,
   DialogContent,
@@ -18,45 +19,43 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { CreateCommentType } from "@repo/common/config";
 
-const Comment = (props) => {
-  const {
-    id,
-    message,
-    user,
-    createdAt,
-    getReplies = () => {},
-    postId,
-    createLocalComment = () => {},
-  } = props;
+interface PropType {
+  comment: CreateCommentType;
+  getNestedComments: (parentId: string) => CreateCommentType[];
+  postId: string;
+  createLocalComment: (comment: CreateCommentType, action?: string) => void;
+}
+
+const Comment = (props: PropType) => {
+  const { comment, getNestedComments, postId, createLocalComment } = props;
+
+  const { id, message, user, createdAt } = comment || {};
+
   const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
   const [editDialogOpen, setEditDialogOpen] = React.useState(false);
-  const [has_liked, setHasLiked] = React.useState(false);
   const [isReplying, setIsReplying] = React.useState(false);
   const [delete_loading, setDeleteLoading] = React.useState(false);
   const [comment_loading, setCommentLoading] = React.useState(false);
-  const [like_count, setLikeCount] = React.useState(0);
   const { data: session } = useSession();
   const { profile } = useProfile();
 
   const author_name = user?.first_name + " " + user?.last_name;
 
-  const handleLike = () => {};
-
   const onDeleteComment = async () => {
     setDeleteLoading(true);
     const response = await deleteComment(id);
     if (response && response?.status === 200) {
-      //Add logic to update comment data
       setDeleteDialogOpen(false);
       createLocalComment(response?.data?.comment, "delete");
     }
     setDeleteLoading(false);
   };
 
-  const createComment = async (comment) => {
+  const createComment = async (message: string) => {
     const payload = {
-      message: comment,
+      message,
       postId: postId,
       parentId: id,
     };
@@ -70,9 +69,9 @@ const Comment = (props) => {
     setCommentLoading(false);
   };
 
-  const onUpdateComment = async (comment) => {
+  const onUpdateComment = async (message: string) => {
     const payload = {
-      message: comment,
+      message,
     };
 
     setCommentLoading(true);
@@ -88,9 +87,9 @@ const Comment = (props) => {
 
   const onEditPost = () => {};
 
-  const child_comments = getReplies(props?.id);
+  const child_comments = id ? getNestedComments(id) : [];
 
-  const renderActionDialog = () => {
+  const renderEditCommentDialog = () => {
     return (
       <Dialog
         open={editDialogOpen}
@@ -117,41 +116,32 @@ const Comment = (props) => {
     );
   };
 
+  const renderDeleteCommentDialog = () => {
+    return (
+      <ConfirmationDialog
+        open={deleteDialogOpen}
+        onOpenChange={(open: boolean) => setDeleteDialogOpen(open)}
+        heading="Delete comment"
+        confirmation_text="Are you sure you want to delete this comment?"
+        onConfirmClick={delete_loading ? () => {} : onDeleteComment}
+        trigger_component={
+          <Button variant={"ghost"} size="icon">
+            <Trash2 color="#52525B" size={18} />
+          </Button>
+        }
+      />
+    );
+  };
+
   const renderActions = () => {
     return (
       <>
         {session && profile?.id ? (
           <div className="flex gap-2 items-center">
-            {/* <div className="flex gap-1 items-center">
-              <Button
-                variant={"ghost"}
-                onClick={handleLike}
-                size="icon"
-                className="like-button"
-              >
-                {has_liked ? (
-                  <Liked color="#EF4444" size={22} />
-                ) : (
-                  <Liked size={22} />
-                )}
-                <p className="text-xs min-w-[16px]">{like_count || 0}</p>
-              </Button>
-            </div> */}
             {profile?.id === user?.id ? (
               <>
-                <ConfirmationDialog
-                  open={deleteDialogOpen}
-                  onOpenChange={(open) => setDeleteDialogOpen(open)}
-                  heading="Delete comment"
-                  confirmation_text="Are you sure you want to delete this comment?"
-                  onConfirmClick={delete_loading ? () => {} : onDeleteComment}
-                  trigger_component={
-                    <Button variant={"ghost"} size="icon">
-                      <Trash2 color="#52525B" size={18} />
-                    </Button>
-                  }
-                />
-                {renderActionDialog()}
+                {renderEditCommentDialog()}
+                {renderDeleteCommentDialog()}
               </>
             ) : null}
           </div>
@@ -161,32 +151,28 @@ const Comment = (props) => {
   };
 
   const [areChildrenHidden, setAreChildrenHidden] = useState(false);
-
+  
   return (
     <>
       <div className="border-b border-zinc-200 w-full">
-        <div className="flex gap-2 items-center mt-6 mb-4">
-          <Avatar className="h-[64px] w-[64px]">
+        <div className="flex gap-2 items-center mt-4">
+          <Avatar className="h-[32px] w-[32px]">
             <AvatarImage src={"/images/fallback_avatar.png"} alt="" />
-            <Image
-              src={"/images/fallback_avatar.png"}
-              alt="avatar"
-              width={24}
-              height={24}
-            />
           </Avatar>
-          <div className="flex flex-col">
+          <div className="flex items-center gap-1">
             <p className="text-sm font-medium my-0">{author_name}</p>
+            <p className="text-zinc-600 dark:text-zinc-300 my-0">•</p>
             <p className="text-xs text-zinc-600 dark:text-zinc-300 my-0">
-              {Dayjs(createdAt).format("MMM DD YYYY")}
+              {Dayjs(createdAt).format("lll")}
             </p>
           </div>
         </div>
-        <div className="mx-3">{message}</div>
-        <div className="flex gap-2 justify-between items-center py-4">
+        <p className="ml-[40px] text-sm">{message}</p>
+        <div className="ml-[32px] flex gap-2 justify-between items-center py-2">
           {renderActions()}
           <Button
             variant="outline"
+            size="sm"
             onClick={() => setIsReplying((prev) => !prev)}
           >
             {isReplying ? "Cancel" : "Reply"}
@@ -213,7 +199,7 @@ const Comment = (props) => {
             <div className="nested-comments">
               <CommentList
                 comments={child_comments}
-                getReplies={getReplies}
+                getNestedComments={getNestedComments}
                 postId={postId}
                 createLocalComment={createLocalComment}
               />
@@ -222,6 +208,7 @@ const Comment = (props) => {
           <Button
             className={clsx("mt-2", { hidden: !areChildrenHidden })}
             aria-label="show-replies"
+            size="sm"
             onClick={() => setAreChildrenHidden(false)}
           >
             Show Replies

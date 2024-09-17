@@ -140,6 +140,7 @@ blogRoutes.get("/:id", async (c) => {
             },
           },
           parentId: true,
+          createdAt: true
         },
       },
       author: {

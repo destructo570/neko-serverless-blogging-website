@@ -38,14 +38,6 @@ const BlogItem = (props: BlogItemProps) => {
       <div className="flex gap-2 items-center">
         <Avatar className="h-[20px] w-[20px]">
           <AvatarImage src={"/images/fallback_avatar.png"} alt="" />
-          <AvatarFallback>
-            <Image
-              src={"/images/fallback_avatar.png"}
-              alt="avatar"
-              width={24}
-              height={24}
-            />
-          </AvatarFallback>
         </Avatar>
         <p className="text-sm font-medium">{author_name}</p>
       </div>

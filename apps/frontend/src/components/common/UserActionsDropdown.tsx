@@ -9,7 +9,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { signOut } from "next-auth/react";
-import Image from "next/image";
 
 export function UserActionsDropdown() {
   return (
@@ -17,14 +16,6 @@ export function UserActionsDropdown() {
       <DropdownMenuTrigger asChild>
         <Avatar className="h-[36px] w-[36px] cursor-pointer">
           <AvatarImage src={"/images/fallback_avatar.png"} alt="" className="max-h-[36px] max-w-[36px]"/>
-          <AvatarFallback>
-            <Image
-              src={"/images/fallback_avatar.png"}
-              alt="avatar"
-              width={24}
-              height={24}
-            />
-          </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">

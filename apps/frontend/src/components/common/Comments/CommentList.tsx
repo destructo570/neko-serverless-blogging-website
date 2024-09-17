@@ -1,14 +1,23 @@
 import React from "react";
 import Comment from "./Comment";
+import { CreateCommentType } from "@repo/common/config";
 
-const CommentList = ({ postId, comments, getReplies, createLocalComment }) => {
+interface PropType {
+  postId: string;
+  comments: CreateCommentType[];
+  getNestedComments: (parentId: string) => CreateCommentType[];
+  createLocalComment: (comment: CreateCommentType, action?: string) => void;
+}
+
+const CommentList = (props: PropType) => {
+  const { postId, comments, getNestedComments, createLocalComment } = props;
   return (
     <div className="">
       {comments?.map((comment) => (
         <div key={comment?.id}>
           <Comment
-            {...comment}
-            getReplies={getReplies}
+            comment={comment}
+            getNestedComments={getNestedComments}
             postId={postId}
             createLocalComment={createLocalComment}
           />

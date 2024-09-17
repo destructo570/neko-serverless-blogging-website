@@ -12,14 +12,6 @@ const page = (props) => {
             src="https://avatars.githubusercontent.com/u/27971772?v=4"
             alt="@shadcn"
           />
-          <AvatarFallback>
-            <Image
-              src={"/images/fallback_avatar.png"}
-              alt="avatar"
-              width={24}
-              height={24}
-            />
-          </AvatarFallback>
         </Avatar>
         <div className="space-y-1 text-center">
           <h2 className="text-2xl font-bold">Vishal Kashi</h2>

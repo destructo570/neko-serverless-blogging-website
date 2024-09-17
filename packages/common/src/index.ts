@@ -41,6 +41,19 @@ export const UserProfile = z.object({
 
 export type UserProfileType = z.infer<typeof UserProfile>;
 
+
+export const createComment = z.object({
+    parentId: z.string().optional(),
+    message: z.string(),
+    userId: z.string().optional(),
+    postId: z.string(),
+    id: z.string().optional(),
+    user: UserProfile.optional(),
+    createdAt: z.string().optional(),
+});
+
+export type CreateCommentType = z.infer<typeof createComment>;
+
 export const Post = z.object({
     id: z.string(),
     title: z.string(),
@@ -51,15 +64,7 @@ export const Post = z.object({
     authorId: z.string(),
     coverImage: z.string(),
     author: UserProfile,
+    comments: z.array(createComment),
 })
 
 export type PostType = z.infer<typeof Post>;
-
-export const createComment = z.object({
-    parentId: z.string().optional(),
-    message: z.string(),
-    userId: z.string().optional(),
-    postId: z.string(),
-});
-
-export type CreateCommentType = z.infer<typeof createComment>;

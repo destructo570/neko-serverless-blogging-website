@@ -13,6 +13,7 @@ john@test.com : 123456
 - Search all relevant posts
 - Like your favorite posts
 - Code syntax highlighting support
+- Reddit like infinite nesting comment system for posts
 
 ## Tech Stack
 - NextJs
@@ -34,10 +35,10 @@ john@test.com : 123456
 - [x] Post like functionality
 - [x] Upload cover images to s3
 - [x] Add search functionality
-- [ ] Comment section
-- [ ] User dashboard
+- [x] Comment section
 - [ ] Tags and Interests system
 - [ ] Dockerise the app
+- [ ] User dashboard
 - [ ] Subscription model
 - [ ] Follow/Unfollow functionality
 

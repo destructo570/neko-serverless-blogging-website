@@ -2,13 +2,18 @@ import React, { useState } from "react";
 import useProfile from "@/hooks/useProfile";
 import Dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
-Dayjs.extend(localizedFormat)
+Dayjs.extend(localizedFormat);
 import clsx from "clsx";
 import CommentList from "./CommentList";
 import CommentForm from "./CommentForm";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { PencilIcon, Trash2 } from "lucide-react";
+import {
+  MessageSquare,
+  MessageSquareOff,
+  PencilIcon,
+  Trash2,
+} from "lucide-react";
 import { useSession } from "next-auth/react";
 import { ConfirmationDialog } from "../ConfirmationDialog/ConfirmationDialog";
 import { deleteComment, postComment, updateComment } from "@/app/api/actions";
@@ -142,6 +147,19 @@ const Comment = (props: PropType) => {
               <>
                 {renderEditCommentDialog()}
                 {renderDeleteCommentDialog()}
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setIsReplying((prev) => !prev)}
+                  className={clsx("flex items-center gap-2", {"text-red-500 hover:text-red-500": isReplying})}
+                >
+                  {isReplying ? (
+                    <MessageSquareOff color="#EF4444" size={18} />
+                  ) : (
+                    <MessageSquare color="#52525B" size={18} />
+                  )}
+                  {isReplying ? "Cancel" : "Reply"}
+                </Button>
               </>
             ) : null}
           </div>
@@ -151,7 +169,7 @@ const Comment = (props: PropType) => {
   };
 
   const [areChildrenHidden, setAreChildrenHidden] = useState(false);
-  
+
   return (
     <>
       <div className="border-b border-zinc-200 w-full">
@@ -170,13 +188,6 @@ const Comment = (props: PropType) => {
         <p className="ml-[40px] text-sm">{message}</p>
         <div className="ml-[32px] flex gap-2 justify-between items-center py-2">
           {renderActions()}
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setIsReplying((prev) => !prev)}
-          >
-            {isReplying ? "Cancel" : "Reply"}
-          </Button>
         </div>
       </div>
       {isReplying ? (

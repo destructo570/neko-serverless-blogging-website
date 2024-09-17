@@ -16,6 +16,8 @@ model User {
   password String
   posts    Post[]
   likes    Likes[]   @relation("UserToLikes")
+  comments Comment[]
+  comment_likes     CommentLikes[]
 }
 
 model Post {
@@ -30,6 +32,7 @@ model Post {
   createdAt DateTime @default(now())
   likes_count Int @default(0)
   coverImage String @default("")
+  comments Comment[]
 }
 
 model Likes {
@@ -40,4 +43,29 @@ model Likes {
   userId    String
   count Int @default(0)
   createdAt DateTime @default(now())
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  message   String
+  post      Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId    String
+  user      User @relation(fields: [userId], references: [id], onDelete: Cascade)  
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  parent    Comment? @relation(fields: [parentId], references: [id], name: "ParentChild", onDelete: Cascade)
+  children  Comment[] @relation("ParentChild")
+  parentId  String?
+  likes      CommentLikes[]
+}
+
+model CommentLikes {
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)  
+  comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  userId    String
+  commentId String
+  createdAt DateTime @default(now())
+
+  @@id([userId, commentId])
 }

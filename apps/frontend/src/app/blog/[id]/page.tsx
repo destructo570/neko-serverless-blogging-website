@@ -18,6 +18,7 @@ import useProfile from "@/hooks/useProfile";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import Comments from "@/components/common/Comments/Comments";
 
 const page = ({ params }: { params: { id: string } }) => {
   const [delete_loading, setDeleteLoading] = useState(false);
@@ -34,7 +35,7 @@ const page = ({ params }: { params: { id: string } }) => {
     return response?.data?.post;
   };
 
-  const { data, isFetching:loading  } = useQuery({
+  const { data, isFetching: loading } = useQuery({
     queryKey: ["post"],
     queryFn: fetchBlogData,
   });
@@ -71,12 +72,12 @@ const page = ({ params }: { params: { id: string } }) => {
   });
 
   const invalidatePostsCache = () => {
-    queryClient.setQueryData(['posts'], () => ({
+    queryClient.setQueryData(["posts"], () => ({
       pages: [],
       pageParams: 1,
-    }))
+    }));
     queryClient.invalidateQueries({
-      queryKey: ['posts'],
+      queryKey: ["posts"],
       exact: true,
     });
   };
@@ -127,7 +128,7 @@ const page = ({ params }: { params: { id: string } }) => {
     <>
       <div
         className={clsx(
-          "w-full flex justify-center min-h-screen sm:min-w-[783px]"
+          "w-full flex flex-col items-center min-h-screen sm:min-w-[783px]"
         )}
       >
         <div className="px-6 sm:px-24 py-12 sm:min-w-[783px] w-full">
@@ -226,6 +227,7 @@ const page = ({ params }: { params: { id: string } }) => {
                   />
                 ) : null}
               </div>
+              {<Comments blog_data={blog_data} />}
             </div>
           )}
         </div>

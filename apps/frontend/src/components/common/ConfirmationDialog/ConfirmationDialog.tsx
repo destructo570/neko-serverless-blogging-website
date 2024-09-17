@@ -12,12 +12,17 @@ import {
 } from "@/components/ui/dialog";
 
 export function ConfirmationDialog(props) {
-  const { heading, confirmation_text, onConfirmClick, children, trigger_component} = props;
+  const {
+    heading,
+    confirmation_text,
+    onConfirmClick,
+    children,
+    trigger_component,
+    ...rest_props
+  } = props;
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        {trigger_component}
-      </DialogTrigger>
+    <Dialog {...rest_props}>
+      <DialogTrigger asChild>{trigger_component}</DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>{heading}</DialogTitle>
@@ -25,7 +30,9 @@ export function ConfirmationDialog(props) {
         </DialogHeader>
         {children}
         <DialogFooter>
-          <Button type="button" onClick={onConfirmClick}>Confirm</Button>
+          <Button type="button" onClick={onConfirmClick}>
+            Confirm
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

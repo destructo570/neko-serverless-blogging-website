@@ -29,8 +29,8 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
-    --pre-bg: #1A1B26;
-    --white: #FFFFFF;
+    --pre-bg: #1a1b26;
+    --white: #ffffff;
   }
 
   .dark {
@@ -58,8 +58,8 @@
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
-    --pre-bg: #1A1B26;
-    --white: #FFFFFF;
+    --pre-bg: #1a1b26;
+    --white: #ffffff;
   }
 }
 
@@ -70,23 +70,30 @@
   body {
     @apply bg-background text-foreground;
   }
-  pre{
+  pre {
     border: none;
   }
-  code{
-    &::after, &::before {
+  code {
+    &::after,
+    &::before {
       content: "" !important;
     }
   }
 }
 
-h1, h2, h3, h4, h5, h6, input{
-  color: #27272A !important;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+input {
+  color: #27272a !important;
 }
 
 /* Placeholder (at the top) */
 p.is-editor-empty:first-child::before {
-  color: #27272A;
+  color: #27272a;
   content: attr(data-placeholder);
   float: left;
   height: 0;
@@ -99,7 +106,6 @@ p.is-editor-empty:first-child::before {
   box-shadow: none !important;
   padding: 0px;
 }
-
 
 .skeleton-loader-container span {
   display: flex;
@@ -134,7 +140,7 @@ p.is-editor-empty:first-child::before {
     background: var(--pre-bg);
     border-radius: 0.5rem;
     color: var(--white);
-    font-family: 'JetBrainsMono', monospace;
+    font-family: "JetBrainsMono", monospace;
     margin: 1.5rem 0;
     padding: 0.75rem 1rem;
 
@@ -204,4 +210,41 @@ p.is-editor-empty:first-child::before {
 
 button {
   border-radius: 100px !important;
+}
+
+.nested-comments {
+  padding-left: 0.5rem;
+  flex-grow: 1;
+}
+
+.collapse-line {
+  border: none;
+  background: none;
+  padding: 0;
+  width: 15px;
+  margin-top: 0.5rem;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  transform: translateX(-50%);
+}
+
+.collapse-line:hover::before,
+.collapse-line:focus-visible::before {
+  background-color: hsl(235, 100%, 60%);
+}
+
+.collapse-line::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background-color: #a1a1aa;
+  transition: background-color 100ms ease-in-out;
+}
+
+.margin-top-0 {
+  margin-top: 0px !important;
 }

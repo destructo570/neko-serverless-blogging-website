@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { PostType } from "@repo/common/config";
+import { CreateCommentType, PostType } from "@repo/common/config";
 import { client, getAxiosConfig } from "./axiosClient";
 import { ApiResponse } from "@/lib/types";
 
@@ -31,7 +31,9 @@ export const signUp = async (payload = {}) => {
 
 export const getAllBlogs = async (payload = {}) => {
   try {
-    const response = await client.get(`/api/v1/blog`, {params: {...payload}});
+    const response = await client.get(`/api/v1/blog`, {
+      params: { ...payload },
+    });
     return response;
   } catch (err) {
     //Show error toast
@@ -95,6 +97,45 @@ export const likeBlog = async (postId = "", userId: "", like_count = 1) => {
       userId,
       like_count,
     });
+    return response;
+  } catch (err) {
+    //Show error toast
+  }
+};
+
+export const postComment = async (payload: CreateCommentType) => {
+  try {
+    const response = await client.post(`/api/v1/blog/auth/comment`, payload);
+    return response;
+  } catch (err) {
+    //Show error toast
+  }
+};
+
+export const updateComment = async (id = "", payload: { message: string }) => {
+  try {
+    const response = await client.put(
+      `/api/v1/blog/auth/comment/${id}`,
+      payload
+    );
+    return response;
+  } catch (err) {
+    //Show error toast
+  }
+};
+
+export const deleteComment = async (id = "") => {
+  try {
+    const response = await client.delete(`/api/v1/blog/auth/comment/${id}`);
+    return response;
+  } catch (err) {
+    //Show error toast
+  }
+};
+
+export const likeComment = async (id = "") => {
+  try {
+    const response = await client.post(`/api/v1/blog/auth/comment/like/${id}`);
     return response;
   } catch (err) {
     //Show error toast

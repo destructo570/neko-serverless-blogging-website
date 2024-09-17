@@ -54,3 +54,12 @@ export const Post = z.object({
 })
 
 export type PostType = z.infer<typeof Post>;
+
+export const createComment = z.object({
+    parentId: z.string().optional(),
+    message: z.string(),
+    userId: z.string().optional(),
+    postId: z.string(),
+});
+
+export type CreateCommentType = z.infer<typeof createComment>;

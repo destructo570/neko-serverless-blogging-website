@@ -54,7 +54,8 @@ const BlogList = ({ query = "" }) => {
       );
     });
   };
-
+  console.log("data?.pages", data?.pages);
+  
   useEffect(() => {
     if (inView && hasNextPage) {
       fetchNextPage();
@@ -65,7 +66,7 @@ const BlogList = ({ query = "" }) => {
     <div className="w-full max-w-[900px] min-h-screen mx-auto">
       <div className="flex gap-4 mb-4 px-3"></div>
       <div className="mt-4">
-        {isFetching && data?.pages?.length === 0 ? <BlogItemLoader /> : renderBlogitems(blog_list_data)}
+        {isFetching && !data?.pages ? <BlogItemLoader /> : renderBlogitems(blog_list_data)}
       </div>
     </div>
   );

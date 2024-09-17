@@ -9,6 +9,7 @@ import { useInView } from "react-intersection-observer";
 
 const BlogList = ({ query = "" }) => {
   const getBlogList = async ({ pageParam }: { pageParam: number }) => {
+    
     const response = await getAllBlogs({
       query,
       page: pageParam,
@@ -20,7 +21,7 @@ const BlogList = ({ query = "" }) => {
   const { ref, inView } = useInView();
 
   const { data, fetchNextPage, hasNextPage, status, isFetching } = useInfiniteQuery({
-    queryKey: ["posts"],
+    queryKey: ["posts", query],
     queryFn: getBlogList,
     initialPageParam: 1,
     getNextPageParam: (lastPage, pages) => {
@@ -54,8 +55,7 @@ const BlogList = ({ query = "" }) => {
       );
     });
   };
-  console.log("data?.pages", data?.pages);
-  
+
   useEffect(() => {
     if (inView && hasNextPage) {
       fetchNextPage();

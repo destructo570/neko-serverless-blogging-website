@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { deleteBlog, getSingleBlog, likeBlog } from "@/app/api/actions";
 import BlogEditor from "@/components/common/Editor/BlogEditor";
 import BlogPostLoader from "@/components/common/Blog/BlogPostLoader";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import Dayjs from "dayjs";
 import { Button } from "@/components/ui/button";
 import { ConfirmationDialog } from "@/components/common/ConfirmationDialog/ConfirmationDialog";

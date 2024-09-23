@@ -6,8 +6,7 @@ import { Button } from "@/components/ui/button";
 import React, { useMemo, useState } from "react";
 import { signIn, signUp } from "@/app/api/actions";
 
-const AuthUser = (props) => {
-  const {} = props;
+const AuthUser = () => {
   const [selected_tab, setSelectedTab] = useState("signin");
   const [first_name, setFirstName] = useState("");
   const [last_name, setLastName] = useState("");

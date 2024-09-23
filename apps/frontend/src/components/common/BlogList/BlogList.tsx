@@ -1,6 +1,6 @@
 "use client";
 import { getAllBlogs } from "@/app/api/actions";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import NoDataComponent from "../NoDataComponent";
 import BlogItem from "../Blog/BlogItem";
 import BlogItemLoader from "../Blog/BlogItemLoader";

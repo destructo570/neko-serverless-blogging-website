@@ -1,6 +1,6 @@
 "use client";
 import React, { useMemo } from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Heart, MessageCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import DayJs from "dayjs";

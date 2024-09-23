@@ -16,7 +16,7 @@ import { playfair_display, source_serif_4 } from "@/app/fonts";
 import { AutosizeTextarea } from "@/components/common/AutoResizeTextArea";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-const page = (props) => {
+const page = () => {
   const [article_title, setArticleTitle] = useState("");
   const [loading_post, setLoadingPost] = useState<boolean>(false);
   const [value, setValue] = useState<JSONContent>({});

@@ -2,18 +2,31 @@
 
 Serverless blogging website with notion like editor. Made with Cloudflare workers, Hono and NextJs.
 
+<details>
+  <summary><h3>🌈Screenshots</h3></summary>
+  
+<img src="https://imgur.com/GDx04RC.png" width=40%>
+<img src="https://imgur.com/A8CXDHJ.png" width=40%>
+<img src="https://imgur.com/NrZudj0.png" width=40%>
+<img src="https://imgur.com/c9ZgFIC.png" width=40%>
+<img src="https://imgur.com/T1QtXOe.png" width=40%>
+<img src="https://imgur.com/T6hR6WF.png" width=40%>
+<img src="https://imgur.com/r32e0zZ.png" width=40%>
+  
+</details>
+
 [Live Demo](https://neko-serverless-blogging-website-frontend.vercel.app/)
 #### Test Creds
 john@test.com : 123456
 
 ## Features
-- Create, Read, Update and Delete blogs
-- JWT auth handling with password salting using bcryptJs
-- Notion like editor for writing blogs
-- Search all relevant posts
-- Like your favorite posts
-- Code syntax highlighting support
-- Reddit like infinite nesting comment system for posts
+📝 Create, Read, Update and Delete blogs\
+🔐 JWT auth handling with password salting using bcryptJs\
+🎨 Notion like editor for writing blogs\
+🔍 Search all relevant posts\
+❤️ Like your favorite posts\
+🌟 Code syntax highlighting support\
+💬 Reddit like infinite nesting comment system for posts\
 
 ## Tech Stack
 - NextJs
@@ -41,19 +54,6 @@ john@test.com : 123456
 - [ ] User dashboard
 - [ ] Subscription model
 - [ ] Follow/Unfollow functionality
-
-<details>
-  <summary><h3>🌈Screenshots</h3></summary>
-  
-<img src="https://imgur.com/GDx04RC.png" width=40%>
-<img src="https://imgur.com/A8CXDHJ.png" width=40%>
-<img src="https://imgur.com/NrZudj0.png" width=40%>
-<img src="https://imgur.com/c9ZgFIC.png" width=40%>
-<img src="https://imgur.com/T1QtXOe.png" width=40%>
-<img src="https://imgur.com/T6hR6WF.png" width=40%>
-<img src="https://imgur.com/r32e0zZ.png" width=40%>
-  
-</details>
 
 ### Steps to run the project locally
 

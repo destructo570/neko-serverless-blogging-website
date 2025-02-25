@@ -26,7 +26,7 @@ john@test.com : 123456
 🔍 Search all relevant posts\
 ❤️ Like your favorite posts\
 🌟 Code syntax highlighting support\
-💬 Reddit like infinite nesting comment system for posts\
+💬 Reddit like infinite nesting comment system for blog
 
 ## Tech Stack
 - NextJs

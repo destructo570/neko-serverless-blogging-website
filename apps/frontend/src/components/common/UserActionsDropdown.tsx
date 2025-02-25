@@ -9,8 +9,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export function UserActionsDropdown() {
+
+  const router = useRouter();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -19,6 +22,12 @@ export function UserActionsDropdown() {
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
+        <DropdownMenuItem
+          onClick={() => router.push("/plans")}
+          className="sm:block md:hidden"
+        >
+          Premium
+        </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => signOut({ callbackUrl: "/", redirect: true })}
         >

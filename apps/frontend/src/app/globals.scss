@@ -3,6 +3,15 @@
 @tailwind utilities;
 
 @layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer base {
   :root {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
@@ -210,6 +219,12 @@ p.is-editor-empty:first-child::before {
 
 button {
   border-radius: 100px !important;
+}
+
+.tabs-component{
+  button{
+    border-radius: 6px !important;
+  }
 }
 
 .nested-comments {

@@ -6,10 +6,10 @@ import {
 import { AxiosHeaders } from "axios";
 
 // const BASE_URL = "http://localhost:3001";
-// const BASE_URL = "https://backend.destructo.workers.dev";
-const BASE_URL = isDevEnvironment
-  ? "http://localhost:3001"
-  : "https://backend.destructo.workers.dev";
+const BASE_URL = "https://backend.destructo.workers.dev";
+// const BASE_URL = isDevEnvironment
+//   ? "http://localhost:3001"
+//   : "https://backend.destructo.workers.dev";
 
 function getCurrentAccessToken() {
   return sessionStorage.getItem("access_token");

@@ -124,6 +124,18 @@ const NavBar = () => {
           Blog
         </Link>
         <Link
+          href={"/plans"}
+          className={clsx(
+            "hidden md:flex text-sm font-medium text-muted-foreground hover:text-zinc-800 dark:hover:text-zinc-200 flex-col justify-center ",
+            {
+              [active_link_class]: pathname === "api/auth/signin",
+            }
+          )}
+          prefetch={false}
+        >
+          Premium
+        </Link>
+        <Link
           href="/search"
           className={clsx(
             "sm:hidden text-sm font-medium text-muted-foreground hover:text-zinc-800 dark:hover:text-zinc-200 flex flex-col justify-center",

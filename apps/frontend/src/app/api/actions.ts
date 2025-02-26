@@ -141,3 +141,13 @@ export const likeComment = async (id = "") => {
     //Show error toast
   }
 };
+
+export const createSubscription = async (planId = "") => {
+  try {
+    const response = await client.post(`/api/v1/membership/create-subscription`, {planId});
+    return response;
+  } catch (err) {
+    //Show error toast
+  }
+};
+

@@ -16,6 +16,7 @@ interface PlanCardType {
   price: number;
   features: string[];
   duration: string;
+  onClick: any
 }
 
 const PlanCard = ({
@@ -24,6 +25,7 @@ const PlanCard = ({
   price,
   features,
   duration,
+  onClick
 }: PlanCardType) => {
   return (
     <Card className="mb-6">
@@ -47,7 +49,7 @@ const PlanCard = ({
         </ul>
       </CardContent>
       <CardFooter>
-        <Button className="w-full">Get Started Now</Button>
+        <Button className="w-full" onClick={onClick}>Get Started Now</Button>
       </CardFooter>
     </Card>
   );

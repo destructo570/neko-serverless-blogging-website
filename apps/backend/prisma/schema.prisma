@@ -16,6 +16,7 @@ model User {
   password String
   posts    Post[]
   likes    Likes[]   @relation("UserToLikes")
+  subscription Subscriptions[]
   comments Comment[]
   comment_likes     CommentLikes[]
 }
@@ -68,4 +69,12 @@ model CommentLikes {
   createdAt DateTime @default(now())
 
   @@id([userId, commentId])
+}
+model Subscriptions {
+  id String @id @unique
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  razorSubscriptionId String @default("")
+  razorPaymentId String @default("")
+  razorSignature String @default("")
+  userId String
 }

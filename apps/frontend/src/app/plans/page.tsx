@@ -21,7 +21,7 @@ export default function MembershipPage() {
     const subscription = await createSubscription(planId);
     
     let options = {
-      key: process.env.RAZOR_KEY,
+      key: process.env.NEXT_PUBLIC_RAZOR_KEY,
       subscription_id: subscription?.data.id,
       name: isMonthly ? "Monthly" : "Yearly",
       description: `Auth txn for ${isMonthly ? "Monthly" : "Yearly"} Subscription`,

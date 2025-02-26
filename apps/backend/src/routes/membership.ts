@@ -38,7 +38,7 @@ membershipRoutes.post("/create-subscription", async (c) => {
     },
     body: JSON.stringify({
       plan_id: body.planId,
-      total_count: 12,
+      total_count: body.planId === "plan_Q0EI8Y0oZHIhxd" ? 12 : 1,
       customer_notify: 1,
     }),
   };
@@ -56,11 +56,7 @@ membershipRoutes.post("/create-subscription", async (c) => {
     },
   });
 
-  return c.json({
-    id: subscription.id,
-    created_at: subscription.created_at,
-    short_url: subscription.short_url,
-  });
+  return c.json({subscription});
 });
 
 membershipRoutes.post("/verification", async (c) => {
@@ -86,7 +82,7 @@ membershipRoutes.post("/verification", async (c) => {
     const hmac = CryptoJS.HmacSHA256(dataToHash, secret).toString(
       CryptoJS.enc.Hex
     );
-    
+
     if (hmac === razorpay_signature) {
       await prisma.subscriptions.update({
         where: {

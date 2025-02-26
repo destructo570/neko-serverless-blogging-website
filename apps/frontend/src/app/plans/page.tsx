@@ -19,17 +19,15 @@ export default function MembershipPage() {
     let isMonthly = type === "monthly";
     const planId = isMonthly ? "plan_Q0EI8Y0oZHIhxd" : "plan_Q0EIgrcYWVYt6a";
     const subscription = await createSubscription(planId);
-    
+
     let options = {
       key: process.env.NEXT_PUBLIC_RAZOR_KEY,
       subscription_id: subscription?.data.id,
       name: isMonthly ? "Monthly" : "Yearly",
       description: `Auth txn for ${isMonthly ? "Monthly" : "Yearly"} Subscription`,
-      handler: async function (response={}){
-        await client.post("/api/v1/membership/verification", {...response})
-        
+      handler: async function (response = {}) {
+        await client.post("/api/v1/membership/verification", { ...response });
       },
-      
     };
     const razorpay = new Razorpay(options);
     razorpay.open();

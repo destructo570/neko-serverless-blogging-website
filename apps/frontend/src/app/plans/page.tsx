@@ -18,11 +18,14 @@ export default function MembershipPage() {
   const onPlanClick = async (type = "monthly") => {
     let isMonthly = type === "monthly";
     const planId = isMonthly ? "plan_Q0EI8Y0oZHIhxd" : "plan_Q0EIgrcYWVYt6a";
-    const subscription = await createSubscription(planId);
+    const response = await createSubscription(planId);
+    const subscription_id = response?.data?.subscription?.id;
 
+    if(!subscription_id) return;
+    
     let options = {
+      subscription_id,
       key: process.env.NEXT_PUBLIC_RAZOR_KEY,
-      subscription_id: subscription?.data.id,
       name: isMonthly ? "Monthly" : "Yearly",
       description: `Auth txn for ${isMonthly ? "Monthly" : "Yearly"} Subscription`,
       handler: async function (response = {}) {

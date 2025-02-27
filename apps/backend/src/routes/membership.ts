@@ -10,6 +10,7 @@ const membershipRoutes = new Hono<{
     RAZOR_KEY: string;
     RAZOR_SID: string;
     DATABASE_URL: string;
+    RAZOR_AUTH: string;
     JWT_SECRET: string;
   };
 }>();
@@ -34,12 +35,12 @@ membershipRoutes.post("/create-subscription", async (c) => {
     headers: {
       "Content-Type": "application/json",
       Authorization:
-        "Basic cnpwX3Rlc3RfNEFsTTQ2WUFKNkVDNXU6Y3R1MHIyV2F3OGc5dzFUNDBycmlwMWF0",
+        `Basic ${c.env.RAZOR_AUTH}`,
     },
     body: JSON.stringify({
       plan_id: body.planId,
-      total_count: body.planId === "plan_Q0EI8Y0oZHIhxd" ? 12 : 1,
-      customer_notify: 1,
+      total_count: 12,
+      customer_notify: 1
     }),
   };
 
@@ -53,6 +54,7 @@ membershipRoutes.post("/create-subscription", async (c) => {
     data: {
       id: subscription.id,
       userId: jwt_response?.id,
+      planId: body.planId
     },
   });
 

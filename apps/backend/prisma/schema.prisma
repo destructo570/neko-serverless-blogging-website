@@ -76,5 +76,7 @@ model Subscriptions {
   razorSubscriptionId String @default("")
   razorPaymentId String @default("")
   razorSignature String @default("")
+  createdAt DateTime @default(now())
+  planId String @default("")
   userId String
 }

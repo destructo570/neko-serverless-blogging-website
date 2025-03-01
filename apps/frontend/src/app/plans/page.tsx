@@ -6,18 +6,18 @@ import clsx from "clsx";
 import { playfair_display } from "../fonts";
 import { createSubscription } from "../api/actions";
 import { client } from "../api/axiosClient";
+import useProfile from "@/hooks/useProfile";
+import { getSubscriptionDataFromProfile } from "@/lib/utils";
+import SubscribedPage from "./subscribed-page";
+import { MONTHLY_PLAN_ID, PRO_FEATURES, YEARLY_PLAN_ID } from "@/lib/constants";
 
 export default function MembershipPage() {
-  const features = [
-    "Read member-only stories",
-    "Support writers you read most",
-    "Earn money for your writing",
-    "Listen to audio narrations",
-  ];
+
+  const user_data = useProfile();
 
   const onPlanClick = async (type = "monthly") => {
     let isMonthly = type === "monthly";
-    const planId = isMonthly ? "plan_Q0EI8Y0oZHIhxd" : "plan_Q0EIgrcYWVYt6a";
+    const planId = isMonthly ? MONTHLY_PLAN_ID : YEARLY_PLAN_ID;
     const response = await createSubscription(planId);
     const subscription_id = response?.data?.subscription?.id;
 
@@ -35,6 +35,10 @@ export default function MembershipPage() {
     const razorpay = new Razorpay(options);
     razorpay.open();
   };
+
+  const user_subscription = getSubscriptionDataFromProfile(user_data.profile);
+
+  if(user_subscription) return <SubscribedPage subscription={user_subscription}/>
 
   return (
     <>
@@ -63,7 +67,7 @@ export default function MembershipPage() {
                     title="Monthly"
                     subTitle={"Get access to all premium features"}
                     price={9.99}
-                    features={features}
+                    features={PRO_FEATURES}
                     duration={"month"}
                     onClick={onPlanClick.bind(null, "monthly")}
                   />
@@ -73,7 +77,7 @@ export default function MembershipPage() {
                     title="Annual"
                     subTitle={"Save 20% with annual billing"}
                     price={9.99 * 12 * 0.8}
-                    features={features}
+                    features={PRO_FEATURES}
                     duration={"year"}
                     onClick={onPlanClick.bind(null, "yearly")}
                   />

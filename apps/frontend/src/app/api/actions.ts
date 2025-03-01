@@ -151,3 +151,12 @@ export const createSubscription = async (planId = "") => {
   }
 };
 
+export const cancelSubscription = async (subscriptionId = "") => {
+  try {
+    const response = await client.post(`/api/v1/membership/cancel-subscription`, {subscriptionId});
+    return response;
+  } catch (err) {
+    //Show error toast
+  }
+};
+

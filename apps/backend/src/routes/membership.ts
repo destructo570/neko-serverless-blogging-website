@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { Hono } from "hono";
 import { verify } from "hono/jwt";
+import Razorpay from "razorpay";
 
 const CryptoJS = require("crypto-js");
 
@@ -34,13 +35,12 @@ membershipRoutes.post("/create-subscription", async (c) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization:
-        `Basic ${c.env.RAZOR_AUTH}`,
+      Authorization: `Basic ${c.env.RAZOR_AUTH}`,
     },
     body: JSON.stringify({
       plan_id: body.planId,
       total_count: 12,
-      customer_notify: 1
+      customer_notify: 1,
     }),
   };
 
@@ -54,11 +54,11 @@ membershipRoutes.post("/create-subscription", async (c) => {
     data: {
       id: subscription.id,
       userId: jwt_response?.id,
-      planId: body.planId
+      planId: body.planId,
     },
   });
 
-  return c.json({subscription});
+  return c.json({ subscription });
 });
 
 membershipRoutes.post("/verification", async (c) => {
@@ -94,16 +94,75 @@ membershipRoutes.post("/verification", async (c) => {
         data: {
           razorPaymentId: razorpay_payment_id,
           razorSubscriptionId: razorpay_subscription_id,
-          razorSignature: razorpay_signature
+          razorSignature: razorpay_signature,
         },
       });
-      return c.json("Subscribed successfully")
+      return c.json("Subscribed successfully");
     } else {
       c.status(401);
-      return c.json("Invalid subscription request")
+      return c.json("Invalid subscription request");
     }
   } catch (error) {
     return c.json({ error });
+  }
+});
+
+membershipRoutes.post("/cancel-subscription", async (c) => {
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
+
+  const body = await c.req.json();
+
+  const header = c.req.header("authorization") || "";
+  const token = header.split(" ")[1];
+  const jwt_response = await verify(token, c.env.JWT_SECRET);
+  const subscriptionId = body.subscriptionId;
+  const subscription = await prisma.subscriptions.findUnique({
+    where: {
+      id: subscriptionId,
+    },
+  });
+
+  if (!jwt_response?.id || typeof jwt_response?.id !== "string") {
+    c.status(401);
+    return c.json({ error: "Unauthorised" });
+  }
+
+  const user = await prisma.user.findUnique({
+    where: {
+      id: jwt_response?.id,
+    },
+  });
+
+  if (!user || user.id !== subscription?.userId) {
+    c.status(401);
+    return c.json({ error: "Unauthorised" });
+  }
+
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Basic ${c.env.RAZOR_AUTH}`,
+    },
+  };
+
+  try {
+    await fetch(
+      `https://api.razorpay.com/v1/subscriptions/${subscriptionId}/cancel`,
+      requestOptions
+    );
+
+    await prisma.subscriptions.delete({
+      where: {
+        id: subscription.id,
+      },
+    });
+    return c.json({ message: "Subscription cancelled!" });
+  } catch (error) {
+    c.status(500);
+    return c.json({ message: "Something went wrong!" });
   }
 });
 

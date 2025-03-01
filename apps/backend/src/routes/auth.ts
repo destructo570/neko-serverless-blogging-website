@@ -34,6 +34,16 @@ authRoutes.post("/signin", async (c) => {
       email: body.email,
       password: hashed_password,
     },
+    include: {
+      subscription: {
+        select: {
+          planId:true,
+          createdAt: true,
+          id: true,
+          razorSignature: true
+        }
+      }
+    }
   });
 
   if (!user) {
@@ -42,7 +52,7 @@ authRoutes.post("/signin", async (c) => {
   }
 
   const token = await sign(
-    { id: user.id, exp: getTokenExpiryTime() },
+    { id: user.id, exp: getTokenExpiryTime(), subscribed: user?.subscription?.length > 0 },
     c.env.JWT_SECRET
   );
   return c.json({
@@ -52,6 +62,7 @@ authRoutes.post("/signin", async (c) => {
       last_name: user?.last_name,
       id: user?.id,
       email: user?.email,
+      subscription: user?.subscription
     },
   });
 });

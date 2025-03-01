@@ -32,11 +32,24 @@ export const updatePostInput = z.object({
 
 export type UpdatePostType = z.infer<typeof updatePostInput>;
 
+export const Subscription = z.object({
+    id: z.string(),
+    planId: z.string(),
+    razorSubscriptionId: z.string().optional(),
+    razorPaymentId: z.string().optional(),
+    razorSignature: z.string().optional(),
+    createdAt: z.string(),
+    userId: z.string(),
+})
+
+export type SubscriptionType = z.infer<typeof Subscription>;
+
 export const UserProfile = z.object({
     first_name: z.string().optional(),
     last_name: z.string().optional(),
     id: z.string().optional(),
     email: z.string().optional(),
+    subscription: z.array(Subscription).optional()
 });
 
 export type UserProfileType = z.infer<typeof UserProfile>;

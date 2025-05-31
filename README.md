@@ -39,7 +39,7 @@ john@test.com : 123456
 - TypeScipt
 - Novel editor
 - Tailwind CSS
-- Tiptap text editor
+- Tiptap editor
 - Amazon s3 for file storage
 - Hono storage for handling multipart form data
 - TanStack Query v5
